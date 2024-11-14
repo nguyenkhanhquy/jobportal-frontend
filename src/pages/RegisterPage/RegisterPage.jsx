@@ -6,7 +6,7 @@ const RegisterPage = () => {
         <div className="flex h-screen">
             {/* Bên trái: Form đăng ký chiếm 5/9 */}
             <div
-                className="md:w-5/9 flex h-screen w-full flex-col items-center justify-center overflow-y-scroll bg-white p-8"
+                className="flex h-screen w-full flex-col items-center justify-center overflow-y-scroll bg-white p-8 md:w-5/9"
                 style={{
                     scrollbarWidth: "none", // Ẩn thanh cuộn cho Firefox
                     msOverflowStyle: "none", // Ẩn thanh cuộn cho IE và Edge
@@ -26,7 +26,7 @@ const RegisterPage = () => {
             </div>
 
             {/* Bên phải: Hình ảnh minh họa chiếm 4/9 */}
-            <div className="w-4/9 hidden h-screen md:flex">
+            <div className="hidden h-screen w-4/9 md:flex">
                 <img src={Public_layout_cover} alt="Banner" className="h-full w-full object-cover" />
             </div>
         </div>

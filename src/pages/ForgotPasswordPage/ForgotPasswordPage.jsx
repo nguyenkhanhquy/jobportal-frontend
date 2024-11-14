@@ -1,21 +1,11 @@
-import ForgotPasswordForm from "../../components/forms/ForgotPasswordForm/ForgotPasswordForm";
-import Public_layout_cover from "/images/public_layout_cover.jpg";
+import AuthLayout from "../../layouts/AuthLayout/AuthLayout";
+import ForgotPassWorForm from "../../components/forms/ForgotPasswordForm/ForgotPasswordForm";
 
 const ForgotPasswordPage = () => {
     return (
-        <div className="flex h-screen">
-            {/* Bên trái: Form đăng nhập chiếm 5/9 */}
-            <div className="md:w-5/9 flex w-full flex-col items-center justify-center bg-white p-8">
-                <div className="w-full max-w-md">
-                    <ForgotPasswordForm />
-                </div>
-            </div>
-
-            {/* Bên phải: Hình ảnh minh họa chiếm 4/9 */}
-            <div className="w-4/9 hidden h-full md:flex">
-                <img src={Public_layout_cover} alt="Banner" className="h-full w-full object-cover" />
-            </div>
-        </div>
+        <AuthLayout title={"Quên mật khẩu"}>
+            <ForgotPassWorForm />
+        </AuthLayout>
     );
 };
 
