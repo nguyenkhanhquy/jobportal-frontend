@@ -43,7 +43,9 @@ const RegisterForm = () => {
             <div className="w-full max-w-md bg-white p-8">
                 {/* Logo và tiêu đề */}
                 <div className="mb-4 flex items-center space-x-4">
-                    <img src={Logo} alt="JobPortal" className="w-28" />
+                    <Link to="/">
+                        <img src={Logo} alt="JobPortal" className="w-28" />
+                    </Link>
                     <h2 className="text-2xl font-semibold text-green-600">Đăng ký</h2>
                 </div>
                 <p className="text-gray-500">Chào mừng bạn đến với JobPortal</p>
