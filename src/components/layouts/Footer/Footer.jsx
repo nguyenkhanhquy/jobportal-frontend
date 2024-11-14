@@ -8,9 +8,9 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 const Footer = () => {
     return (
         <footer className="bg-slate-800 py-10 text-white">
-            <div className="container mx-auto ml-10 grid grid-cols-1 gap-8 px-4 md:grid-cols-4">
+            <div className="container mx-auto grid grid-cols-1 gap-8 px-4 md:grid-cols-4">
                 {/* Logo và giới thiệu */}
-                <div>
+                <div className="ml-10">
                     <img src={Logo} alt="JobPortal" className="mb-4 w-32" />
                     <p className="text-gray-400">
                         JobPortal là nền tảng kết nối nhà tuyển dụng và ứng viên nhanh chóng, dễ dàng và hiệu quả.
@@ -18,7 +18,7 @@ const Footer = () => {
                 </div>
 
                 {/* Liên kết nhanh */}
-                <div>
+                <div className="ml-10">
                     <h4 className="mb-4 text-lg font-semibold">Liên kết nhanh</h4>
                     <ul className="space-y-2 text-gray-400">
                         <li>
@@ -50,7 +50,7 @@ const Footer = () => {
                 </div>
 
                 {/* Hỗ trợ khách hàng */}
-                <div>
+                <div className="ml-10">
                     <h4 className="mb-4 text-lg font-semibold">Hỗ trợ khách hàng</h4>
                     <ul className="space-y-2 text-gray-400">
                         <li>Email: support@jobportal.com</li>
@@ -64,7 +64,7 @@ const Footer = () => {
                 </div>
 
                 {/* Mạng xã hội */}
-                <div>
+                <div className="ml-10">
                     <h4 className="mb-4 text-lg font-semibold">Kết nối với chúng tôi</h4>
                     <div className="flex space-x-4">
                         <a
