@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
+import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+const CustomPagination = ({ currentPage, totalPages, onPageChange }) => {
     const handlePreviousClick = () => {
         if (currentPage > 1) {
             onPageChange(currentPage - 1);
@@ -14,37 +15,37 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     };
 
     return (
-        <div className="flex items-center justify-center gap-4 py-4 text-sm font-medium text-gray-700">
+        <div className="flex items-center justify-center gap-4 py-4 text-base font-medium text-gray-400">
             {/* Nút Previous */}
             <button
                 onClick={handlePreviousClick}
-                className={`text-green-600 hover:underline ${currentPage === 1 ? "cursor-not-allowed opacity-50" : ""}`}
+                className={`flex h-8 w-8 items-center justify-center rounded-full border border-green-600 text-green-600 hover:bg-green-600 hover:text-white ${currentPage === 1 ? "cursor-not-allowed opacity-50" : ""}`}
                 disabled={currentPage === 1}
             >
-                {"<"}
+                <ChevronLeft />
             </button>
 
             {/* Số trang */}
             <span>
-                {currentPage} / {totalPages} trang
+                <span className={"text-green-600"}>{currentPage}</span> / {totalPages} trang
             </span>
 
             {/* Nút Next */}
             <button
                 onClick={handleNextClick}
-                className={`text-green-600 hover:underline ${currentPage === totalPages ? "cursor-not-allowed opacity-50" : ""}`}
+                className={`flex h-8 w-8 items-center justify-center rounded-full border border-green-600 text-green-600 hover:bg-green-600 hover:text-white ${currentPage === totalPages ? "cursor-not-allowed opacity-50" : ""}`}
                 disabled={currentPage === totalPages}
             >
-                {">"}
+                <ChevronRight />
             </button>
         </div>
     );
 };
 
-Pagination.propTypes = {
+CustomPagination.propTypes = {
     currentPage: PropTypes.number.isRequired,
     totalPages: PropTypes.number.isRequired,
     onPageChange: PropTypes.func.isRequired,
 };
 
-export default Pagination;
+export default CustomPagination;
