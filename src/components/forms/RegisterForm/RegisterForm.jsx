@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import Logo from "/images/logo.png";
 import { Person, Email, Lock } from "@mui/icons-material";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { registerJobSeeker } from "../../../services/authService";
 
 const regexEmail =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -13,7 +17,7 @@ const regexEmail =
 const schema = yup.object().shape({
     fullName: yup.string().required("Vui lòng nhập họ và tên"),
     email: yup.string().required("Vui lòng nhập email").matches(regexEmail, "Email không hợp lệ"),
-    password: yup.string().min(6, "Mật khẩu phải có ít nhất 6 ký tự").required("Vui lòng nhập mật khẩu"),
+    password: yup.string().min(8, "Mật khẩu phải có ít nhất 8 ký tự").required("Vui lòng nhập mật khẩu"),
     confirmPassword: yup
         .string()
         .oneOf([yup.ref("password"), null], "Mật khẩu xác nhận không khớp")
@@ -31,11 +35,27 @@ const RegisterForm = () => {
         reValidateMode: "onChange",
     });
 
+    const navigate = useNavigate();
     const [isAgree, setIsAgree] = useState(true);
 
-    const onSubmit = (data) => {
-        console.log(data);
-        alert("Đăng ký thành công!");
+    const onSubmit = async (formdata) => {
+        // setLoading(true);
+        try {
+            const data = await registerJobSeeker(formdata);
+
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+
+            toast.success(data.message);
+            navigate("/login");
+
+            // navigate("/verify", { state: { email: formData.email, action: "activate-account" } });
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            // setLoading(false);
+        }
     };
 
     return (
