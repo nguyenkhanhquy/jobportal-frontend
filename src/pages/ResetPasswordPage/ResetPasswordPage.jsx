@@ -1,11 +1,18 @@
+import { Navigate, useLocation } from "react-router-dom";
 import ResetPasswordForm from "../../components/forms/ResetPasswordForm/ResetPasswordForm";
 import AuthLayout from "../../layouts/AuthLayout/AuthLayout";
 
 const ResetPasswordPage = () => {
-    return (
+    const location = useLocation();
+
+    const email = location.state?.email;
+
+    return email ? (
         <AuthLayout title={"Đặt lại mật khẩu"}>
-            <ResetPasswordForm />
+            <ResetPasswordForm email={email} />
         </AuthLayout>
+    ) : (
+        <Navigate to="/" />
     );
 };
 

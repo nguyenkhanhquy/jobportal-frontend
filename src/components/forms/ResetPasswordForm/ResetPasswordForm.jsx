@@ -1,13 +1,17 @@
 import { useForm } from "react-hook-form";
+import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Logo from "/images/logo.png";
+import { useNavigate } from "react-router-dom";
+import { sendOTP, resetPassword } from "../../../services/authService";
 
 // Schema xác thực bằng Yup
 const schema = yup.object().shape({
-    code: yup.string().matches(/^\d+$/, "Mã xác nhận chỉ chứa số").required("Vui lòng nhập mã xác nhận"),
+    otp: yup.string().matches(/^\d+$/, "Mã xác nhận chỉ chứa số").required("Vui lòng nhập mã xác nhận"),
     newPassword: yup.string().min(6, "Mật khẩu phải có ít nhất 6 ký tự").required("Vui lòng nhập mật khẩu mới"),
     confirmPassword: yup
         .string()
@@ -15,7 +19,8 @@ const schema = yup.object().shape({
         .required("Vui lòng xác nhận mật khẩu mới"),
 });
 
-const ResetPasswordForm = () => {
+const ResetPasswordForm = ({ email }) => {
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -24,10 +29,6 @@ const ResetPasswordForm = () => {
         resolver: yupResolver(schema),
         mode: "onTouched",
     });
-
-    // Lấy email từ địa chỉ URL
-    const location = useLocation();
-    const email = new URLSearchParams(location.search).get("email") || "email@example.com";
 
     // State cho đếm ngược
     const [countdown, setCountdown] = useState(300); // 5 phút = 300 giây
@@ -46,14 +47,37 @@ const ResetPasswordForm = () => {
         return `${minutes} phút ${secs} giây`;
     };
 
-    const handleResendCode = () => {
-        alert("Mã xác nhận đã được gửi lại!");
+    const handleResendotp = async () => {
+        try {
+            const data = await sendOTP(email);
+
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+            toast.success(data.message);
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            // setLoading(false);
+        }
         setCountdown(300); // Reset thời gian đếm ngược
     };
 
-    const onSubmit = (data) => {
-        console.log(data);
-        alert("Đặt lại mật khẩu thành công!");
+    const onSubmit = async (formData) => {
+        console.log(formData);
+        try {
+            const data = await resetPassword(email, formData.otp, formData.newPassword);
+
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+            toast.success(data.message);
+            navigate("/login");
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            // setLoading(false);
+        }
     };
 
     return (
@@ -85,21 +109,21 @@ const ResetPasswordForm = () => {
                                 type="text"
                                 inputMode="numeric"
                                 pattern="\d*"
-                                {...register("code")}
+                                {...register("otp")}
                                 placeholder="Nhập mã xác nhận"
                                 className={`mt-1 block w-full rounded-md border px-4 py-2 shadow-sm focus:border-green-600 focus:outline-none focus:ring-green-500 ${
-                                    errors.code ? "border-red-500" : "border-gray-300"
+                                    errors.otp ? "border-red-500" : "border-gray-300"
                                 }`}
                             />
                             <button
                                 type="button"
-                                onClick={handleResendCode}
+                                onClick={handleResendotp}
                                 className="ml-2 mt-1 w-36 rounded-md border border-green-600 bg-white px-4 py-2 text-green-600 hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500"
                             >
                                 Gửi lại mã
                             </button>
                         </div>
-                        {errors.code && <p className="mt-1 text-sm text-red-500">{errors.code.message}</p>}
+                        {errors.otp && <p className="mt-1 text-sm text-red-500">{errors.otp.message}</p>}
                     </div>
 
                     {/* Input Mật khẩu mới */}
@@ -152,6 +176,10 @@ const ResetPasswordForm = () => {
             </div>
         </div>
     );
+};
+
+ResetPasswordForm.propTypes = {
+    email: PropTypes.string.isRequired,
 };
 
 export default ResetPasswordForm;

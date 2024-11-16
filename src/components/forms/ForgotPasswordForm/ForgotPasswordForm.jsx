@@ -3,6 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "/images/logo.png";
+import { toast } from "react-toastify";
+import { sendOTP } from "../../../services/authService";
 
 const regexEmail =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -26,11 +28,23 @@ const ForgotPasswordForm = () => {
     // Khởi tạo useNavigate để chuyển hướng
     const navigate = useNavigate();
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (formData) => {
+        console.log(formData);
 
-        // Chuyển hướng sang trang Reset Password và truyền email qua URL
-        navigate(`/reset-password?email=${encodeURIComponent(data.email)}`);
+        try {
+            const data = await sendOTP(formData.email);
+
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+
+            navigate("/reset-password", { state: { email: formData.email } });
+            toast.success(data.message);
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            // setLoading(false);
+        }
     };
 
     return (
