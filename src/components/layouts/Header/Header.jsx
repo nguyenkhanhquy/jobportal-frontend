@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "/images/logo.png";
+import PropTypes from "prop-types";
 
-const Header = () => {
+const Header = ({ isSticky }) => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     // Toggle menu mobile
@@ -11,7 +12,7 @@ const Header = () => {
     };
 
     return (
-        <header className="sticky top-0 z-50 bg-white shadow-md">
+        <header className={`top-0 z-50 bg-white shadow-md ${isSticky ? "sticky" : "relative"}`}>
             <div className="container mx-auto flex items-center justify-between px-4">
                 {/* Logo */}
                 <div className="flex items-center">
@@ -129,6 +130,10 @@ const Header = () => {
             </div>
         </header>
     );
+};
+
+Header.propTypes = {
+    isSticky: PropTypes.bool,
 };
 
 export default Header;
