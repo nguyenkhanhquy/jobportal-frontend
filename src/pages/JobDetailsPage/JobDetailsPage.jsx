@@ -50,7 +50,7 @@ const JobDetailsPage = () => {
             </div>
 
             {/* Body và Summary theo hàng ngang (responsive) */}
-            <div className="flex w-full justify-center bg-gray-50 py-8">
+            <div className="flex w-full justify-center bg-white py-8">
                 <div className="flex w-full max-w-7xl flex-col gap-8 px-4 lg:flex-row">
                     {/* Body chiếm 7 phần trên màn hình lớn và full trên màn hình nhỏ */}
                     <div className="w-full lg:w-8/12">

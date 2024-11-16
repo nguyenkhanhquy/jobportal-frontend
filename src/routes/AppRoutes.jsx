@@ -6,6 +6,7 @@ import ForgotPasswordPage from "../pages/ForgotPasswordPage/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
 import SearchPage from "../pages/SearchPage/SearchPage";
 import JobDetailsPage from "../pages/JobDetailsPage/JobDetailsPage";
+import AccountDetailsPage from "../pages/AccountDetailsPage/AccountDetailsPage";
 
 const AppRoutes = () => {
     return (
@@ -18,6 +19,7 @@ const AppRoutes = () => {
                 <Route path="/reset-password" element={<ResetPasswordPage />} />
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/job-details" element={<JobDetailsPage />} />
+                <Route path="/account" element={<AccountDetailsPage />} />
             </Routes>
         </BrowserRouter>
     );
