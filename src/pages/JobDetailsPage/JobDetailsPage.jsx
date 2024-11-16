@@ -1,15 +1,15 @@
 import MainLayout from "../../layouts/MainLayout/MainLayout";
 import JobDetailsHeader from "../../components/section/JobDetails/JobDetailsHeader";
 import JobDetailsBody from "../../components/section/JobDetails/JobDetailsBody";
+import JobDetailsSummary from "../../components/section/JobDetails/JobDetailsSummary";
 
 const JobDetailsPage = () => {
-    // Dữ liệu mẫu cho job
+    // Dữ liệu mẫu cho công việc
     const jobData = {
         logo: "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/Gt6sWvWDXBqmPjwLL7CmKAvK5f31lbYe_1726107717____db1cc73322d3e4c29b7f5b7fdb1be9eb.png",
         title: "Kỹ Sư Môi Trường - Thu Nhập 40 - 60 triệu/Tháng, Cơ Hội Làm Việc Với Các Dự Án Quốc Tế",
         companyName: "TopCV - AVT: Cơ hội việc làm & Định cư lâu dài tại Đức",
-        address:
-            "Lầu 21, Centec Tower, 72-74 đường Nguyễn Thị Minh Khai, Phường Võ Thị Sáu, Quận 3, Thành phố Hồ Chí Minh",
+        address: "Lầu 21, Centec Tower, 72-74 đường Nguyễn Thị Minh Khai, Phường Võ Thị Sáu, Quận 3, TP Hồ Chí Minh",
         updatedDate: "12/11/2024",
         expiryDate: "30/11/2024",
         salary: "40 - 60 triệu",
@@ -23,15 +23,19 @@ const JobDetailsPage = () => {
         benefits: [
             "Lương thưởng hấp dẫn theo năng lực.",
             "Cơ hội làm việc trong môi trường chuyên nghiệp.",
-            "Được tham gia các dự án quốc tế và học hỏi từ chuyên gia.",
             "Bảo hiểm sức khỏe và các chế độ phúc lợi khác.",
         ],
         workingTime: "Thứ 2 - Thứ 6, 8:00 AM - 5:00 PM",
+        jobPosition: "Kỹ Sư Môi Trường",
+        remote: "On-site",
+        type: "Full-time",
+        field: "Môi trường & Công nghệ",
     };
 
     return (
         <MainLayout>
-            <div className="flex flex-col items-center py-8">
+            {/* Header */}
+            <div className="flex w-full justify-center bg-white pt-8">
                 <div className="w-full max-w-7xl px-4">
                     <JobDetailsHeader
                         logo={jobData.logo}
@@ -43,8 +47,27 @@ const JobDetailsPage = () => {
                         salary={jobData.salary}
                     />
                 </div>
-                {/* Body của trang chi tiết công việc */}
-                <JobDetailsBody jobData={jobData} />
+            </div>
+
+            {/* Body và Summary theo hàng ngang (responsive) */}
+            <div className="flex w-full justify-center bg-gray-50 py-8">
+                <div className="flex w-full max-w-7xl flex-col gap-8 px-4 lg:flex-row">
+                    {/* Body chiếm 7 phần trên màn hình lớn và full trên màn hình nhỏ */}
+                    <div className="w-full lg:w-8/12">
+                        <JobDetailsBody jobData={jobData} />
+                    </div>
+
+                    {/* Summary chiếm 3 phần trên màn hình lớn và full trên màn hình nhỏ */}
+                    <div className="w-full lg:w-4/12">
+                        <JobDetailsSummary
+                            jobPosition={jobData.jobPosition}
+                            salary={jobData.salary}
+                            remote={jobData.remote}
+                            type={jobData.type}
+                            field={jobData.field}
+                        />
+                    </div>
+                </div>
             </div>
         </MainLayout>
     );

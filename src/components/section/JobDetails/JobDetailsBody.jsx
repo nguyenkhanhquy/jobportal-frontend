@@ -12,7 +12,7 @@ const JobDetailsBody = ({ jobData }) => {
     };
 
     return (
-        <div className="mx-auto mt-8 w-full max-w-5xl rounded-lg border py-4 shadow-md">
+        <div className="mx-auto w-full max-w-5xl rounded-lg border py-4 shadow-md">
             {/* Header tab */}
             <div className="mb-4 flex border-b">
                 <button
