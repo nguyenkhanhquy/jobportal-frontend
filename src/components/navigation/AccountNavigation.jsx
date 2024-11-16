@@ -11,7 +11,7 @@ const AccountNavigation = () => {
     // Các mục trong thanh điều hướng với icon từ Material UI
     const navItems = [
         { name: "Tài khoản", path: "/account", icon: <AccountCircleIcon /> },
-        { name: "Đổi mật khẩu", path: "/change-password", icon: <LockIcon /> },
+        { name: "Đổi mật khẩu", path: "/update-password", icon: <LockIcon /> },
         { name: "Hồ sơ của tôi", path: "/profile", icon: <DescriptionIcon /> },
         { name: "Việc đã lưu", path: "/saved-jobs", icon: <FavoriteBorderIcon /> },
         { name: "Việc đã ứng tuyển", path: "/applied-jobs", icon: <WorkOutlineIcon /> },
