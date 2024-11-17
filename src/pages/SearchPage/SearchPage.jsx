@@ -78,7 +78,7 @@ const SearchPage = () => {
             ) : (
                 <div className="container mx-auto flex justify-center py-4">
                     {/* Lặp qua mảng công việc và hiển thị từng job card theo chiều dọc */}
-                    <div className="flex flex-col gap-4">
+                    <div className="flex w-3/5 flex-col gap-4">
                         {jobPosts.map((job) => (
                             <div key={job.id}>
                                 <SearchJobCard
