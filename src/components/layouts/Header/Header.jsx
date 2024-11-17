@@ -4,8 +4,11 @@ import Logo from "/images/logo.png";
 import PropTypes from "prop-types";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import useAuth from "../../../hooks/useAuth";
 
 const Header = ({ isSticky }) => {
+    const { user, isAuthenticated } = useAuth();
+
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isAccountMenuOpen, setAccountMenuOpen] = useState(false);
     const [isMobileAccountMenuOpen, setMobileAccountMenuOpen] = useState(false);
@@ -48,101 +51,104 @@ const Header = ({ isSticky }) => {
                     </Link>
                 </nav>
 
-                {/* Nút hành động */}
                 <div className="hidden space-x-4 md:flex">
-                    <Link
-                        to="/login"
-                        className="rounded-md border border-green-600 px-4 py-2 font-semibold text-green-600 hover:bg-green-50"
-                    >
-                        Đăng nhập
-                    </Link>
-                    <Link
-                        to="/register"
-                        className="rounded-md bg-green-600 px-4 py-2 font-semibold text-white hover:bg-green-700"
-                    >
-                        Đăng ký
-                    </Link>
-                    <Link
-                        to="/login?employer=true"
-                        className="rounded-md bg-slate-800 px-4 py-2 font-semibold text-white hover:bg-slate-900"
-                    >
-                        Đăng tuyển & tìm hồ sơ
-                    </Link>
-                    {/* Nút Tài khoản */}
-                    <div className="relative">
-                        <button
-                            onClick={toggleAccountMenu}
-                            className="flex items-center gap-2 rounded-md border border-gray-300 px-4 py-2 font-semibold text-gray-700 hover:bg-gray-50"
-                        >
-                            <AccountCircleIcon />
-                            Tài khoản
-                            <ExpandMoreIcon />
-                        </button>
+                    {isAuthenticated ? (
+                        <>
+                            <div className="relative">
+                                <button
+                                    onClick={toggleAccountMenu}
+                                    className="flex items-center gap-2 rounded-md border border-gray-300 px-4 py-2 font-semibold text-gray-700 hover:bg-gray-50"
+                                >
+                                    <AccountCircleIcon />
+                                    Tài khoản
+                                    <ExpandMoreIcon />
+                                </button>
 
-                        {/* Dropdown Menu */}
-                        {isAccountMenuOpen && (
-                            <div className="absolute right-0 mt-2 w-56 rounded-lg border border-gray-200 bg-white shadow-lg">
-                                <ul className="flex flex-col p-2">
-                                    <li>
-                                        <Link
-                                            to="/account"
-                                            className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
-                                            onClick={() => setAccountMenuOpen(false)}
-                                        >
-                                            Tài khoản
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to="/update-password"
-                                            className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
-                                            onClick={() => setAccountMenuOpen(false)}
-                                        >
-                                            Đổi mật khẩu
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to="/profile"
-                                            className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
-                                            onClick={() => setAccountMenuOpen(false)}
-                                        >
-                                            Hồ sơ của tôi
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to="/saved-jobs"
-                                            className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
-                                            onClick={() => setAccountMenuOpen(false)}
-                                        >
-                                            Việc đã lưu
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to="/applied-jobs"
-                                            className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
-                                            onClick={() => setAccountMenuOpen(false)}
-                                        >
-                                            Việc đã ứng tuyển
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <button
-                                            className="block w-full rounded-lg px-4 py-2 text-left font-semibold text-red-600 hover:bg-red-100 hover:text-red-800"
-                                            onClick={() => {
-                                                setAccountMenuOpen(false);
-                                                console.log("Đăng xuất");
-                                            }}
-                                        >
-                                            Đăng xuất
-                                        </button>
-                                    </li>
-                                </ul>
+                                {/* Dropdown Menu */}
+                                {isAccountMenuOpen && (
+                                    <div className="absolute right-0 mt-2 w-56 rounded-lg border border-gray-200 bg-white shadow-lg">
+                                        <ul className="flex flex-col p-2">
+                                            <li>
+                                                <Link
+                                                    to="/account"
+                                                    className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
+                                                    onClick={() => setAccountMenuOpen(false)}
+                                                >
+                                                    Tài khoản
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/update-password"
+                                                    className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
+                                                    onClick={() => setAccountMenuOpen(false)}
+                                                >
+                                                    Đổi mật khẩu
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/profile"
+                                                    className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
+                                                    onClick={() => setAccountMenuOpen(false)}
+                                                >
+                                                    Hồ sơ của tôi
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/saved-jobs"
+                                                    className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
+                                                    onClick={() => setAccountMenuOpen(false)}
+                                                >
+                                                    Việc đã lưu
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/applied-jobs"
+                                                    className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
+                                                    onClick={() => setAccountMenuOpen(false)}
+                                                >
+                                                    Việc đã ứng tuyển
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/logout"
+                                                    className="block w-full rounded-lg px-4 py-2 text-left font-semibold text-red-600 hover:bg-red-100 hover:text-red-800"
+                                                    onClick={() => setAccountMenuOpen(false)}
+                                                >
+                                                    Đăng xuất
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
+                        </>
+                    ) : (
+                        <>
+                            <Link
+                                to="/login"
+                                className="rounded-md border border-green-600 px-4 py-2 font-semibold text-green-600 hover:bg-green-50"
+                            >
+                                Đăng nhập
+                            </Link>
+                            <Link
+                                to="/register"
+                                className="rounded-md bg-green-600 px-4 py-2 font-semibold text-white hover:bg-green-700"
+                            >
+                                Đăng ký
+                            </Link>
+                            <Link
+                                to="/login?employer=true"
+                                className="rounded-md bg-slate-800 px-4 py-2 font-semibold text-white hover:bg-slate-900"
+                            >
+                                Đăng tuyển & tìm hồ sơ
+                            </Link>
+                        </>
+                    )}
                 </div>
 
                 {/* Menu cho mobile */}
@@ -253,7 +259,9 @@ const Header = ({ isSticky }) => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <button className="block w-full px-4 py-2 text-left text-red-600">Đăng xuất</button>
+                                    <Link to="/logout" className="block px-4 py-2 font-semibold text-red-600">
+                                        Đăng xuất
+                                    </Link>
                                 </li>
                             </ul>
                         )}

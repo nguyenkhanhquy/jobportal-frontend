@@ -42,11 +42,6 @@ const AppRoutes = () => {
 
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/job-details" element={<JobDetailsPage />} />
-                <Route path="/account" element={<AccountDetailsPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/applied-jobs" element={<AppliedJobsPage />} />
-                <Route path="/saved-jobs" element={<SavedJobsPage />} />
-                <Route path="/update-password" element={<UpdatePasswordPage />} />
 
                 {isAuthenticated ? (
                     <>
@@ -55,6 +50,11 @@ const AppRoutes = () => {
                         <Route path="/forgot-password" element={<Navigate to="/" replace />} />
                         <Route path="/reset-password" element={<Navigate to="/" replace />} />
 
+                        <Route path="/account" element={<AccountDetailsPage />} />
+                        <Route path="/profile" element={<ProfilePage />} />
+                        <Route path="/applied-jobs" element={<AppliedJobsPage />} />
+                        <Route path="/saved-jobs" element={<SavedJobsPage />} />
+                        <Route path="/update-password" element={<UpdatePasswordPage />} />
                         <Route path="/logout" element={<LogoutPage />} />
                     </>
                 ) : (
@@ -63,7 +63,7 @@ const AppRoutes = () => {
                         <Route path="/register" element={<RegisterPage />} />
                         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                         <Route path="/reset-password" element={<ResetPasswordPage />} />
-                        <Route path="/logout" element={<Navigate to="/" replace />} />
+                        <Route path="/*" element={<Navigate to="/" replace />} />
                     </>
                 )}
             </Routes>
