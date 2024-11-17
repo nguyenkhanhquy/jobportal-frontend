@@ -6,6 +6,7 @@ import CustomPagination from "../../components/pagination/Pagination";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { getAllJobPosts } from "../../services/jobPostService";
 
@@ -44,11 +45,11 @@ const SearchPage = () => {
             } catch (error) {
                 toast.error(error.message);
             } finally {
-                setLoading(false);
                 window.scrollTo({
                     top: 0,
                     behavior: "smooth",
                 });
+                setLoading(false);
             }
         };
 
@@ -69,26 +70,33 @@ const SearchPage = () => {
                 }}
                 query={query}
             />
-            <div className="container mx-auto flex justify-center py-4">
-                {/* Lặp qua mảng công việc và hiển thị từng job card theo chiều dọc */}
-                <div className="flex flex-col gap-4">
-                    {jobPosts.map((job) => (
-                        <div key={job.id}>
-                            <SearchJobCard
-                                id={job.id}
-                                logo={job.company.logo}
-                                title={job.title}
-                                salary={job.salary}
-                                companyName={job.company.name}
-                                address={job.address}
-                                type={job.type}
-                                updatedDate={job.updatedDate}
-                                saved={job.saved}
-                            />
-                        </div>
-                    ))}
+
+            {loading ? (
+                <div className="flex justify-center py-4">
+                    <CircularProgress color="success" />
                 </div>
-            </div>
+            ) : (
+                <div className="container mx-auto flex justify-center py-4">
+                    {/* Lặp qua mảng công việc và hiển thị từng job card theo chiều dọc */}
+                    <div className="flex flex-col gap-4">
+                        {jobPosts.map((job) => (
+                            <div key={job.id}>
+                                <SearchJobCard
+                                    id={job.id}
+                                    logo={job.company.logo}
+                                    title={job.title}
+                                    salary={job.salary}
+                                    companyName={job.company.name}
+                                    address={job.address}
+                                    type={job.type}
+                                    updatedDate={job.updatedDate}
+                                    saved={job.saved}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* Pagination */}
             <CustomPagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />

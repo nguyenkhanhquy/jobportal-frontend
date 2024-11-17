@@ -30,7 +30,7 @@ const AppRoutes = () => {
                     width: "100vw",
                 }}
             >
-                <CircularProgress />
+                <CircularProgress color="success" />
             </div>
         );
     }

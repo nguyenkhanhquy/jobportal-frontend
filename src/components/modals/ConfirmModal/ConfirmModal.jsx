@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from "@mui/material";
 
-const ConfirmModal = ({ isOpen, title, onConfirm, onCancel }) => {
+const ConfirmModal = ({ isOpen, loading, title, onConfirm, onCancel }) => {
     return (
         <Dialog
             open={isOpen}
@@ -21,11 +21,12 @@ const ConfirmModal = ({ isOpen, title, onConfirm, onCancel }) => {
 
             {/* Các nút hành động */}
             <DialogActions>
-                <Button onClick={onCancel} color="inherit">
+                <Button onClick={onCancel} disabled={loading} color="inherit">
                     Hủy
                 </Button>
                 <Button
                     onClick={onConfirm}
+                    disabled={loading}
                     variant="contained"
                     sx={{
                         backgroundColor: "#16a34a",
@@ -33,8 +34,7 @@ const ConfirmModal = ({ isOpen, title, onConfirm, onCancel }) => {
                         "&:hover": { backgroundColor: "#15803d" },
                     }}
                 >
-                    {" "}
-                    Xác nhận
+                    {loading ? "Đang xử lý..." : "Xác nhận"}
                 </Button>
             </DialogActions>
         </Dialog>
@@ -44,6 +44,7 @@ const ConfirmModal = ({ isOpen, title, onConfirm, onCancel }) => {
 // Định nghĩa PropTypes
 ConfirmModal.propTypes = {
     isOpen: PropTypes.bool.isRequired, // Trạng thái mở của modal
+    loading: PropTypes.bool.isRequired, // Trạng thái loading của modal
     title: PropTypes.string.isRequired, // Tiêu đề modal
     onConfirm: PropTypes.func.isRequired, // Hàm gọi khi nhấn nút Xác nhận
     onCancel: PropTypes.func.isRequired, // Hàm gọi khi nhấn nút Hủy

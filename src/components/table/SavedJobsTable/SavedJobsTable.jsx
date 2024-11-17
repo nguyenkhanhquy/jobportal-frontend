@@ -16,7 +16,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import SettingsIcon from "@mui/icons-material/Settings";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import EmptyBox from "../../box/EmptyBox";
-// import SuspenseLoader from "../../../loaders/SuspenseLoader/SuspenseLoader";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { formatDate } from "../../../utils/dateUtil";
 
@@ -63,7 +63,7 @@ const SavedJobsTable = ({ loading, savedJobPosts, handleViewDetailsClick, handle
                                     height="100%"
                                     padding={2}
                                 >
-                                    {/* <SuspenseLoader /> */}
+                                    <CircularProgress color="success" />
                                 </Box>
                             </TableCell>
                         </TableRow>
