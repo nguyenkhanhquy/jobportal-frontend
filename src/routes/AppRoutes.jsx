@@ -1,4 +1,7 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
+import useAuth from "../hooks/useAuth";
+
 import HomePage from "../pages/HomePage/HomePage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
@@ -11,16 +14,32 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import AppliedJobsPage from "../pages/AppliedJobsPage/AppliedJobsPage";
 import SavedJobsPage from "../pages/SavedJobsPage/SavedJobsPage";
 import UpdatePasswordPage from "../pages/UpdatePasswordPage/UpdatePasswordPage";
+import LogoutPage from "../pages/LogoutPage/LogoutPage";
 
 const AppRoutes = () => {
+    const { user, isAuthenticated, loading } = useAuth();
+
+    if (loading) {
+        return (
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                    width: "100vw",
+                }}
+            >
+                <CircularProgress />
+            </div>
+        );
+    }
+
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                <Route path="/reset-password" element={<ResetPasswordPage />} />
+
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/job-details" element={<JobDetailsPage />} />
                 <Route path="/account" element={<AccountDetailsPage />} />
@@ -28,6 +47,25 @@ const AppRoutes = () => {
                 <Route path="/applied-jobs" element={<AppliedJobsPage />} />
                 <Route path="/saved-jobs" element={<SavedJobsPage />} />
                 <Route path="/update-password" element={<UpdatePasswordPage />} />
+
+                {isAuthenticated ? (
+                    <>
+                        <Route path="/login" element={<Navigate to="/" replace />} />
+                        <Route path="/register" element={<Navigate to="/" replace />} />
+                        <Route path="/forgot-password" element={<Navigate to="/" replace />} />
+                        <Route path="/reset-password" element={<Navigate to="/" replace />} />
+
+                        <Route path="/logout" element={<LogoutPage />} />
+                    </>
+                ) : (
+                    <>
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                        <Route path="/reset-password" element={<ResetPasswordPage />} />
+                        <Route path="/logout" element={<Navigate to="/" replace />} />
+                    </>
+                )}
             </Routes>
         </BrowserRouter>
     );

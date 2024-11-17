@@ -1,6 +1,19 @@
 import axiosClient from "../api/axiosClient";
 import { AUTH_API } from "../api/constants";
 
+export const login = async (email, password) => {
+    return axiosClient.post(AUTH_API.LOGIN, {
+        email: email,
+        password: password,
+    });
+};
+
+export const logout = async (accessToken) => {
+    return axiosClient.post(AUTH_API.LOGOUT, {
+        token: accessToken,
+    });
+};
+
 export const registerJobSeeker = async (jobSeeker) => {
     return axiosClient.post(AUTH_API.REGISTER_JOB_SEEKER, {
         email: jobSeeker.email,
@@ -21,4 +34,8 @@ export const resetPassword = async (email, otp, newPassword) => {
         otp: otp,
         newPassword: newPassword,
     });
+};
+
+export const getAuthUser = async () => {
+    return axiosClient.get(AUTH_API.ME);
 };

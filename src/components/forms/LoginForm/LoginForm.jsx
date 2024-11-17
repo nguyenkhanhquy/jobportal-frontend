@@ -1,9 +1,15 @@
+// import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import Logo from "/images/logo.png";
 import { Email, Lock } from "@mui/icons-material";
+import useAuth from "../../../hooks/useAuth";
+import { login, getAuthUser } from "../../../services/authService";
+import { setToken } from "../../../services/localStorageService";
 
 const regexEmail =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -15,6 +21,11 @@ const schema = yup.object().shape({
 });
 
 const LoginForm = () => {
+    const { setUser, setIsAuthenticated } = useAuth();
+    // const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
+
     const {
         register,
         handleSubmit,
@@ -25,9 +36,24 @@ const LoginForm = () => {
         reValidateMode: "onChange", // Kiểm tra lại lỗi khi người dùng thay đổi input
     });
 
-    const onSubmit = (data) => {
-        console.log(data);
-        alert("Đăng nhập thành công!");
+    const onSubmit = async (formData) => {
+        try {
+            const data = await login(formData.email, formData.password);
+
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+
+            setToken(data.result?.token);
+
+            const dataUser = await getAuthUser(data.result?.token);
+            setUser(dataUser?.result);
+
+            setIsAuthenticated(true);
+            navigate("/");
+        } catch (error) {
+            toast.error(error.message);
+        }
     };
 
     return (
