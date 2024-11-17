@@ -12,7 +12,7 @@ const MainLayout = ({ children, title }) => {
     const currentPath = location.pathname;
 
     // Kiểm tra nếu là trang Home ("/") hoặc trang Search ("/search")
-    const isStickyHeader = currentPath === "/" || currentPath === "/search";
+    const isStickyHeader = currentPath === "/";
 
     return (
         <>

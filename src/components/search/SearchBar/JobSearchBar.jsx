@@ -16,7 +16,7 @@ const JobSearchBar = ({ onSearch, query }) => {
     };
 
     return (
-        <div className="mx-auto flex w-full bg-[#19734e] p-2">
+        <div className="sticky top-0 z-50 mx-auto flex w-full bg-[#19734e] p-2">
             <div className="mx-auto flex w-full max-w-4xl items-center p-2">
                 {/* Ô input tìm kiếm với icon bên trong */}
                 <div className="relative flex-1">
