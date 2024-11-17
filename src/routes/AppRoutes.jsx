@@ -17,6 +17,8 @@ import SavedJobsPage from "../pages/SavedJobsPage/SavedJobsPage";
 import UpdatePasswordPage from "../pages/UpdatePasswordPage/UpdatePasswordPage";
 import LogoutPage from "../pages/LogoutPage/LogoutPage";
 
+import RecruiterRegisterPage from "../pages/RecruiterPage/RecruiterRegisterPage/RecruiterRegisterPage";
+
 const AppRoutes = () => {
     const { user, isAuthenticated, loading } = useAuth();
 
@@ -48,6 +50,7 @@ const AppRoutes = () => {
                     <Route index element={<HomePage />} />
                     <Route path="/search" element={<SearchPage />} />
                     <Route path="/job-details" element={<JobDetailsPage />} />
+                    <Route path="/recruiter/register" element={<RecruiterRegisterPage />} />
 
                     {isAuthenticated ? (
                         <>
