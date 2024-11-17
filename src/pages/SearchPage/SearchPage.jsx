@@ -75,6 +75,7 @@ const SearchPage = () => {
                     {jobPosts.map((job) => (
                         <div key={job.id}>
                             <SearchJobCard
+                                id={job.id}
                                 logo={job.company.logo}
                                 title={job.title}
                                 salary={job.salary}
@@ -82,6 +83,7 @@ const SearchPage = () => {
                                 address={job.address}
                                 type={job.type}
                                 updatedDate={job.updatedDate}
+                                saved={job.saved}
                             />
                         </div>
                     ))}

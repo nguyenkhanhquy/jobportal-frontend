@@ -1,15 +1,33 @@
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
-const SearchJobCard = ({ logo, title, salary, companyName, address, type, updatedDate }) => {
-    // State để quản lý trạng thái yêu thích
-    const [isFavorite, setIsFavorite] = useState(false);
+import { saveJobPost } from "../../../services/jobPostService";
 
-    // Toggle trạng thái yêu thích
-    const toggleFavorite = () => {
-        setIsFavorite(!isFavorite);
+const SearchJobCard = ({ id, logo, title, salary, companyName, address, type, updatedDate, saved }) => {
+    const [isSaved, setIsSaved] = useState(saved);
+
+    const handleSaveJob = async () => {
+        try {
+            const data = await saveJobPost(id);
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+            setIsSaved((prev) => !prev);
+            toast.success(data.message);
+        } catch (error) {
+            if (error.statusCode === 401) {
+                toast.info("Vui lòng đăng nhập để lưu");
+            } else {
+                toast.error(error.message);
+            }
+        }
     };
+
+    useEffect(() => {
+        setIsSaved(saved);
+    }, [id, saved]);
 
     return (
         <div className="flex w-full max-w-4xl rounded-2xl border border-green-200 bg-green-50 p-3 shadow-sm transition duration-200 ease-in-out hover:border-green-500 hover:shadow-md">
@@ -59,10 +77,10 @@ const SearchJobCard = ({ logo, title, salary, companyName, address, type, update
 
                     {/* Nút yêu thích */}
                     <button
-                        onClick={toggleFavorite}
+                        onClick={handleSaveJob}
                         className="pt-1 text-green-500 hover:text-green-600 focus:outline-none"
                     >
-                        {isFavorite ? <Favorite className="h-6 w-6" /> : <FavoriteBorder className="h-6 w-6" />}
+                        {isSaved ? <Favorite className="h-6 w-6" /> : <FavoriteBorder className="h-6 w-6" />}
                     </button>
                 </div>
             </div>
@@ -72,6 +90,7 @@ const SearchJobCard = ({ logo, title, salary, companyName, address, type, update
 
 // Kiểm tra kiểu dữ liệu với PropTypes
 SearchJobCard.propTypes = {
+    id: PropTypes.string.isRequired,
     logo: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     salary: PropTypes.string.isRequired,
@@ -79,6 +98,7 @@ SearchJobCard.propTypes = {
     address: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     updatedDate: PropTypes.string.isRequired,
+    saved: PropTypes.bool,
 };
 
 export default SearchJobCard;
