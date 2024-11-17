@@ -6,3 +6,10 @@ export const AUTH_API = {
     SEND_OTP: "/auth/send-otp",
     RESET_PASSWORD: "/auth/reset-password",
 };
+
+export const JOBS_API = {
+    GET_ALL: "/jobs",
+    GET_ALL_POPULAR: "/jobs/popular",
+    GET_BY_ID: "/jobs/",
+    SAVE: "/jobs/save",
+};
