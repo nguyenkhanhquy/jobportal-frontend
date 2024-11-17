@@ -142,7 +142,7 @@ const Header = ({ isSticky }) => {
                                 Đăng ký
                             </Link>
                             <Link
-                                to="/login?employer=true"
+                                to="/recruiter/register"
                                 className="rounded-md bg-slate-800 px-4 py-2 font-semibold text-white hover:bg-slate-900"
                             >
                                 Đăng tuyển & tìm hồ sơ

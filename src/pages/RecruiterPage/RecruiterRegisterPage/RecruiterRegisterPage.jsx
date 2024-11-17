@@ -1,7 +1,9 @@
 import RecruiterRegisterForm from "../../../components/forms/RecruiterForm/RecruiterRegisterForm/RecruiterRegisterForm";
 import Recruiter_layout_cover from "/images/recruiter_layout_cover.jpg";
+import usePageTitle from "../../../hooks/usePageTitle";
 
 const RecruiterRegisterPage = () => {
+    usePageTitle("Đăng ký nhà tuyển dụng");
     return (
         <div className="flex h-screen">
             <div
