@@ -22,10 +22,10 @@ const DataSearchBar = ({ placeholder, onSearch }) => {
                     border: "2px solid #ccc", // Viền mặc định
                     transition: "border-color 0.3s", // Hiệu ứng mượt khi đổi màu
                     ":hover": {
-                        borderColor: "#1976d2", // Màu viền khi hover
+                        borderColor: "#16a34a", // Màu viền khi hover
                     },
                     ":focus-within": {
-                        borderColor: "#1565c0", // Màu viền khi focus vào input
+                        borderColor: "#16a34a", // Màu viền khi focus vào input
                     },
                 }}
             >
@@ -56,9 +56,9 @@ const DataSearchBar = ({ placeholder, onSearch }) => {
                         minWidth: "40px",
                         borderRadius: 0,
                         padding: "6px 14px",
-                        bgcolor: "#2e3090",
+                        bgcolor: "#16a34a",
                         ":hover": {
-                            bgcolor: "#1f2061",
+                            bgcolor: "#15803d",
                         },
                     }}
                     onClick={onSearch}
