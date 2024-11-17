@@ -1,4 +1,3 @@
-// components/section/Home/SearchSection.jsx
 import PropTypes from "prop-types";
 import HomeSearchBar from "../../search/SearchBar/HomeSearchBar";
 import SectionBackGround from "/images/SectionBackGround.jpg";
@@ -28,11 +27,6 @@ const SearchSection = ({ title }) => {
 // Định nghĩa kiểu dữ liệu cho component
 SearchSection.propTypes = {
     title: PropTypes.string,
-};
-
-// Giá trị mặc định
-SearchSection.defaultProps = {
-    title: "Tìm kiếm công việc mơ ước của bạn",
 };
 
 export default SearchSection;

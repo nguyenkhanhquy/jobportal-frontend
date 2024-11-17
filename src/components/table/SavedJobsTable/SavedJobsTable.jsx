@@ -144,7 +144,7 @@ const SavedJobsTable = ({ loading, savedJobPosts, handleViewDetailsClick, handle
 
 SavedJobsTable.propTypes = {
     loading: PropTypes.bool,
-    savedJobPosts: PropTypes.object,
+    savedJobPosts: PropTypes.array,
     handleViewDetailsClick: PropTypes.func,
     handleDeleteClick: PropTypes.func,
 };

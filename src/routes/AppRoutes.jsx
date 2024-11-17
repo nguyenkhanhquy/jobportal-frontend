@@ -36,36 +36,43 @@ const AppRoutes = () => {
     }
 
     return (
-        <BrowserRouter>
+        <BrowserRouter
+            future={{
+                v7_relativeSplatPath: true,
+                v7_startTransition: true,
+            }}
+        >
             <Routes>
-                <Route path="/" element={<HomePage />} />
+                <Route>
+                    <Route index element={<HomePage />} />
+                    <Route path="/search" element={<SearchPage />} />
+                    <Route path="/job-details" element={<JobDetailsPage />} />
 
-                <Route path="/search" element={<SearchPage />} />
-                <Route path="/job-details" element={<JobDetailsPage />} />
+                    {isAuthenticated ? (
+                        <>
+                            <Route path="/login" element={<Navigate to="/" replace />} />
+                            <Route path="/register" element={<Navigate to="/" replace />} />
+                            <Route path="/forgot-password" element={<Navigate to="/" replace />} />
+                            <Route path="/reset-password" element={<Navigate to="/" replace />} />
 
-                {isAuthenticated ? (
-                    <>
-                        <Route path="/login" element={<Navigate to="/" replace />} />
-                        <Route path="/register" element={<Navigate to="/" replace />} />
-                        <Route path="/forgot-password" element={<Navigate to="/" replace />} />
-                        <Route path="/reset-password" element={<Navigate to="/" replace />} />
+                            <Route path="/account" element={<AccountDetailsPage />} />
+                            <Route path="/profile" element={<ProfilePage />} />
+                            <Route path="/applied-jobs" element={<AppliedJobsPage />} />
+                            <Route path="/saved-jobs" element={<SavedJobsPage />} />
+                            <Route path="/update-password" element={<UpdatePasswordPage />} />
+                            <Route path="/logout" element={<LogoutPage />} />
+                        </>
+                    ) : (
+                        <>
+                            <Route path="/login" element={<LoginPage />} />
+                            <Route path="/register" element={<RegisterPage />} />
+                            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                            <Route path="/reset-password" element={<ResetPasswordPage />} />
+                        </>
+                    )}
 
-                        <Route path="/account" element={<AccountDetailsPage />} />
-                        <Route path="/profile" element={<ProfilePage />} />
-                        <Route path="/applied-jobs" element={<AppliedJobsPage />} />
-                        <Route path="/saved-jobs" element={<SavedJobsPage />} />
-                        <Route path="/update-password" element={<UpdatePasswordPage />} />
-                        <Route path="/logout" element={<LogoutPage />} />
-                    </>
-                ) : (
-                    <>
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/register" element={<RegisterPage />} />
-                        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                        <Route path="/reset-password" element={<ResetPasswordPage />} />
-                        <Route path="/*" element={<Navigate to="/" replace />} />
-                    </>
-                )}
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );
