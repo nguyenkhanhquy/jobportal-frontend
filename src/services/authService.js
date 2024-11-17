@@ -36,6 +36,13 @@ export const resetPassword = async (email, otp, newPassword) => {
     });
 };
 
+export const updatePassword = async (password, newPassword) => {
+    return axiosClient.post(AUTH_API.UPDATE_PASSWORD, {
+        password: password,
+        newPassword: newPassword,
+    });
+};
+
 export const getAuthUser = async () => {
     return axiosClient.get(AUTH_API.ME);
 };

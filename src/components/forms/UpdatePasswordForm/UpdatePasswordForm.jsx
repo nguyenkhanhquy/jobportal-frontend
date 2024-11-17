@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import { toast } from "react-toastify";
+import { updatePassword } from "../../../services/authService";
+
 // Schema xác thực bằng Yup
 const schema = yup.object().shape({
     oldPassword: yup.string().required("Không được để trống").min(8, "Mật khẩu hiện tại phải dài ít nhất 8 ký tự"),
@@ -16,20 +19,32 @@ const ChangePasswordForm = () => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors, isSubmitting },
     } = useForm({
         resolver: yupResolver(schema),
         mode: "onChange",
     });
 
-    const onSubmit = (data) => {
-        console.log("Dữ liệu đã submit:", data);
-        alert("Đổi mật khẩu thành công");
+    const onSubmit = async (dataForm) => {
+        try {
+            const data = await updatePassword(dataForm.oldPassword, dataForm.newPassword);
+
+            if (!data.success) {
+                if (data?.message) throw new Error(data.message);
+                else throw new Error("Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+
+            reset();
+            toast.success("Đổi mật khẩu thành công");
+        } catch (error) {
+            toast.error(error.message);
+        }
     };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-2xl space-y-4 rounded-lg p-6">
-            <h2 className="mb-4 text-2xl font-semibold">Đổi Mật Khẩu</h2>
+            <h2 className="mb-4 text-2xl font-semibold">Đổi mật khẩu</h2>
 
             {/* Mật khẩu hiện tại */}
             <div className="mb-4">
