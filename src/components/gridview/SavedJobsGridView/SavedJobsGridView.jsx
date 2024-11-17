@@ -7,8 +7,7 @@ import { Box, Button } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import GridViewLayout from "../../../layouts/GridViewLayout/GridViewLayout";
 import DataSearchBar from "../../search/SearchBar/DataSearchBar";
-import EmptyBox from "../../box/EmptyBox";
-// import SavedJobsTable from "./StudentDataTable/SavedJobsTable";
+import SavedJobsTable from "../../table/SavedJobsTable/SavedJobsTable";
 import ConfirmModal from "../../modals/ConfirmModal/ConfirmModal";
 
 // import { getAllSavedJobPosts, saveJobPost } from "../../../services/jobService";
@@ -130,13 +129,12 @@ const SavedJobsGridView = () => {
         >
             <Box>
                 {/* Nội dung danh sách công việc */}
-                {/* <SavedJobsTable
-                    loading={loading}
-                    savedJobPosts={savedJobPosts}
-                    handleViewDetailsClick={handleViewDetailsClick}
-                    handleDeleteClick={handleDeleteClick}
-                /> */}
-                <EmptyBox />
+                <SavedJobsTable
+                // loading={loading}
+                // savedJobPosts={savedJobPosts}
+                // handleViewDetailsClick={handleViewDetailsClick}
+                // handleDeleteClick={handleDeleteClick}
+                />
             </Box>
 
             {/* Confirm Modal */}
