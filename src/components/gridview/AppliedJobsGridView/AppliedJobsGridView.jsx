@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Box } from "@mui/material";
 import GridViewLayout from "../../../layouts/GridViewLayout/GridViewLayout";
 import DataSearchBar from "../../search/SearchBar/DataSearchBar";
-// import AppliedJobsTable from "./StudentDataTable/AppliedJobsTable";
-import EmptyBox from "../../box/EmptyBox";
+import AppliedJobsTable from "../../table/AppliedJobsTable/AppliedJobsTable";
 
 const AppliedJobsGridView = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -30,8 +29,7 @@ const AppliedJobsGridView = () => {
         >
             <Box>
                 {/* Nội dung danh sách công việc */}
-                {/* <AppliedJobsTable /> */}
-                <EmptyBox />
+                <AppliedJobsTable />
             </Box>
         </GridViewLayout>
     );
