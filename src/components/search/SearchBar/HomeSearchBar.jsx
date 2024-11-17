@@ -1,19 +1,18 @@
-// src/components/HomeSearchBar.js
-
 import PropTypes from "prop-types";
-// src/components/SearchBar.js
 import { useState } from "react";
 import { Search } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
-const SearchBar = ({ placeholder = "Vị trí công việc, tên công ty..." }) => {
-    const [searchTerm, setSearchTerm] = useState("");
+const SearchBar = ({ placeholder = "Vị trí công việc..." }) => {
+    const navigate = useNavigate();
+    const [searchText, setSearchText] = useState("");
 
     const handleInputChange = (e) => {
-        setSearchTerm(e.target.value);
+        setSearchText(e.target.value);
     };
 
     const handleSearch = () => {
-        console.log("Tìm kiếm:", searchTerm);
+        navigate("/search", { state: { query: searchText } });
     };
 
     const handleKeyDown = (e) => {
@@ -26,7 +25,7 @@ const SearchBar = ({ placeholder = "Vị trí công việc, tên công ty..." })
         <div className="relative mx-auto w-full max-w-5xl">
             <input
                 type="text"
-                value={searchTerm}
+                value={searchText}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
                 placeholder={placeholder}

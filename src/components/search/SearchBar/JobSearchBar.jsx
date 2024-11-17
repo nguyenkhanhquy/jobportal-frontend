@@ -1,18 +1,18 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import SearchIcon from "@mui/icons-material/Search";
 
-const JobSearchBar = () => {
-    const [searchTerm, setSearchTerm] = useState("");
+const JobSearchBar = ({ onSearch, query }) => {
+    const [searchText, setSearchText] = useState(query || "");
 
     // Hàm xử lý khi người dùng nhập vào input
     const handleInputChange = (e) => {
-        setSearchTerm(e.target.value);
+        setSearchText(e.target.value);
     };
 
     // Hàm xử lý khi nhấn nút tìm kiếm
     const handleSearch = () => {
-        console.log("Tìm kiếm:", searchTerm);
-        // Thêm logic xử lý tìm kiếm ở đây
+        onSearch(searchText);
     };
 
     return (
@@ -23,8 +23,8 @@ const JobSearchBar = () => {
                     <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                         type="text"
-                        placeholder="Nhập công việc, vị trí, hoặc công ty..."
-                        value={searchTerm}
+                        placeholder="Nhập vị trí công việc..."
+                        value={searchText}
                         onChange={handleInputChange}
                         className="w-full rounded-md border border-gray-300 px-10 py-2 text-sm focus:border-green-500 focus:outline-none"
                     />
@@ -39,6 +39,11 @@ const JobSearchBar = () => {
             </div>
         </div>
     );
+};
+
+JobSearchBar.propTypes = {
+    onSearch: PropTypes.func.isRequired,
+    query: PropTypes.string,
 };
 
 export default JobSearchBar;

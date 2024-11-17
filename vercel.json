@@ -1,0 +1,10 @@
+{
+    "git": {
+        "deploymentEnabled": {
+            "main": false,
+            "develop": false,
+            "feature*": false
+        }
+    },
+    "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }]
+}

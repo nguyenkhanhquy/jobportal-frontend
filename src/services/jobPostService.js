@@ -13,5 +13,10 @@ export const getAllJobPosts = async (page, size, search, order) => {
 };
 
 export const getPopularJobPosts = async () => {
-    return axiosClient.get(JOBS_API.GET_ALL_POPULAR);
+    return axiosClient.get(JOBS_API.GET_ALL_POPULAR, {
+        params: {
+            page: 1,
+            size: 9,
+        },
+    });
 };

@@ -2,7 +2,7 @@ import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-const SearchJobCard = ({ logo, title, salary, companyName, location, experience, updatedDate }) => {
+const SearchJobCard = ({ logo, title, salary, companyName, address, type, updatedDate }) => {
     // State để quản lý trạng thái yêu thích
     const [isFavorite, setIsFavorite] = useState(false);
 
@@ -42,11 +42,9 @@ const SearchJobCard = ({ logo, title, salary, companyName, location, experience,
                 {/* Thông tin bổ sung: Địa điểm và kinh nghiệm */}
                 <div className="mb-2 mt-2 flex flex-wrap items-center gap-2">
                     <span className="rounded-3xl bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">
-                        {location}
+                        {address}
                     </span>
-                    <span className="rounded-3xl bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">
-                        {experience}
-                    </span>
+                    <span className="rounded-3xl bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">{type}</span>
                 </div>
 
                 {/* Thanh ngang (hr) chỉ bên nội dung */}
@@ -78,8 +76,8 @@ SearchJobCard.propTypes = {
     title: PropTypes.string.isRequired,
     salary: PropTypes.string.isRequired,
     companyName: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    experience: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     updatedDate: PropTypes.string.isRequired,
 };
 
