@@ -9,7 +9,7 @@ const NewJobsSection = ({ jobData }) => {
             {/* Flex container cho các job card */}
             <div className="flex flex-wrap justify-center gap-6">
                 {jobData.slice(0, 12).map((job) => (
-                    <HomeJobCard key={job.id} {...job} />
+                    <HomeJobCard key={job.id} job={job} />
                 ))}
             </div>
         </div>
@@ -17,16 +17,7 @@ const NewJobsSection = ({ jobData }) => {
 };
 
 NewJobsSection.propTypes = {
-    jobData: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            logo: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-            companyName: PropTypes.string.isRequired,
-            salary: PropTypes.string.isRequired,
-            location: PropTypes.string.isRequired,
-        }),
-    ).isRequired,
+    jobData: PropTypes.array.isRequired,
 };
 
 export default NewJobsSection;

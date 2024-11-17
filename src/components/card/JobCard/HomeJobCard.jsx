@@ -2,7 +2,7 @@ import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-const HomeJobCard = ({ logo, title, companyName, salary, location }) => {
+const HomeJobCard = ({ job }) => {
     // State để quản lý trạng thái yêu thích
     const [isFavorite, setIsFavorite] = useState(false);
 
@@ -12,25 +12,31 @@ const HomeJobCard = ({ logo, title, companyName, salary, location }) => {
     };
 
     return (
-        <div className="flex w-[420px] items-start justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition duration-200 ease-in-out hover:border-green-500 hover:shadow-lg">
+        <div className="flex w-[500px] items-start justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition duration-200 ease-in-out hover:border-green-500 hover:shadow-lg">
             {/* Logo công ty */}
             <div className="flex-shrink-0">
-                <img src={logo} alt={companyName} className="h-24 w-24 rounded-md border object-cover" />
+                <img
+                    src="https://res.cloudinary.com/dvutarxfu/image/upload/v1731772480/company/05542ff0-8101-4a55-9711-cb881d30e9f8/p1vau8pywwatddpbtewq.png" //{job.company.logo}
+                    alt={job.company.name}
+                    className="h-24 w-24 rounded-md border object-cover"
+                />
             </div>
 
             {/* Thông tin công việc */}
             <div className="flex flex-1 flex-col pl-4">
-                <h3 className="line-clamp-1 text-lg font-semibold text-gray-800 hover:text-green-600" title={title}>
-                    {title}
+                <h3 className="line-clamp-1 text-lg font-semibold text-gray-800 hover:text-green-600" title={job.title}>
+                    {job.title}
                 </h3>
-                <p className="line-clamp-1 text-sm text-gray-500" title={companyName}>
-                    {companyName}
+                <p className="line-clamp-1 text-sm text-gray-500" title={job.company.name}>
+                    {job.company.name}
                 </p>
 
                 {/* Thông tin lương, địa điểm và nút yêu thích */}
                 <div className="mt-2 flex items-center gap-2">
-                    <span className="rounded bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">{salary}</span>
-                    <span className="rounded bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">{location}</span>
+                    <span className="rounded bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">{job.type}</span>
+                    <span className="rounded bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">
+                        {job.remote}
+                    </span>
 
                     {/* Nút yêu thích */}
                     <button
@@ -46,11 +52,7 @@ const HomeJobCard = ({ logo, title, companyName, salary, location }) => {
 };
 
 HomeJobCard.propTypes = {
-    logo: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    companyName: PropTypes.string.isRequired,
-    salary: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
+    job: PropTypes.object.isRequired,
 };
 
 export default HomeJobCard;
