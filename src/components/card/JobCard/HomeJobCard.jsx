@@ -12,7 +12,7 @@ const HomeJobCard = ({ job }) => {
     };
 
     return (
-        <div className="flex w-[500px] items-start justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition duration-200 ease-in-out hover:border-green-500 hover:shadow-lg">
+        <div className="flex w-[400px] items-start justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition duration-200 ease-in-out hover:border-green-500 hover:shadow-lg">
             {/* Logo công ty */}
             <div className="flex-shrink-0">
                 <img
@@ -33,10 +33,10 @@ const HomeJobCard = ({ job }) => {
 
                 {/* Thông tin lương, địa điểm và nút yêu thích */}
                 <div className="mt-2 flex items-center gap-2">
-                    <span className="rounded bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">{job.type}</span>
                     <span className="rounded bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">
-                        {job.remote}
+                        {job.salary}
                     </span>
+                    <span className="rounded bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">{job.type}</span>
 
                     {/* Nút yêu thích */}
                     <button

@@ -23,7 +23,7 @@ const Header = ({ isSticky }) => {
 
                 {/* Menu chính */}
                 <nav className="hidden space-x-10 text-lg font-semibold text-gray-700 md:flex">
-                    <Link to="/jobs" className="hover:text-green-600">
+                    <Link to="/search" className="hover:text-green-600">
                         Việc làm
                     </Link>
                     <Link to="/categories" className="hover:text-green-600">
