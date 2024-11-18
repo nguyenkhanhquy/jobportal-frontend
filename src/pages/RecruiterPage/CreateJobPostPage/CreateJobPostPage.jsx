@@ -1,12 +1,12 @@
 import MainLayout from "../../../layouts/MainLayout/MainLayout";
 import AccountLayout from "../../../layouts/AccountLayout/AccountLayout";
+import CreateJobPostForm from "../../../components/forms/RecruiterForm/CreateJobPostForm/CreateJobPostForm";
 
 const CreateJobPostPage = () => {
     return (
         <MainLayout title="Tạo bài đăng tuyển dụng">
             <AccountLayout>
-                {/* Thêm component CreateJobPostForm */}
-                <h1>Form tạo bài đăng tuyển dụng</h1>
+                <CreateJobPostForm />
             </AccountLayout>
         </MainLayout>
     );
