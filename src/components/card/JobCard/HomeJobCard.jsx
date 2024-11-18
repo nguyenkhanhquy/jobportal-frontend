@@ -13,7 +13,7 @@ const HomeJobCard = ({ job }) => {
             {/* Logo công ty */}
             <div className="flex-shrink-0">
                 <img
-                    src="https://res.cloudinary.com/dvutarxfu/image/upload/v1731772480/company/05542ff0-8101-4a55-9711-cb881d30e9f8/p1vau8pywwatddpbtewq.png" //{job.company.logo}
+                    src={job.company.logo}
                     alt={job.company.name}
                     className="h-24 w-24 rounded-md border object-cover"
                 />

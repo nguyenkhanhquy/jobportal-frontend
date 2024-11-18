@@ -64,9 +64,16 @@ const JobDetailHeader = ({ id, logo, title, companyName, address, updatedDate, e
 
             {/* Các nút hành động */}
             <div className="flex w-full flex-col gap-3 sm:w-auto">
-                <button className="w-full rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700">
-                    Ứng tuyển ngay
-                </button>
+                {expiryDate > new Date().toISOString() ? (
+                    <button className="w-full rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700">
+                        Ứng tuyển ngay
+                    </button>
+                ) : (
+                    <div className="w-full cursor-not-allowed rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white">
+                        Hết hạn ứng tuyển
+                    </div>
+                )}
+
                 <button
                     onClick={handleSaveJob}
                     className="w-full rounded-md border border-green-600 px-4 py-2 text-sm font-semibold text-green-600 hover:bg-green-100"

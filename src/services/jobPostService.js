@@ -25,6 +25,10 @@ export const getJobPostById = async (jobPostId) => {
     return axiosClient.get(JOBS_API.GET_BY_ID + jobPostId);
 };
 
+export const createJobPost = async (jobPost) => {
+    return axiosClient.post(JOBS_API.CREATE, jobPost);
+};
+
 export const saveJobPost = async (jobPostId) => {
     return axiosClient.post(JOBS_API.SAVE, {
         id: jobPostId,

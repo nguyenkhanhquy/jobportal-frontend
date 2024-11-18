@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import { toast } from "react-toastify";
+import { createJobPost } from "../../../../services/jobPostService";
+
 // Định nghĩa schema validation bằng Yup
 const schema = yup.object().shape({
     title: yup.string().required("Vui lòng nhập tiêu đề"),
@@ -19,22 +22,43 @@ const schema = yup.object().shape({
     requirements: yup.string().required("Vui lòng nhập yêu cầu ứng viên"),
     benefits: yup.string().required("Vui lòng nhập quyền lợi"),
     address: yup.string().required("Vui lòng nhập địa điểm làm việc"),
-    expiryDate: yup.date().typeError("Vui lòng nhập ngày hợp lệ").required("Vui lòng nhập thời hạn ứng tuyển"),
+    expiryDate: yup
+        .date()
+        .typeError("Vui lòng nhập ngày hợp lệ")
+        .required("Vui lòng nhập thời hạn ứng tuyển")
+        .min(new Date(), "Thời hạn ứng tuyển phải lớn hơn ngày hiện tại"),
 });
 
 const CreateJobPostForm = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        reset,
+        formState: { errors, isSubmitting },
     } = useForm({
         resolver: yupResolver(schema),
         mode: "onBlur",
     });
 
     // Xử lý khi submit form
-    const onSubmit = (data) => {
-        console.log("Dữ liệu đã submit:", data);
+    const onSubmit = async (dataForm) => {
+        try {
+            if (dataForm.expiryDate) {
+                const expiryDate = new Date(dataForm.expiryDate);
+                expiryDate.setDate(expiryDate.getDate() + 1); // Tăng thêm 1 ngày
+                dataForm.expiryDate = expiryDate.toISOString().split("T")[0]; // Định dạng YYYY-MM-DD
+            }
+            const data = await createJobPost(dataForm);
+
+            if (!data.success) {
+                if (data?.message) throw new Error(data.message);
+                else throw new Error("Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+            reset();
+            toast.success(data.message);
+        } catch (error) {
+            toast.error(error.message);
+        }
     };
 
     return (
@@ -172,7 +196,7 @@ const CreateJobPostForm = () => {
             </div>
 
             <button type="submit" className="mt-6 w-full rounded-lg bg-green-600 py-3 font-semibold text-white">
-                Tạo bài đăng
+                {isSubmitting ? "Đang tạo bài đăng..." : "Tạo bài đăng"}
             </button>
         </form>
     );

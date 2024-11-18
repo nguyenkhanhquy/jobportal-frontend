@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import CircularProgress from "@mui/material/CircularProgress";
 
 import MainLayout from "../../layouts/MainLayout/MainLayout";
 import SearchSection from "../../components/section/Home/SearchSection";
@@ -36,16 +35,8 @@ const HomePage = () => {
             {/* Section chứa thanh tìm kiếm */}
             <SearchSection title="Tìm kiếm công việc mơ ước của bạn" />
 
-            {loading ? (
-                <div className="flex items-center justify-center">
-                    <CircularProgress color="success" />
-                </div>
-            ) : (
-                <>
-                    {/* Section danh sách công việc */}
-                    <NewJobsSection jobData={jobData} />
-                </>
-            )}
+            {/* Section danh sách công việc */}
+            <NewJobsSection jobData={jobData} loading={loading} />
         </MainLayout>
     );
 };

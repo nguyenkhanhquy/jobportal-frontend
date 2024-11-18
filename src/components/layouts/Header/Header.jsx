@@ -39,7 +39,7 @@ const Header = ({ isSticky }) => {
                 </div>
 
                 {/* Menu chính */}
-                {user?.role === "JOB_SEEKER" && (
+                {user?.role !== "ADMIN" && user?.role !== "RECRUITER" && (
                     <nav className="hidden space-x-10 text-lg font-semibold text-gray-700 md:flex">
                         <Link to="/search" className="hover:text-green-600">
                             Việc làm
