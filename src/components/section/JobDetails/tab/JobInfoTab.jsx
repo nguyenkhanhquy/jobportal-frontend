@@ -8,7 +8,7 @@ const JobInfoTab = ({ description, requirements, benefits, address, workingTime 
             {/* Mô tả công việc */}
             <div className="mb-6">
                 <h3 className="mb-2 text-lg font-semibold text-green-700">Mô tả công việc</h3>
-                <p className="text-gray-700">{description || "Thông tin đang được cập nhật..."}</p>
+                <p className="ml-6 text-gray-700">{description || "Thông tin đang được cập nhật..."}</p>
             </div>
 
             <hr className="my-6 border-gray-300" />
@@ -16,17 +16,7 @@ const JobInfoTab = ({ description, requirements, benefits, address, workingTime 
             {/* Yêu cầu ứng viên */}
             <div className="mb-6">
                 <h3 className="mb-2 text-lg font-semibold text-green-700">Yêu cầu ứng viên</h3>
-                <ul className="ml-6 list-disc text-gray-700">
-                    {requirements && requirements.length > 0 ? (
-                        requirements.map((item, index) => (
-                            <li key={index} className="mb-2">
-                                {item}
-                            </li>
-                        ))
-                    ) : (
-                        <p>Thông tin đang được cập nhật...</p>
-                    )}
-                </ul>
+                <ul className="ml-6 text-gray-700">{requirements || "Thông tin đang được cập nhật..."}</ul>
             </div>
 
             <hr className="my-6 border-gray-300" />
@@ -34,17 +24,7 @@ const JobInfoTab = ({ description, requirements, benefits, address, workingTime 
             {/* Quyền lợi */}
             <div className="mb-6">
                 <h3 className="mb-2 text-lg font-semibold text-green-700">Quyền lợi</h3>
-                <ul className="ml-6 list-disc text-gray-700">
-                    {benefits && benefits.length > 0 ? (
-                        benefits.map((item, index) => (
-                            <li key={index} className="mb-2">
-                                {item}
-                            </li>
-                        ))
-                    ) : (
-                        <p>Thông tin đang được cập nhật...</p>
-                    )}
-                </ul>
+                <ul className="ml-6 text-gray-700">{benefits || "Thông tin đang được cập nhật..."}</ul>
             </div>
 
             <hr className="my-6 border-gray-300" />
@@ -75,8 +55,8 @@ const JobInfoTab = ({ description, requirements, benefits, address, workingTime 
 // Định nghĩa PropTypes để kiểm soát các kiểu dữ liệu truyền vào
 JobInfoTab.propTypes = {
     description: PropTypes.string,
-    requirements: PropTypes.arrayOf(PropTypes.string),
-    benefits: PropTypes.arrayOf(PropTypes.string),
+    requirements: PropTypes.string,
+    benefits: PropTypes.string,
     address: PropTypes.string,
     workingTime: PropTypes.string,
 };

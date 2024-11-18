@@ -48,7 +48,11 @@ const JobDetailsBody = ({ jobData }) => {
                 {activeTab === "companyInfo" && (
                     <div className="rounded-lg border bg-gray-50 p-4">
                         <h3 className="mb-2 text-lg font-semibold">Giới thiệu về công ty</h3>
-                        <p className="text-gray-600">Nội dung giới thiệu về công ty sẽ hiển thị ở đây.</p>
+                        <p className="text-gray-600">{jobData.company.description}</p>
+                        <h3 className="mb-2 text-lg font-semibold">Website</h3>
+                        <p className="text-gray-600">{jobData.company.website}</p>
+                        <h3 className="mb-2 text-lg font-semibold">Địa chỉ công ty</h3>
+                        <p className="text-gray-600">{jobData.company.address}</p>
                     </div>
                 )}
             </div>
