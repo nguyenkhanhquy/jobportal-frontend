@@ -65,3 +65,7 @@ export const updatePassword = async (password, newPassword) => {
 export const getAuthUser = async () => {
     return axiosClient.get(AUTH_API.ME);
 };
+
+export const getAuthProfile = async () => {
+    return axiosClient.get(AUTH_API.PROFILE);
+};

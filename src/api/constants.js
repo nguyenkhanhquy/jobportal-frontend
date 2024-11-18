@@ -2,6 +2,7 @@ export const AUTH_API = {
     LOGIN: "/auth/login",
     LOGOUT: "/auth/logout",
     ME: "/auth/me",
+    PROFILE: "/auth/profile",
     REGISTER_JOB_SEEKER: "/auth/register/job-seeker",
     REGISTER_RECRUITER: "/auth/register/recruiter",
     SEND_OTP: "/auth/send-otp",

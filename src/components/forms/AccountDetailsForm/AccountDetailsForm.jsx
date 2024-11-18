@@ -7,7 +7,7 @@ const AccountDetailsForm = ({ userDetails }) => {
 
             {/* Id tài khoản */}
             <div className="mb-4 flex items-center">
-                <label className="w-1/3 text-sm font-semibold text-gray-700">Id tài khoản:</label>
+                <label className="w-1/3 text-sm font-semibold text-gray-700">ID:</label>
                 <div className="flex-1 bg-transparent p-2 text-gray-800">{userDetails.id}</div>
             </div>
 
@@ -26,7 +26,7 @@ const AccountDetailsForm = ({ userDetails }) => {
             {/* Ngày tạo */}
             <div className="mb-4 flex items-center">
                 <label className="w-1/3 text-sm font-semibold text-gray-700">Ngày tạo:</label>
-                <div className="flex-1 bg-transparent p-2 text-gray-800">{userDetails.createdDate}</div>
+                <div className="flex-1 bg-transparent p-2 text-gray-800">{userDetails.registrationDate}</div>
             </div>
 
             {/* Trạng thái */}
@@ -42,13 +42,7 @@ const AccountDetailsForm = ({ userDetails }) => {
 
 // Định nghĩa kiểu dữ liệu của các props
 AccountDetailsForm.propTypes = {
-    userDetails: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        role: PropTypes.string.isRequired,
-        createdDate: PropTypes.string.isRequired,
-        active: PropTypes.bool.isRequired,
-    }).isRequired,
+    userDetails: PropTypes.object,
 };
 
 export default AccountDetailsForm;
