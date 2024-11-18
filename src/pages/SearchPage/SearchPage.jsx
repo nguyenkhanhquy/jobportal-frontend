@@ -2,6 +2,7 @@ import MainLayout from "../../layouts/MainLayout/MainLayout";
 import JobSearchBar from "../../components/search/SearchBar/JobSearchBar";
 import SearchJobCard from "../../components/card/JobCard/SearchJobCard";
 import CustomPagination from "../../components/pagination/Pagination";
+import SortBar from "../../components/search/SortBar/SortBar";
 
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -70,6 +71,7 @@ const SearchPage = () => {
                 }}
                 query={query}
             />
+            <SortBar totalRecords={totalRecords} sortOption={sort} onSortChange={setSort} />
 
             {loading ? (
                 <div className="flex justify-center py-4">
