@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import HomePage from "../pages/HomePage/HomePage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
+import VerifyPage from "../pages/VerifyPage/VerifyPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
 import SearchPage from "../pages/SearchPage/SearchPage";
@@ -15,6 +16,8 @@ import AppliedJobsPage from "../pages/AppliedJobsPage/AppliedJobsPage";
 import SavedJobsPage from "../pages/SavedJobsPage/SavedJobsPage";
 import UpdatePasswordPage from "../pages/UpdatePasswordPage/UpdatePasswordPage";
 import LogoutPage from "../pages/LogoutPage/LogoutPage";
+
+import RecruiterRegisterPage from "../pages/RecruiterPage/RecruiterRegisterPage/RecruiterRegisterPage";
 
 const AppRoutes = () => {
     const { user, isAuthenticated, loading } = useAuth();
@@ -37,21 +40,22 @@ const AppRoutes = () => {
 
     return (
         <BrowserRouter
-            future={{
-                v7_relativeSplatPath: true,
-                v7_startTransition: true,
-            }}
+        // future={{
+        //     v7_relativeSplatPath: true,
+        //     v7_startTransition: true,
+        // }}
         >
             <Routes>
                 <Route>
                     <Route index element={<HomePage />} />
                     <Route path="/search" element={<SearchPage />} />
-                    <Route path="/job-details" element={<JobDetailsPage />} />
+                    <Route path="/search/:id" element={<JobDetailsPage />} />
 
                     {isAuthenticated ? (
                         <>
                             <Route path="/login" element={<Navigate to="/" replace />} />
-                            <Route path="/register" element={<Navigate to="/" replace />} />
+                            <Route path="/register/job-seeker" element={<Navigate to="/" replace />} />
+                            <Route path="/register/recruiter" element={<RecruiterRegisterPage />} />
                             <Route path="/forgot-password" element={<Navigate to="/" replace />} />
                             <Route path="/reset-password" element={<Navigate to="/" replace />} />
 
@@ -65,7 +69,9 @@ const AppRoutes = () => {
                     ) : (
                         <>
                             <Route path="/login" element={<LoginPage />} />
-                            <Route path="/register" element={<RegisterPage />} />
+                            <Route path="/register/job-seeker" element={<RegisterPage />} />
+                            <Route path="/register/recruiter" element={<RecruiterRegisterPage />} />
+                            <Route path="/verify" element={<VerifyPage />} />
                             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                             <Route path="/reset-password" element={<ResetPasswordPage />} />
                         </>

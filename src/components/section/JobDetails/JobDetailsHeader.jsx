@@ -4,7 +4,26 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MoneyTwoToneIcon from "@mui/icons-material/MoneyTwoTone";
 
-const JobDetailHeader = ({ logo, title, companyName, address, updatedDate, expiryDate, salary }) => {
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { saveJobPost } from "../../../services/jobPostService";
+
+const JobDetailHeader = ({ id, logo, title, companyName, address, updatedDate, expiryDate, salary, saved }) => {
+    const [isSaved, setIsSaved] = useState(saved);
+
+    const handleSaveJob = async () => {
+        try {
+            const data = await saveJobPost(id);
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+            setIsSaved((prev) => !prev);
+            toast.success(data.message);
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+
     return (
         <div className="container mx-auto flex flex-col items-center gap-6 rounded-lg border bg-white p-4 shadow-lg sm:flex-row">
             {/* Logo công ty */}
@@ -48,8 +67,11 @@ const JobDetailHeader = ({ logo, title, companyName, address, updatedDate, expir
                 <button className="w-full rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700">
                     Ứng tuyển ngay
                 </button>
-                <button className="w-full rounded-md border border-green-600 px-4 py-2 text-sm font-semibold text-green-600 hover:bg-green-100">
-                    Lưu việc làm
+                <button
+                    onClick={handleSaveJob}
+                    className="w-full rounded-md border border-green-600 px-4 py-2 text-sm font-semibold text-green-600 hover:bg-green-100"
+                >
+                    {isSaved ? "Bỏ lưu việc làm" : "Lưu việc làm"}
                 </button>
             </div>
         </div>
@@ -57,6 +79,7 @@ const JobDetailHeader = ({ logo, title, companyName, address, updatedDate, expir
 };
 
 JobDetailHeader.propTypes = {
+    id: PropTypes.string.isRequired,
     logo: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     companyName: PropTypes.string.isRequired,
@@ -64,6 +87,7 @@ JobDetailHeader.propTypes = {
     updatedDate: PropTypes.string.isRequired,
     expiryDate: PropTypes.string.isRequired,
     salary: PropTypes.string.isRequired,
+    saved: PropTypes.bool.isRequired,
 };
 
 export default JobDetailHeader;

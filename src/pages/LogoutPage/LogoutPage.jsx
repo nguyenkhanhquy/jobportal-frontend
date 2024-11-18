@@ -52,7 +52,7 @@ const LogoutPage = () => {
                 width: "100vw",
             }}
         >
-            <CircularProgress />
+            <CircularProgress color="success" />
         </div>
     );
 };

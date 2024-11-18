@@ -92,7 +92,7 @@ const ForgotPasswordForm = () => {
                     <Link to="/login" className="text-green-600 hover:underline">
                         Quay lại đăng nhập
                     </Link>
-                    <Link to="/register" className="text-green-600 hover:underline">
+                    <Link to="/register/job-seeker" className="text-green-600 hover:underline">
                         Đăng ký tài khoản mới
                     </Link>
                 </div>

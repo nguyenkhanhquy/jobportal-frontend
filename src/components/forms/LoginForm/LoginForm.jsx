@@ -125,7 +125,7 @@ const LoginForm = () => {
                 {/* Đăng ký tài khoản */}
                 <p className="mt-6 text-center text-sm text-gray-600">
                     Bạn chưa có tài khoản?{" "}
-                    <Link to="/register" className="font-semibold text-green-600 hover:underline">
+                    <Link to="/register/job-seeker" className="font-semibold text-green-600 hover:underline">
                         Đăng ký ngay
                     </Link>
                 </p>

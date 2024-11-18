@@ -42,7 +42,7 @@ const JobDetailsSummary = ({ jobPosition, salary, remote, type, field }) => {
                 <div className="flex items-center">
                     <CategoryIcon className="mr-2 text-green-600" />
                     <span className="font-semibold">Lĩnh vực:</span>
-                    <span className="ml-2">{field}</span>
+                    <span className="ml-2">{field || "Thông tin đang được cập nhật..."}</span>
                 </div>
             </div>
         </div>
@@ -50,11 +50,11 @@ const JobDetailsSummary = ({ jobPosition, salary, remote, type, field }) => {
 };
 
 JobDetailsSummary.propTypes = {
-    jobPosition: PropTypes.string.isRequired,
-    salary: PropTypes.string.isRequired,
-    remote: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    field: PropTypes.string.isRequired,
+    jobPosition: PropTypes.string,
+    salary: PropTypes.string,
+    remote: PropTypes.string,
+    type: PropTypes.string,
+    field: PropTypes.string,
 };
 
 export default JobDetailsSummary;

@@ -1,13 +1,40 @@
 import MainLayout from "../../layouts/MainLayout/MainLayout";
 import AccountLayout from "../../layouts/AccountLayout/AccountLayout";
-import EmptyBox from "../../components/box/EmptyBox";
+import AccountDetailsForm from "../../components/forms/AccountDetailsForm/AccountDetailsForm";
+import CircularProgress from "@mui/material/CircularProgress";
+import { getAuthUser } from "../../services/authService";
+import { useEffect, useState } from "react";
 
 const AccountDetailsPage = () => {
+    const [loading, setLoading] = useState(true);
+    const [accountData, setAccountData] = useState({});
+
+    useEffect(() => {
+        const fetchAuthProfile = async () => {
+            setLoading(true);
+            try {
+                const data = await getAuthUser();
+                setAccountData(data.result);
+            } catch (error) {
+                console.log("Failed to fetch auth profile: ", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAuthProfile();
+    }, []);
+
     return (
         <MainLayout title="Tài khoản">
             <AccountLayout>
-                <h2 className="mb-4 text-2xl font-semibold">Thông tin tài khoản</h2>
-                <EmptyBox />
+                {loading ? (
+                    <div className="flex h-full items-center justify-center">
+                        <CircularProgress color="success" />
+                    </div>
+                ) : (
+                    <AccountDetailsForm userDetails={accountData} />
+                )}
             </AccountLayout>
         </MainLayout>
     );

@@ -21,6 +21,10 @@ export const getPopularJobPosts = async () => {
     });
 };
 
+export const getJobPostById = async (jobPostId) => {
+    return axiosClient.get(JOBS_API.GET_BY_ID + jobPostId);
+};
+
 export const saveJobPost = async (jobPostId) => {
     return axiosClient.post(JOBS_API.SAVE, {
         id: jobPostId,

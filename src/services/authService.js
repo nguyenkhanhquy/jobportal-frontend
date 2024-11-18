@@ -22,9 +22,28 @@ export const registerJobSeeker = async (jobSeeker) => {
     });
 };
 
+export const registerRecruiter = async (recruiter) => {
+    return axiosClient.post(AUTH_API.REGISTER_RECRUITER, {
+        email: recruiter.email,
+        password: recruiter.password,
+        company: recruiter.company,
+        name: recruiter.name,
+        position: recruiter.position,
+        phone: recruiter.phone,
+        recruiterEmail: recruiter.recruiterEmail,
+    });
+};
+
 export const sendOTP = async (email) => {
     return axiosClient.post(AUTH_API.SEND_OTP, {
         email: email,
+    });
+};
+
+export const activeAccount = async (email, otp) => {
+    return axiosClient.post(AUTH_API.ACTIVE, {
+        email: email,
+        otp: otp,
     });
 };
 
@@ -45,4 +64,8 @@ export const updatePassword = async (password, newPassword) => {
 
 export const getAuthUser = async () => {
     return axiosClient.get(AUTH_API.ME);
+};
+
+export const getAuthProfile = async () => {
+    return axiosClient.get(AUTH_API.PROFILE);
 };

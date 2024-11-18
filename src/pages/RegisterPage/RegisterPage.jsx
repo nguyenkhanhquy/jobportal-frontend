@@ -1,7 +1,9 @@
 import RegisterForm from "../../components/forms/RegisterForm/RegisterForm";
 import Public_layout_cover from "/images/public_layout_cover.jpg";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const RegisterPage = () => {
+    usePageTitle("Đăng ký");
     return (
         <div className="flex h-screen">
             {/* Bên trái: Form đăng ký chiếm 5/9 */}
