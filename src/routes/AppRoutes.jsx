@@ -49,10 +49,16 @@ const AppRoutes = () => {
         // }}
         >
             <Routes>
-                <Route>
-                    <Route index element={<HomePage />} />
-                    <Route path="/search" element={<SearchPage />} />
-                    <Route path="/search/:id" element={<JobDetailsPage />} />
+                <Route path="/">
+                    {["ADMIN", "RECRUITER"].includes(user?.role) ? (
+                        <Route index element={<Navigate to="/account" replace />} />
+                    ) : (
+                        <>
+                            <Route index element={<HomePage />} />
+                            <Route path="/search" element={<SearchPage />} />
+                            <Route path="/search/:id" element={<JobDetailsPage />} />
+                        </>
+                    )}
 
                     {isAuthenticated ? (
                         <>
@@ -81,6 +87,7 @@ const AppRoutes = () => {
                             <Route path="/applied-jobs" element={<AppliedJobsPage />} />
                             <Route path="/saved-jobs" element={<SavedJobsPage />} />
                             <Route path="/update-password" element={<UpdatePasswordPage />} />
+
                             <Route path="/logout" element={<LogoutPage />} />
                         </>
                     ) : (
