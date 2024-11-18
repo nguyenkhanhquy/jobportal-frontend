@@ -4,7 +4,6 @@ import AccountDetailsForm from "../../components/forms/AccountDetailsForm/Accoun
 import CircularProgress from "@mui/material/CircularProgress";
 import { getAuthUser } from "../../services/authService";
 import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
 
 const AccountDetailsPage = () => {
     const [loading, setLoading] = useState(true);
@@ -30,13 +29,7 @@ const AccountDetailsPage = () => {
         <MainLayout title="Tài khoản">
             <AccountLayout>
                 {loading ? (
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
+                    <div className="flex h-full items-center justify-center">
                         <CircularProgress color="success" />
                     </div>
                 ) : (
