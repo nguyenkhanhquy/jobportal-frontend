@@ -18,6 +18,7 @@ import UpdatePasswordPage from "../pages/UpdatePasswordPage/UpdatePasswordPage";
 import LogoutPage from "../pages/LogoutPage/LogoutPage";
 
 import RecruiterRegisterPage from "../pages/RecruiterPage/RecruiterRegisterPage/RecruiterRegisterPage";
+import RecruiterProfilePage from "../pages/RecruiterPage/RecruiterProfilePage/RecruiterProfilePage";
 
 const AppRoutes = () => {
     const { user, isAuthenticated, loading } = useAuth();
@@ -60,7 +61,19 @@ const AppRoutes = () => {
                             <Route path="/reset-password" element={<Navigate to="/" replace />} />
 
                             <Route path="/account" element={<AccountDetailsPage />} />
-                            <Route path="/profile" element={<ProfilePage />} />
+                            <Route
+                                path="/profile"
+                                element={(() => {
+                                    switch (user?.role) {
+                                        case "JOB_SEEKER":
+                                            return <ProfilePage />;
+                                        case "RECRUITER":
+                                            return <RecruiterProfilePage />;
+                                        default:
+                                            return <Navigate to="/" replace />;
+                                    }
+                                })()}
+                            />
                             <Route path="/applied-jobs" element={<AppliedJobsPage />} />
                             <Route path="/saved-jobs" element={<SavedJobsPage />} />
                             <Route path="/update-password" element={<UpdatePasswordPage />} />
