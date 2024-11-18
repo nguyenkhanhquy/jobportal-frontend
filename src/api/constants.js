@@ -22,3 +22,7 @@ export const JOBS_SAVED_API = {
     GET_ALL: "/jobs/saved",
     DELETE_ALL: "/jobs/saved",
 };
+
+export const JOB_SEEKER_API = {
+    UPDATE_PROFILE: "/job-seeker/update-profile",
+};
