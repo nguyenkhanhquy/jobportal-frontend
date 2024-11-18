@@ -1,30 +1,59 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "/images/logo.png";
+
+import { sendOTP, activeAccount } from "../../../services/authService";
 
 // Schema xác thực bằng Yup
 const schema = yup.object().shape({
-    otp: yup.string().matches(/^\d+$/, "Mã xác nhận chỉ chứa số").required("Vui lòng nhập mã xác nhận"),
+    otp: yup.string().required("Vui lòng nhập mã xác nhận").matches(/^\d+$/, "Mã xác nhận chỉ chứa số"),
 });
 
 const VerifyForm = ({ email }) => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitting },
     } = useForm({
         resolver: yupResolver(schema),
         mode: "onTouched",
     });
 
-    // State cho đếm ngược
-    const [countdown, setCountdown] = useState(300); // 5 phút = 300 giây
+    const [isResending, setIsResending] = useState(false);
+    const [countdown, setCountdown] = useState(0); // 5 phút = 300 giây
+
+    const hasSentOTP = useRef(false);
+
+    const sendFirstTime = async (email) => {
+        // setLoading(true);
+        try {
+            const data = await sendOTP(email);
+
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+
+            toast.success(data.message);
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            // setLoading(false);
+            setCountdown(300);
+        }
+    };
+
+    useEffect(() => {
+        if (!hasSentOTP.current) {
+            sendFirstTime(email);
+            hasSentOTP.current = true;
+        }
+    }, [email]);
 
     useEffect(() => {
         if (countdown > 0) {
@@ -40,14 +69,44 @@ const VerifyForm = ({ email }) => {
         return `${minutes} phút ${secs} giây`;
     };
 
-    const handleResendOTP = () => {
-        alert("Mã xác nhận đã được gửi lại!");
-        setCountdown(300); // Reset thời gian đếm ngược
+    const handleResendOTP = async () => {
+        // setLoading(true);
+        setIsResending(true);
+        try {
+            const data = await sendOTP(email);
+
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+
+            toast.success(data.message);
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            // setLoading(false);
+            setIsResending(false);
+            setCountdown(300); // Reset thời gian đếm ngược
+        }
     };
 
-    const onSubmit = (formData) => {
-        console.log(formData);
-        alert("Xác thực tài khoản thành công!");
+    const onSubmit = async (formData) => {
+        // setLoading(true);
+        // setIsVerifying(true);
+        try {
+            const data = await activeAccount(email, formData.otp);
+
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+
+            toast.success(data.message);
+            navigate("/login");
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            // setLoading(false);
+            // setIsVerifying(false);
+        }
     };
 
     return (
@@ -88,9 +147,10 @@ const VerifyForm = ({ email }) => {
                             <button
                                 type="button"
                                 onClick={handleResendOTP}
+                                disabled={isResending}
                                 className="ml-2 mt-1 w-36 rounded-md border border-green-600 bg-white px-4 py-2 text-green-600 hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500"
                             >
-                                Gửi lại mã
+                                {isResending ? "Đang gửi" : "Gửi lại mã"}
                             </button>
                         </div>
                         {errors.otp && <p className="mt-1 text-sm text-red-500">{errors.otp.message}</p>}
@@ -101,13 +161,13 @@ const VerifyForm = ({ email }) => {
                         type="submit"
                         className="w-full rounded-md bg-green-600 px-4 py-2 font-semibold text-white shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
                     >
-                        Xác thực tài khoản
+                        {isSubmitting ? "Đang xác thực tài khoản" : "Xác thực tài khoản"}
                     </button>
                 </form>
 
                 {/* Link đổi email */}
                 <div className="mt-6 text-center text-sm text-gray-600">
-                    <Link to="/register" className="text-green-600 hover:underline">
+                    <Link to="/register/job-seeker" className="text-green-600 hover:underline">
                         Trở lại
                     </Link>
                 </div>

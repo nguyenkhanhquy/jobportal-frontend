@@ -12,6 +12,8 @@ import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { registerRecruiter } from "../../../../services/authService";
+
 const regexEmail =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -49,11 +51,21 @@ const RecruiterRegisterForm = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [isAgree, setIsAgree] = useState(true);
 
-    const onSubmit = (formData) => {
-        // Xử lý logic đăng ký ở đây
-        console.log(formData);
-        toast.success("Đăng ký thành công!");
-        navigate("/login");
+    const onSubmit = async (formData) => {
+        // setLoading(true);
+        try {
+            const data = await registerRecruiter(formData);
+
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+
+            navigate("/verify", { state: { email: formData.email } });
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            // setLoading(false);
+        }
     };
 
     return (

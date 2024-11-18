@@ -40,22 +40,22 @@ const AppRoutes = () => {
 
     return (
         <BrowserRouter
-            future={{
-                v7_relativeSplatPath: true,
-                v7_startTransition: true,
-            }}
+        // future={{
+        //     v7_relativeSplatPath: true,
+        //     v7_startTransition: true,
+        // }}
         >
             <Routes>
                 <Route>
                     <Route index element={<HomePage />} />
                     <Route path="/search" element={<SearchPage />} />
                     <Route path="/job-details" element={<JobDetailsPage />} />
-                    <Route path="/recruiter/register" element={<RecruiterRegisterPage />} />
 
                     {isAuthenticated ? (
                         <>
                             <Route path="/login" element={<Navigate to="/" replace />} />
-                            <Route path="/register" element={<Navigate to="/" replace />} />
+                            <Route path="/register/job-seeker" element={<Navigate to="/" replace />} />
+                            <Route path="/register/recruiter" element={<RecruiterRegisterPage />} />
                             <Route path="/forgot-password" element={<Navigate to="/" replace />} />
                             <Route path="/reset-password" element={<Navigate to="/" replace />} />
 
@@ -69,7 +69,8 @@ const AppRoutes = () => {
                     ) : (
                         <>
                             <Route path="/login" element={<LoginPage />} />
-                            <Route path="/register" element={<RegisterPage />} />
+                            <Route path="/register/job-seeker" element={<RegisterPage />} />
+                            <Route path="/register/recruiter" element={<RecruiterRegisterPage />} />
                             <Route path="/verify" element={<VerifyPage />} />
                             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                             <Route path="/reset-password" element={<ResetPasswordPage />} />

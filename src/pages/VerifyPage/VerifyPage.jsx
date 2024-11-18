@@ -3,11 +3,9 @@ import VerifyForm from "../../components/forms/VerifyForm/VerifyForm";
 import AuthLayout from "../../layouts/AuthLayout/AuthLayout";
 
 const VerifyPage = () => {
-    // const location = useLocation();
+    const location = useLocation();
 
-    // const email = location.state?.email;
-
-    const email = "dinhnguyen@gmail.com";
+    const email = location.state?.email;
 
     return email ? (
         <AuthLayout title={"Xác thực tài khoản"}>

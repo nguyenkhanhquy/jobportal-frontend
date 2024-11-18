@@ -38,19 +38,16 @@ const RegisterForm = () => {
     const navigate = useNavigate();
     const [isAgree, setIsAgree] = useState(true);
 
-    const onSubmit = async (formdata) => {
+    const onSubmit = async (formData) => {
         // setLoading(true);
         try {
-            const data = await registerJobSeeker(formdata);
+            const data = await registerJobSeeker(formData);
 
             if (!data.success) {
                 throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
             }
 
-            toast.success(data.message);
-            navigate("/login");
-
-            // navigate("/verify", { state: { email: formData.email, action: "activate-account" } });
+            navigate("/verify", { state: { email: formData.email } });
         } catch (error) {
             toast.error(error.message);
         } finally {

@@ -136,13 +136,13 @@ const Header = ({ isSticky }) => {
                                 Đăng nhập
                             </Link>
                             <Link
-                                to="/register"
+                                to="/register/job-seeker"
                                 className="rounded-md bg-green-600 px-4 py-2 font-semibold text-white hover:bg-green-700"
                             >
                                 Đăng ký
                             </Link>
                             <Link
-                                to="/recruiter/register"
+                                to="/register/recruiter"
                                 className="rounded-md bg-slate-800 px-4 py-2 font-semibold text-white hover:bg-slate-900"
                             >
                                 Đăng tuyển & tìm hồ sơ
@@ -208,14 +208,14 @@ const Header = ({ isSticky }) => {
                         Đăng nhập
                     </Link>
                     <Link
-                        to="/register"
+                        to="/register/job-seeker"
                         className="block rounded-md bg-green-600 px-4 py-2 text-center font-semibold text-white hover:bg-green-700"
                         onClick={() => setMobileMenuOpen(false)}
                     >
                         Đăng ký
                     </Link>
                     <Link
-                        to="/login?employer=true"
+                        to="/register/recruiter"
                         className="block rounded-md bg-slate-800 px-4 py-2 text-center font-semibold text-white hover:bg-slate-900"
                         onClick={() => setMobileMenuOpen(false)}
                     >
