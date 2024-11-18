@@ -1,13 +1,20 @@
 import MainLayout from "../../layouts/MainLayout/MainLayout";
 import AccountLayout from "../../layouts/AccountLayout/AccountLayout";
-import EmptyBox from "../../components/box/EmptyBox";
+import AccountDetailsForm from "../../components/forms/AccountDetailsForm/AccountDetailsForm";
+
+const accountData = {
+    id: "123456",
+    email: "user@example.com",
+    role: "Admin",
+    createdDate: "2024-11-18",
+    active: true,
+};
 
 const AccountDetailsPage = () => {
     return (
         <MainLayout title="Tài khoản">
             <AccountLayout>
-                <h2 className="mb-4 text-2xl font-semibold">Thông tin tài khoản</h2>
-                <EmptyBox />
+                <AccountDetailsForm userDetails={accountData} />
             </AccountLayout>
         </MainLayout>
     );

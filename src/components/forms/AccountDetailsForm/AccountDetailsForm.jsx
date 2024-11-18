@@ -1,0 +1,54 @@
+import PropTypes from "prop-types";
+
+const AccountDetailsForm = ({ userDetails }) => {
+    return (
+        <div className="mx-auto max-w-lg p-6">
+            <h2 className="mb-6 text-2xl font-bold text-green-700">Thông tin tài khoản</h2>
+
+            {/* Id tài khoản */}
+            <div className="mb-4 flex items-center">
+                <label className="w-1/3 text-sm font-semibold text-gray-700">Id tài khoản:</label>
+                <div className="flex-1 bg-transparent p-2 text-gray-800">{userDetails.id}</div>
+            </div>
+
+            {/* Email */}
+            <div className="mb-4 flex items-center">
+                <label className="w-1/3 text-sm font-semibold text-gray-700">Email:</label>
+                <div className="flex-1 bg-transparent p-2 text-gray-800">{userDetails.email}</div>
+            </div>
+
+            {/* Quyền truy cập */}
+            <div className="mb-4 flex items-center">
+                <label className="w-1/3 text-sm font-semibold text-gray-700">Quyền truy cập:</label>
+                <div className="flex-1 bg-transparent p-2 text-gray-800">{userDetails.role}</div>
+            </div>
+
+            {/* Ngày tạo */}
+            <div className="mb-4 flex items-center">
+                <label className="w-1/3 text-sm font-semibold text-gray-700">Ngày tạo:</label>
+                <div className="flex-1 bg-transparent p-2 text-gray-800">{userDetails.createdDate}</div>
+            </div>
+
+            {/* Trạng thái */}
+            <div className="mb-4 flex items-center">
+                <label className="w-1/3 text-sm font-semibold text-gray-700">Trạng thái:</label>
+                <div className={`flex-1 p-2 ${userDetails.active ? "text-green-700" : "text-red-700"}`}>
+                    {userDetails.active ? "Đã kích hoạt" : "Chưa kích hoạt"}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// Định nghĩa kiểu dữ liệu của các props
+AccountDetailsForm.propTypes = {
+    userDetails: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        role: PropTypes.string.isRequired,
+        createdDate: PropTypes.string.isRequired,
+        active: PropTypes.bool.isRequired,
+    }).isRequired,
+};
+
+export default AccountDetailsForm;
