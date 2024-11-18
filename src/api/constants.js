@@ -26,3 +26,7 @@ export const JOBS_SAVED_API = {
 export const JOB_SEEKER_API = {
     UPDATE_PROFILE: "/job-seeker/update-profile",
 };
+
+export const RECRUITERS_API = {
+    UPDATE_PROFILE: "/recruiters/update-profile",
+};

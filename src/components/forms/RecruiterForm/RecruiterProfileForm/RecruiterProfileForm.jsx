@@ -3,6 +3,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import PropTypes from "prop-types";
 
+import { updateProfile } from "../../../../services/recruiterService";
+import { toast } from "react-toastify";
+
 // Regex email kiểm tra hợp lệ
 const regexEmail =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -23,14 +26,14 @@ const schema = yup.object().shape({
     website: yup.string().url("Website không hợp lệ").required("Vui lòng nhập website"),
     companyAddress: yup.string().required("Vui lòng nhập địa chỉ công ty"),
     description: yup.string().required("Vui lòng nhập giới thiệu công ty"),
-    companyLogo: yup.mixed().required("Vui lòng chọn logo công ty"),
+    // companyLogo: yup.mixed().required("Vui lòng chọn logo công ty"),
 });
 
 const RecruiterProfileForm = ({ userDetails }) => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitting },
     } = useForm({
         defaultValues: userDetails,
         resolver: yupResolver(schema),
@@ -38,8 +41,18 @@ const RecruiterProfileForm = ({ userDetails }) => {
     });
 
     // Xử lý khi submit form
-    const onSubmit = (data) => {
-        console.log("Dữ liệu đã submit:", data);
+    const onSubmit = async (dataForm) => {
+        try {
+            const data = await updateProfile(dataForm);
+
+            if (!data.success) {
+                if (data?.message) throw new Error(data.message);
+                else throw new Error("Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+            toast.success(data.message);
+        } catch (error) {
+            toast.error(error.message);
+        }
     };
 
     return (
@@ -160,7 +173,7 @@ const RecruiterProfileForm = ({ userDetails }) => {
                 type="submit"
                 className="mt-8 w-full rounded-lg bg-green-600 py-3 font-semibold text-white hover:bg-green-700"
             >
-                Lưu
+                {isSubmitting ? "Đang lưu..." : "Lưu"}
             </button>
         </form>
     );

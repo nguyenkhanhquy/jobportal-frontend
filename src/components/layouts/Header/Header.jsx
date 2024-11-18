@@ -39,17 +39,19 @@ const Header = ({ isSticky }) => {
                 </div>
 
                 {/* Menu chính */}
-                <nav className="hidden space-x-10 text-lg font-semibold text-gray-700 md:flex">
-                    <Link to="/search" className="hover:text-green-600">
-                        Việc làm
-                    </Link>
-                    <Link to="/categories" className="hover:text-green-600">
-                        Ngành nghề
-                    </Link>
-                    <Link to="/resume" className="hover:text-green-600">
-                        Hồ sơ & CV
-                    </Link>
-                </nav>
+                {user?.role === "JOB_SEEKER" && (
+                    <nav className="hidden space-x-10 text-lg font-semibold text-gray-700 md:flex">
+                        <Link to="/search" className="hover:text-green-600">
+                            Việc làm
+                        </Link>
+                        <Link to="/categories" className="hover:text-green-600">
+                            Ngành nghề
+                        </Link>
+                        <Link to="/resume" className="hover:text-green-600">
+                            Hồ sơ & CV
+                        </Link>
+                    </nav>
+                )}
 
                 <div className="hidden space-x-4 md:flex">
                     {isAuthenticated ? (
@@ -60,7 +62,9 @@ const Header = ({ isSticky }) => {
                                     className="flex items-center gap-2 rounded-md border border-gray-300 px-4 py-2 font-semibold text-gray-700 hover:bg-gray-50"
                                 >
                                     <AccountCircleIcon />
-                                    Tài khoản
+                                    {user?.role === "JOB_SEEKER" && "Tài khoản"}
+                                    {user?.role === "RECRUITER" && "Nhà tuyển dụng"}
+                                    {user?.role === "ADMIN" && "Quản trị viên"}
                                     <ExpandMoreIcon />
                                 </button>
 
@@ -86,33 +90,68 @@ const Header = ({ isSticky }) => {
                                                     Đổi mật khẩu
                                                 </Link>
                                             </li>
-                                            <li>
-                                                <Link
-                                                    to="/profile"
-                                                    className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
-                                                    onClick={() => setAccountMenuOpen(false)}
-                                                >
-                                                    Hồ sơ của tôi
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link
-                                                    to="/saved-jobs"
-                                                    className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
-                                                    onClick={() => setAccountMenuOpen(false)}
-                                                >
-                                                    Việc đã lưu
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link
-                                                    to="/applied-jobs"
-                                                    className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
-                                                    onClick={() => setAccountMenuOpen(false)}
-                                                >
-                                                    Việc đã ứng tuyển
-                                                </Link>
-                                            </li>
+                                            {user?.role === "JOB_SEEKER" && (
+                                                <>
+                                                    <li>
+                                                        <Link
+                                                            to="/profile"
+                                                            className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
+                                                            onClick={() => setAccountMenuOpen(false)}
+                                                        >
+                                                            Hồ sơ của tôi
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link
+                                                            to="/saved-jobs"
+                                                            className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
+                                                            onClick={() => setAccountMenuOpen(false)}
+                                                        >
+                                                            Việc đã lưu
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link
+                                                            to="/applied-jobs"
+                                                            className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
+                                                            onClick={() => setAccountMenuOpen(false)}
+                                                        >
+                                                            Việc đã ứng tuyển
+                                                        </Link>
+                                                    </li>
+                                                </>
+                                            )}
+                                            {user?.role === "RECRUITER" && (
+                                                <>
+                                                    <li>
+                                                        <Link
+                                                            to="/profile"
+                                                            className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
+                                                            onClick={() => setAccountMenuOpen(false)}
+                                                        >
+                                                            Hồ sơ của tôi
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link
+                                                            to="/recruiter/create-job-post"
+                                                            className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
+                                                            onClick={() => setAccountMenuOpen(false)}
+                                                        >
+                                                            Đăng bài tuyển dụng
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link
+                                                            to="/recruiter/posted-jobs"
+                                                            className="block rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 hover:text-green-700"
+                                                            onClick={() => setAccountMenuOpen(false)}
+                                                        >
+                                                            Việc đã đăng tuyển
+                                                        </Link>
+                                                    </li>
+                                                </>
+                                            )}
                                             <li>
                                                 <Link
                                                     to="/logout"

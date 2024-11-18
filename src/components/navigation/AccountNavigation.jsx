@@ -1,25 +1,41 @@
 import { Link, useLocation } from "react-router-dom";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LockIcon from "@mui/icons-material/Lock";
-import DescriptionIcon from "@mui/icons-material/Description";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
 import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+
+import useAuth from "../../hooks/useAuth";
+
+const navItemsByRole = {
+    JOB_SEEKER: [
+        { name: "Tài khoản", path: "/account", icon: <AccountCircleOutlinedIcon /> },
+        { name: "Đổi mật khẩu", path: "/update-password", icon: <LockOutlinedIcon /> },
+        { name: "Hồ sơ của tôi", path: "/profile", icon: <DescriptionOutlinedIcon /> },
+        { name: "Việc đã lưu", path: "/saved-jobs", icon: <FavoriteBorderIcon /> },
+        { name: "Việc đã ứng tuyển", path: "/applied-jobs", icon: <WorkOutlineIcon /> },
+    ],
+    RECRUITER: [
+        { name: "Tài khoản", path: "/account", icon: <AccountCircleOutlinedIcon /> },
+        { name: "Đổi mật khẩu", path: "/update-password", icon: <LockOutlinedIcon /> },
+        { name: "Hồ sơ của tôi", path: "/profile", icon: <DescriptionOutlinedIcon /> },
+        { name: "Đăng bài tuyển dụng", path: "/recruiter/create-job-post", icon: <PostAddOutlinedIcon /> },
+        { name: "Việc đã đăng tuyển", path: "/recruiter/posted-jobs", icon: <ChecklistOutlinedIcon /> },
+    ],
+    ADMIN: [
+        { name: "Tài khoản", path: "/account", icon: <AccountCircleOutlinedIcon /> },
+        { name: "Đổi mật khẩu", path: "/update-password", icon: <LockOutlinedIcon /> },
+    ],
+};
 
 const AccountNavigation = () => {
+    const { user } = useAuth();
     const location = useLocation();
 
     // Các mục trong thanh điều hướng với icon từ Material UI
-    const navItems = [
-        { name: "Tài khoản", path: "/account", icon: <AccountCircleIcon /> },
-        { name: "Đổi mật khẩu", path: "/update-password", icon: <LockIcon /> },
-        { name: "Hồ sơ của tôi", path: "/profile", icon: <DescriptionIcon /> },
-        { name: "Việc đã lưu", path: "/saved-jobs", icon: <FavoriteBorderIcon /> },
-        { name: "Việc đã ứng tuyển", path: "/applied-jobs", icon: <WorkOutlineIcon /> },
-        { name: "Đăng bài tuyển dụng", path: "/recruiter/create-job-post", icon: <PostAddOutlinedIcon /> },
-        { name: "Việc đã đăng tuyển", path: "/recruiter/posted-jobs", icon: <ChecklistOutlinedIcon /> },
-    ];
+    const navItems = navItemsByRole[user?.role] || [];
 
     return (
         <div className="sticky top-4 w-full max-w-xs rounded-xl bg-white p-4 shadow-lg">

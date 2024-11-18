@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import { saveJobPost } from "../../../services/jobPostService";
 
-const SearchJobCard = ({ id, logo, title, salary, companyName, address, type, updatedDate, saved }) => {
+const SearchJobCard = ({ id, logo, title, salary, companyName, remote, type, updatedDate, saved }) => {
     const [isSaved, setIsSaved] = useState(saved);
 
     const handleCardClick = () => {
@@ -67,7 +67,7 @@ const SearchJobCard = ({ id, logo, title, salary, companyName, address, type, up
                 {/* Thông tin bổ sung: Địa điểm và kinh nghiệm */}
                 <div className="mb-2 mt-2 flex flex-wrap items-center gap-2">
                     <span className="rounded-3xl bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">
-                        {address}
+                        {remote}
                     </span>
                     <span className="rounded-3xl bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">{type}</span>
                 </div>
@@ -105,7 +105,7 @@ SearchJobCard.propTypes = {
     title: PropTypes.string.isRequired,
     salary: PropTypes.string.isRequired,
     companyName: PropTypes.string.isRequired,
-    address: PropTypes.string.isRequired,
+    remote: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     updatedDate: PropTypes.string.isRequired,
     saved: PropTypes.bool,

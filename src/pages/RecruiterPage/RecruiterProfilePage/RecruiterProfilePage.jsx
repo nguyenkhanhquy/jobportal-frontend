@@ -2,25 +2,60 @@ import MainLayout from "../../../layouts/MainLayout/MainLayout";
 import AccountLayout from "../../../layouts/AccountLayout/AccountLayout";
 import RecruiterProfileForm from "../../../components/forms/RecruiterForm/RecruiterProfileForm/RecruiterProfileForm";
 
+import { getAuthProfile } from "../../../services/authService";
+import { useEffect, useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
+
 const RecruiterProfilePage = () => {
-    // Dữ liệu mẫu
-    const mockData = {
-        name: "Nguyễn Văn A",
-        position: "Giám đốc",
-        recruiterEmail: "nguyenvana@company.com",
-        phone: "0912345678",
-        companyName: "Công ty TNHH ABC",
-        website: "https://www.abc.com",
-        companyAddress: "123 Đường ABC, Quận 1, TP.HCM",
-        description: "Công ty TNHH ABC là một trong những công ty hàng đầu trong lĩnh vực công nghệ thông tin.",
-        companyLogo: null,
-    };
+    const [loading, setLoading] = useState(true);
+    const [userDetails, setUserDetails] = useState({
+        name: "",
+        position: "",
+        recruiterEmail: "",
+        phone: "",
+        companyName: "",
+        website: "",
+        companyAddress: "",
+        description: "",
+        companyLogo: "",
+    });
+
+    useEffect(() => {
+        const fetchAuthProfile = async () => {
+            setLoading(true);
+            try {
+                const data = await getAuthProfile();
+                setUserDetails({
+                    name: data.result.name,
+                    position: data.result.position,
+                    recruiterEmail: data.result.recruiterEmail,
+                    phone: data.result.phone,
+                    companyName: data.result.company.name,
+                    website: data.result.company.website,
+                    companyAddress: data.result.company.address,
+                    description: data.result.company.description,
+                    companyLogo: data.result.company.logo,
+                });
+            } catch (error) {
+                console.log("Failed to fetch auth profile: ", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAuthProfile();
+    }, []);
 
     return (
         <MainLayout title="Hồ sơ của tôi">
             <AccountLayout>
-                {/* Truyền mockData vào RecruiterProfileForm */}
-                <RecruiterProfileForm userDetails={mockData} />
+                {loading ? (
+                    <div className="flex h-full items-center justify-center">
+                        <CircularProgress color="success" />
+                    </div>
+                ) : (
+                    <RecruiterProfileForm userDetails={userDetails} />
+                )}
             </AccountLayout>
         </MainLayout>
     );

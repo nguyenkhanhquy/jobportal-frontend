@@ -87,7 +87,7 @@ const SearchPage = () => {
                                     title={job.title}
                                     salary={job.salary}
                                     companyName={job.company.name}
-                                    address={job.address}
+                                    remote={job.remote}
                                     type={job.type}
                                     updatedDate={job.updatedDate}
                                     saved={job.saved}
