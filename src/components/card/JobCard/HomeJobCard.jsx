@@ -11,8 +11,15 @@ const HomeJobCard = ({ job }) => {
         setIsFavorite(!isFavorite);
     };
 
+    const handleCardClick = () => {
+        window.open(`/search/${job.id}`, "_blank");
+    };
+
     return (
-        <div className="flex w-[400px] items-start justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition duration-200 ease-in-out hover:border-green-500 hover:shadow-lg">
+        <div
+            onClick={handleCardClick}
+            className="flex w-[400px] cursor-pointer items-start justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition duration-200 ease-in-out hover:border-green-500 hover:shadow-lg"
+        >
             {/* Logo công ty */}
             <div className="flex-shrink-0">
                 <img

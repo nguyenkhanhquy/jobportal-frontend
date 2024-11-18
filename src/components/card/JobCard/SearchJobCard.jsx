@@ -8,6 +8,10 @@ import { saveJobPost } from "../../../services/jobPostService";
 const SearchJobCard = ({ id, logo, title, salary, companyName, address, type, updatedDate, saved }) => {
     const [isSaved, setIsSaved] = useState(saved);
 
+    const handleCardClick = () => {
+        window.open(`/search/${id}`, "_blank");
+    };
+
     const handleSaveJob = async () => {
         try {
             const data = await saveJobPost(id);
@@ -30,7 +34,10 @@ const SearchJobCard = ({ id, logo, title, salary, companyName, address, type, up
     }, [id, saved]);
 
     return (
-        <div className="flex w-full max-w-4xl rounded-2xl border border-green-200 bg-green-50 p-3 shadow-sm transition duration-200 ease-in-out hover:border-green-500 hover:shadow-md">
+        <div
+            onClick={handleCardClick}
+            className="flex w-full max-w-4xl cursor-pointer rounded-2xl border border-green-200 bg-green-50 p-3 shadow-sm transition duration-200 ease-in-out hover:border-green-500 hover:shadow-md"
+        >
             {/* Logo công ty */}
             <div className="flex-shrink-0">
                 <img src={logo} alt={companyName} className="h-32 w-32 rounded-md border bg-white object-cover" />
@@ -77,7 +84,10 @@ const SearchJobCard = ({ id, logo, title, salary, companyName, address, type, up
 
                     {/* Nút yêu thích */}
                     <button
-                        onClick={handleSaveJob}
+                        onClick={(event) => {
+                            event.stopPropagation(); // Ngăn chặn sự kiện onClick lan truyền
+                            handleSaveJob();
+                        }}
                         className="pt-1 text-green-500 hover:text-green-600 focus:outline-none"
                     >
                         {isSaved ? <Favorite className="h-6 w-6" /> : <FavoriteBorder className="h-6 w-6" />}

@@ -49,7 +49,7 @@ const AppRoutes = () => {
                 <Route>
                     <Route index element={<HomePage />} />
                     <Route path="/search" element={<SearchPage />} />
-                    <Route path="/job-details" element={<JobDetailsPage />} />
+                    <Route path="/search/:id" element={<JobDetailsPage />} />
 
                     {isAuthenticated ? (
                         <>
