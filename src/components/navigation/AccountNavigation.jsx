@@ -4,6 +4,8 @@ import LockIcon from "@mui/icons-material/Lock";
 import DescriptionIcon from "@mui/icons-material/Description";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
+import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
 
 const AccountNavigation = () => {
     const location = useLocation();
@@ -15,10 +17,12 @@ const AccountNavigation = () => {
         { name: "Hồ sơ của tôi", path: "/profile", icon: <DescriptionIcon /> },
         { name: "Việc đã lưu", path: "/saved-jobs", icon: <FavoriteBorderIcon /> },
         { name: "Việc đã ứng tuyển", path: "/applied-jobs", icon: <WorkOutlineIcon /> },
+        { name: "Đăng bài tuyển dụng", path: "/recruiter/create-job-post", icon: <PostAddOutlinedIcon /> },
+        { name: "Việc đã đăng tuyển", path: "/recruiter/posted-jobs", icon: <ChecklistOutlinedIcon /> },
     ];
 
     return (
-        <div className="sticky top-0 z-50 w-full max-w-xs rounded-xl bg-white p-4 shadow-lg">
+        <div className="sticky top-4 w-full max-w-xs rounded-xl bg-white p-4 shadow-lg">
             <h2 className="mb-4 text-xl font-semibold text-gray-800">Quản lý tài khoản</h2>
             <nav className="flex flex-col space-y-2">
                 {navItems.map((item) => (

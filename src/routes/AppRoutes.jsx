@@ -19,6 +19,8 @@ import LogoutPage from "../pages/LogoutPage/LogoutPage";
 
 import RecruiterRegisterPage from "../pages/RecruiterPage/RecruiterRegisterPage/RecruiterRegisterPage";
 import RecruiterProfilePage from "../pages/RecruiterPage/RecruiterProfilePage/RecruiterProfilePage";
+import CreateJobPostPage from "../pages/RecruiterPage/CreateJobPostPage/CreateJobPostPage";
+import PostedJobsPage from "../pages/RecruiterPage/PostedJobsPage/PostedJobsPage";
 
 const AppRoutes = () => {
     const { user, isAuthenticated, loading } = useAuth();
@@ -74,6 +76,8 @@ const AppRoutes = () => {
                                     }
                                 })()}
                             />
+                            <Route path="/recruiter/create-job-post" element={<CreateJobPostPage />} />
+                            <Route path="/recruiter/posted-jobs" element={<PostedJobsPage />} />
                             <Route path="/applied-jobs" element={<AppliedJobsPage />} />
                             <Route path="/saved-jobs" element={<SavedJobsPage />} />
                             <Route path="/update-password" element={<UpdatePasswordPage />} />
