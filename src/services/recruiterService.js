@@ -13,3 +13,14 @@ export const updateProfile = async (profile) => {
         companyLogo: profile.companyLogo,
     });
 };
+
+export const uploadLogo = async (logo) => {
+    const formData = new FormData();
+    formData.append("logo", logo);
+
+    return axiosClient.post(RECRUITERS_API.UPLOAD_LOGO, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};

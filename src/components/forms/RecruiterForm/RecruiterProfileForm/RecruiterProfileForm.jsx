@@ -3,7 +3,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import PropTypes from "prop-types";
 
+import { useState } from "react";
 import { updateProfile } from "../../../../services/recruiterService";
+import { uploadLogo } from "../../../../services/recruiterService";
 import { toast } from "react-toastify";
 
 // Regex email kiểm tra hợp lệ
@@ -26,13 +28,14 @@ const schema = yup.object().shape({
     website: yup.string().url("Website không hợp lệ").required("Vui lòng nhập website"),
     companyAddress: yup.string().required("Vui lòng nhập địa chỉ công ty"),
     description: yup.string().required("Vui lòng nhập giới thiệu công ty"),
-    // companyLogo: yup.mixed().required("Vui lòng chọn logo công ty"),
+    companyLogo: yup.mixed().required("Vui lòng chọn logo công ty"),
 });
 
 const RecruiterProfileForm = ({ userDetails }) => {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors, isSubmitting },
     } = useForm({
         defaultValues: userDetails,
@@ -40,9 +43,18 @@ const RecruiterProfileForm = ({ userDetails }) => {
         mode: "onBlur", // Kiểm tra lỗi khi người dùng rời khỏi ô input
     });
 
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [previewURL, setPreviewURL] = useState(null);
+
     // Xử lý khi submit form
     const onSubmit = async (dataForm) => {
         try {
+            if (selectedFile) {
+                const dataUpload = await uploadLogo(selectedFile);
+                console.log(dataUpload);
+                setValue("companyLogo", dataUpload.result);
+            }
+
             const data = await updateProfile(dataForm);
 
             if (!data.success) {
@@ -164,8 +176,31 @@ const RecruiterProfileForm = ({ userDetails }) => {
                         {...register("companyLogo")}
                         className="mt-1 w-full rounded-lg border p-2 focus:border-green-500 focus:outline-none"
                         accept="image/*"
+                        onChange={(e) => {
+                            const file = e.target.files[0];
+                            if (file) {
+                                if (file.size > 5000000) {
+                                    toast.info("File quá lớn. Hãy chọn file nhỏ hơn 5MB.");
+                                } else {
+                                    const fileURL = URL.createObjectURL(file);
+                                    setPreviewURL(fileURL);
+                                    setSelectedFile(file);
+                                }
+                            }
+                        }}
                     />
                     <p className="mt-1 text-xs text-red-600">{errors.companyLogo?.message}</p>
+
+                    {/* Hiển thị preview */}
+                    {previewURL && (
+                        <div className="mt-2">
+                            <img
+                                src={previewURL}
+                                alt="Logo preview"
+                                className="h-auto max-w-[200px] rounded-lg border-2 border-black"
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
 
