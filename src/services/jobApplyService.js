@@ -18,3 +18,13 @@ export const uploadCV = async (file) => {
         },
     });
 };
+
+export const getAllJobApplied = async (page, size, search) => {
+    return axiosClient.get(JOBS_APPLY_API.GET_ALL, {
+        params: {
+            page: page,
+            size: size,
+            query: search,
+        },
+    });
+};

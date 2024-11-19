@@ -19,7 +19,7 @@ const SavedJobsGridView = () => {
 
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [recordsPerPage, setRecordsPerPage] = useState(10);
+    const [recordsPerPage, setRecordsPerPage] = useState(5);
     const [totalPages, setTotalPages] = useState(0);
     const [totalRecords, setTotalRecords] = useState(0);
 

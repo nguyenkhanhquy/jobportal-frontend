@@ -27,6 +27,7 @@ export const JOBS_SAVED_API = {
 export const JOBS_APPLY_API = {
     APPLY: "/jobs/apply",
     UPLOAD_CV: "/jobs/apply/upload-cv",
+    GET_ALL: "/jobs/apply",
 };
 
 export const JOB_SEEKER_API = {
