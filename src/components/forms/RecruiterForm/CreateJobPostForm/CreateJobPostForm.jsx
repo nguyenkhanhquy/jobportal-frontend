@@ -7,9 +7,9 @@ import { createJobPost } from "../../../../services/jobPostService";
 
 // Định nghĩa schema validation bằng Yup
 const schema = yup.object().shape({
-    title: yup.string().required("Vui lòng nhập tiêu đề"),
-    jobPosition: yup.string().required("Vui lòng nhập vị trí tuyển dụng"),
-    salary: yup.string().required("Vui lòng nhập mức lương"),
+    title: yup.string().required("Vui lòng nhập tiêu đề").max(150, "Tiêu đề không được vượt quá 150 ký tự"),
+    jobPosition: yup.string().required("Vui lòng nhập vị trí tuyển dụng").max(100, "Không được vượt quá 100 ký tự"),
+    salary: yup.string().required("Vui lòng nhập mức lương").max(100, "Không được vượt quá 100 ký tự"),
     quantity: yup
         .number()
         .typeError("Số lượng phải là một số")
@@ -21,7 +21,7 @@ const schema = yup.object().shape({
     description: yup.string().required("Vui lòng nhập mô tả công việc"),
     requirements: yup.string().required("Vui lòng nhập yêu cầu ứng viên"),
     benefits: yup.string().required("Vui lòng nhập quyền lợi"),
-    address: yup.string().required("Vui lòng nhập địa điểm làm việc"),
+    address: yup.string().required("Vui lòng nhập địa điểm làm việc").max(150, "Không được vượt quá 150 ký tự"),
     expiryDate: yup
         .date()
         .typeError("Vui lòng nhập ngày hợp lệ")
@@ -37,7 +37,7 @@ const CreateJobPostForm = () => {
         formState: { errors, isSubmitting },
     } = useForm({
         resolver: yupResolver(schema),
-        mode: "onBlur",
+        mode: "onChange",
     });
 
     // Xử lý khi submit form
@@ -71,7 +71,7 @@ const CreateJobPostForm = () => {
                 <input
                     type="text"
                     {...register("title")}
-                    className={`mt-1 w-full rounded-lg border p-2 focus:border-green-500 focus:outline-none ${errors.title ? "border-red-500" : "border-gray-300"}`}
+                    className={`mt-1 w-full rounded-lg border p-2 focus:outline-none ${errors.title ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-green-500"}`}
                 />
                 <p className="mt-1 text-xs text-red-600">{errors.title?.message}</p>
             </div>
@@ -82,7 +82,7 @@ const CreateJobPostForm = () => {
                 <input
                     type="text"
                     {...register("jobPosition")}
-                    className={`mt-1 w-full rounded-lg border p-2 focus:border-green-500 focus:outline-none ${errors.jobPosition ? "border-red-500" : "border-gray-300"}`}
+                    className={`mt-1 w-full rounded-lg border p-2 focus:outline-none ${errors.jobPosition ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-green-500"}`}
                 />
                 <p className="mt-1 text-xs text-red-600">{errors.jobPosition?.message}</p>
             </div>
@@ -94,7 +94,7 @@ const CreateJobPostForm = () => {
                     <input
                         type="text"
                         {...register("salary")}
-                        className={`mt-1 w-full rounded-lg border p-2 focus:border-green-500 focus:outline-none ${errors.salary ? "border-red-500" : "border-gray-300"}`}
+                        className={`mt-1 w-full rounded-lg border p-2 focus:outline-none ${errors.salary ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-green-500"}`}
                     />
                     <p className="mt-1 text-xs text-red-600">{errors.salary?.message}</p>
                 </div>
@@ -104,7 +104,7 @@ const CreateJobPostForm = () => {
                     <input
                         type="number"
                         {...register("quantity")}
-                        className={`mt-1 w-full rounded-lg border p-2 focus:border-green-500 focus:outline-none ${errors.quantity ? "border-red-500" : "border-gray-300"}`}
+                        className={`mt-1 w-full rounded-lg border p-2 focus:outline-none ${errors.quantity ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-green-500"}`}
                     />
                     <p className="mt-1 text-xs text-red-600">{errors.quantity?.message}</p>
                 </div>
@@ -116,7 +116,7 @@ const CreateJobPostForm = () => {
                     <label className="block text-sm font-semibold text-gray-700">Loại hợp đồng</label>
                     <select
                         {...register("type")}
-                        className={`mt-1 w-full rounded-lg border p-2 focus:border-green-500 focus:outline-none ${errors.type ? "border-red-500" : "border-gray-300"}`}
+                        className={`mt-1 w-full rounded-lg border p-2 focus:outline-none ${errors.type ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-green-500"}`}
                     >
                         <option value="">Chọn loại hợp đồng</option>
                         <option value="Toàn thời gian">Toàn thời gian</option>
@@ -129,7 +129,7 @@ const CreateJobPostForm = () => {
                     <label className="block text-sm font-semibold text-gray-700">Hình thức làm việc</label>
                     <select
                         {...register("remote")}
-                        className={`mt-1 w-full rounded-lg border p-2 focus:border-green-500 focus:outline-none ${errors.remote ? "border-red-500" : "border-gray-300"}`}
+                        className={`mt-1 w-full rounded-lg border p-2 focus:outline-none ${errors.remote ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-green-500"}`}
                     >
                         <option value="">Chọn hình thức làm việc</option>
                         <option value="Trực tiếp">Trực tiếp</option>
@@ -145,7 +145,7 @@ const CreateJobPostForm = () => {
                 <label className="block text-sm font-semibold text-gray-700">Mô tả công việc</label>
                 <textarea
                     {...register("description")}
-                    className="mt-1 w-full rounded-lg border p-2 focus:border-green-500 focus:outline-none"
+                    className={`mt-1 w-full rounded-lg border p-2 focus:outline-none ${errors.description ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-green-500"}`}
                     rows="4"
                 ></textarea>
                 <p className="mt-1 text-xs text-red-600">{errors.description?.message}</p>
@@ -156,7 +156,7 @@ const CreateJobPostForm = () => {
                 <label className="block text-sm font-semibold text-gray-700">Yêu cầu ứng viên</label>
                 <textarea
                     {...register("requirements")}
-                    className="mt-1 w-full rounded-lg border p-2 focus:border-green-500 focus:outline-none"
+                    className={`mt-1 w-full rounded-lg border p-2 focus:outline-none ${errors.requirements ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-green-500"}`}
                     rows="4"
                 ></textarea>
                 <p className="mt-1 text-xs text-red-600">{errors.requirements?.message}</p>
@@ -167,7 +167,7 @@ const CreateJobPostForm = () => {
                 <label className="block text-sm font-semibold text-gray-700">Quyền lợi</label>
                 <textarea
                     {...register("benefits")}
-                    className="mt-1 w-full rounded-lg border p-2 focus:border-green-500 focus:outline-none"
+                    className={`mt-1 w-full rounded-lg border p-2 focus:outline-none ${errors.benefits ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-green-500"}`}
                     rows="4"
                 ></textarea>
                 <p className="mt-1 text-xs text-red-600">{errors.benefits?.message}</p>
@@ -179,7 +179,7 @@ const CreateJobPostForm = () => {
                 <input
                     type="text"
                     {...register("address")}
-                    className={`mt-1 w-full rounded-lg border p-2 focus:border-green-500 focus:outline-none ${errors.address ? "border-red-500" : "border-gray-300"}`}
+                    className={`mt-1 w-full rounded-lg border p-2 focus:outline-none ${errors.address ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-green-500"}`}
                 />
                 <p className="mt-1 text-xs text-red-600">{errors.address?.message}</p>
             </div>
@@ -190,7 +190,7 @@ const CreateJobPostForm = () => {
                 <input
                     type="date"
                     {...register("expiryDate")}
-                    className={`mt-1 w-full rounded-lg border p-2 focus:border-green-500 focus:outline-none ${errors.expiryDate ? "border-red-500" : "border-gray-300"}`}
+                    className={`mt-1 w-full rounded-lg border p-2 focus:outline-none ${errors.expiryDate ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-green-500"}`}
                 />
                 <p className="mt-1 text-xs text-red-600">{errors.expiryDate?.message}</p>
             </div>
