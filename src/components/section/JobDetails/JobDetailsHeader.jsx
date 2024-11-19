@@ -7,9 +7,11 @@ import MoneyTwoToneIcon from "@mui/icons-material/MoneyTwoTone";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { saveJobPost } from "../../../services/jobPostService";
+import JobApplicationModal from "../../modals/JobApplicationModal/JobApplicationModal";
 
 const JobDetailHeader = ({ id, logo, title, companyName, address, updatedDate, expiryDate, salary, saved }) => {
     const [isSaved, setIsSaved] = useState(saved);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleSaveJob = async () => {
         try {
@@ -22,6 +24,11 @@ const JobDetailHeader = ({ id, logo, title, companyName, address, updatedDate, e
         } catch (error) {
             toast.error(error.message);
         }
+    };
+
+    const handleApply = () => {
+        setIsModalOpen(false);
+        toast.success("Ứng tuyển thành công!");
     };
 
     return (
@@ -65,7 +72,10 @@ const JobDetailHeader = ({ id, logo, title, companyName, address, updatedDate, e
             {/* Các nút hành động */}
             <div className="flex w-full flex-col gap-3 sm:w-auto">
                 {expiryDate > new Date().toISOString() ? (
-                    <button className="w-full rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700">
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="w-full rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700"
+                    >
                         Ứng tuyển ngay
                     </button>
                 ) : (
@@ -81,6 +91,15 @@ const JobDetailHeader = ({ id, logo, title, companyName, address, updatedDate, e
                     {isSaved ? "Bỏ lưu việc làm" : "Lưu việc làm"}
                 </button>
             </div>
+
+            {/* Modal ứng tuyển */}
+            {isModalOpen && (
+                <JobApplicationModal
+                    jobTitle={title} // Truyền tiêu đề công việc vào modal
+                    onClose={() => setIsModalOpen(false)} // Đóng modal
+                    onSubmit={handleApply} // Xử lý nộp hồ sơ
+                />
+            )}
         </div>
     );
 };

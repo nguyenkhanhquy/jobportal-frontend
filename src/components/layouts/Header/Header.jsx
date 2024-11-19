@@ -29,7 +29,7 @@ const Header = ({ isSticky }) => {
     };
 
     return (
-        <header className={`top-0 z-50 bg-white shadow-md ${isSticky ? "sticky" : "relative"}`}>
+        <header className={`top-0 z-50 shadow-md ${isSticky ? "sticky" : "relative"}`}>
             <div className="container mx-auto flex items-center justify-between px-4">
                 {/* Logo */}
                 <div className="flex items-center">
