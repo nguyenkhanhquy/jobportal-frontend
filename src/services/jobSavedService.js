@@ -6,7 +6,7 @@ export const getAllJobSaved = async (page, size, search) => {
         params: {
             page: page,
             size: size,
-            search: search,
+            query: search,
         },
     });
 };

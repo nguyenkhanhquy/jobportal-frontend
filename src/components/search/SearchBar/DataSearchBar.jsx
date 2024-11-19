@@ -2,7 +2,19 @@ import { Box, TextField, Button } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import PropTypes from "prop-types";
 
-const DataSearchBar = ({ placeholder, onSearch }) => {
+import { useState } from "react";
+
+const DataSearchBar = ({ placeholder, query, onSearch }) => {
+    const [searchText, setSearchText] = useState(query || "");
+
+    const handleSearchChange = (e) => {
+        setSearchText(e.target.value);
+    };
+
+    const handleSearch = () => {
+        onSearch(searchText);
+    };
+
     return (
         <Box
             sx={{
@@ -31,6 +43,7 @@ const DataSearchBar = ({ placeholder, onSearch }) => {
             >
                 <TextField
                     placeholder={placeholder || "Tìm kiếm..."}
+                    onChange={handleSearchChange}
                     size="small"
                     fullWidth
                     variant="outlined"
@@ -61,7 +74,7 @@ const DataSearchBar = ({ placeholder, onSearch }) => {
                             bgcolor: "#15803d",
                         },
                     }}
-                    onClick={onSearch}
+                    onClick={handleSearch}
                 >
                     <Search />
                 </Button>
@@ -72,6 +85,7 @@ const DataSearchBar = ({ placeholder, onSearch }) => {
 
 DataSearchBar.propTypes = {
     placeholder: PropTypes.string,
+    query: PropTypes.string,
     onSearch: PropTypes.func,
 };
 

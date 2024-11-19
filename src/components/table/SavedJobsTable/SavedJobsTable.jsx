@@ -115,7 +115,7 @@ const SavedJobsTable = ({ loading, savedJobPosts, handleViewDetailsClick, handle
                                                 wordWrap: "break-word",
                                             }}
                                         >
-                                            {job.company.name}
+                                            {job.companyName}
                                         </TableCell>
                                         <TableCell>{formatDate(job.expiryDate)}</TableCell>
                                         <TableCell>

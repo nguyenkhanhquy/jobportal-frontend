@@ -27,6 +27,8 @@ const navItemsByRole = {
     ADMIN: [
         { name: "Tài khoản", path: "/account", icon: <AccountCircleOutlinedIcon /> },
         { name: "Đổi mật khẩu", path: "/update-password", icon: <LockOutlinedIcon /> },
+        { name: "Đổi mật khẩu", path: "/update-password", icon: <LockOutlinedIcon /> },
+        { name: "Đổi mật khẩu", path: "/update-password", icon: <LockOutlinedIcon /> },
     ],
 };
 

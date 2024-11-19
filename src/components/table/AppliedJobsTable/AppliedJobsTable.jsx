@@ -124,7 +124,7 @@ const AppliedJobsTable = ({ jobsData }) => {
                         <TableCell sx={{ width: "25%" }}>Tên công việc</TableCell>
                         <TableCell sx={{ width: "20%" }}>Vị trí công việc</TableCell>
                         <TableCell sx={{ width: "20%" }}>Tên công ty</TableCell>
-                        <TableCell sx={{ width: "15%" }}>Ngày hết hạn</TableCell>
+                        <TableCell sx={{ width: "15%" }}>Ngày ứng tuyển</TableCell>
                         <TableCell sx={{ width: "15%" }}>Trạng thái</TableCell>
                     </TableRow>
                 </TableHead>
