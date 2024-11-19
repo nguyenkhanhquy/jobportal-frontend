@@ -32,26 +32,26 @@ const JobDetailHeader = ({ id, logo, title, companyName, address, updatedDate, e
     };
 
     return (
-        <div className="container mx-auto flex flex-col items-center gap-6 rounded-lg border bg-white p-4 shadow-lg sm:flex-row">
+        <div className="container mx-auto flex flex-col items-center gap-6 rounded-lg border bg-white p-4 shadow-lg sm:flex-row sm:flex-wrap">
             {/* Logo công ty */}
-            <div className="flex-shrink-0">
+            <div className="max-w-[150px] flex-shrink-0">
                 <img src={logo} alt={`${companyName} Logo`} className="h-36 w-36 rounded-lg object-cover" />
             </div>
 
             {/* Thông tin công việc */}
-            <div className="flex flex-1 flex-col gap-2">
+            <div className="flex flex-1 flex-col gap-2 overflow-hidden">
                 {/* Tiêu đề và tên công ty */}
-                <h1 className="line-clamp-2 text-xl font-bold text-gray-800">{title}</h1>
+                <h1 className="line-clamp-2 break-words text-xl font-bold text-gray-800">{title}</h1>
                 <p className="text-base font-medium text-gray-600">{companyName}</p>
 
                 {/* Địa chỉ */}
-                <div className="flex items-center gap-2 text-base text-gray-500">
+                <div className="flex items-center gap-2 break-words text-base text-gray-500">
                     <LocationOnIcon fontSize="medium" />
                     <p>{address}</p>
                 </div>
 
                 {/* Ngày cập nhật và hết hạn cùng một dòng */}
-                <div className="flex items-center gap-4 text-base text-gray-500">
+                <div className="flex flex-wrap items-center gap-4 text-base text-gray-500">
                     <div className="flex items-center gap-1">
                         <CalendarTodayIcon fontSize="medium" />
                         <p>Cập nhật: {updatedDate}</p>
