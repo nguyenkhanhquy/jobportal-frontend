@@ -45,7 +45,6 @@ const JobDetailsPage = () => {
                 <CircularProgress color="success" />
             ) : (
                 <>
-                    {console.log(jobData)}
                     {/* Header */}
                     <div className="sticky top-0 z-10 mt-8 flex w-full justify-center bg-white">
                         <div className="w-full max-w-7xl px-4">

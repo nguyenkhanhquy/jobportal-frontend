@@ -51,7 +51,6 @@ const RecruiterProfileForm = ({ userDetails }) => {
         try {
             if (selectedFile) {
                 const dataUpload = await uploadLogo(selectedFile);
-                console.log(dataUpload);
                 setValue("companyLogo", dataUpload.result);
             }
 

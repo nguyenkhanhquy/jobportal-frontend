@@ -22,13 +22,12 @@ const JobDetailHeader = ({ id, logo, title, companyName, address, updatedDate, e
             setIsSaved((prev) => !prev);
             toast.success(data.message);
         } catch (error) {
-            toast.error(error.message);
+            if (error.statusCode === 401) {
+                toast.info("Vui lòng đăng nhập để lưu");
+            } else {
+                toast.error(error.message);
+            }
         }
-    };
-
-    const handleApply = () => {
-        setIsModalOpen(false);
-        toast.success("Ứng tuyển thành công!");
     };
 
     return (
@@ -95,9 +94,9 @@ const JobDetailHeader = ({ id, logo, title, companyName, address, updatedDate, e
             {/* Modal ứng tuyển */}
             {isModalOpen && (
                 <JobApplicationModal
+                    jobPostId={id} // Truyền id công việc vào modal
                     jobTitle={title} // Truyền tiêu đề công việc vào modal
                     onClose={() => setIsModalOpen(false)} // Đóng modal
-                    onSubmit={handleApply} // Xử lý nộp hồ sơ
                 />
             )}
         </div>

@@ -3,8 +3,31 @@ import { useState } from "react";
 import DescriptionIcon from "@mui/icons-material/Description";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const JobApplicationModal = ({ jobTitle, onClose, onSubmit }) => {
+import { applyJob } from "../../../services/jobApplyService";
+import { uploadCV } from "../../../services/jobApplyService";
+import { toast } from "react-toastify";
+
+const JobApplicationModal = ({ jobPostId, jobTitle, onClose }) => {
+    const [coverLetter, setCoverLetter] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleApply = async () => {
+        try {
+            if (selectedFile && coverLetter !== "") {
+                const dataUpload = await uploadCV(selectedFile);
+                const data = await applyJob(jobPostId, coverLetter, dataUpload.result);
+                if (!data.success) {
+                    throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+                }
+                toast.success(data.message);
+                onClose();
+            } else {
+                toast.info("Vui lòng cung cấp đầy đủ thông tin ứng tuyển");
+            }
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -85,6 +108,7 @@ const JobApplicationModal = ({ jobTitle, onClose, onSubmit }) => {
                         nhà tuyển dụng.
                     </p>
                     <textarea
+                        onChange={(e) => setCoverLetter(e.target.value)}
                         rows="4"
                         className="mt-3 w-full rounded-lg border border-gray-300 p-3 text-base text-gray-800 focus:border-green-500 focus:outline-none"
                         placeholder="Viết thư giới thiệu của bạn tại đây..."
@@ -100,7 +124,7 @@ const JobApplicationModal = ({ jobTitle, onClose, onSubmit }) => {
                         Hủy
                     </button>
                     <button
-                        onClick={onSubmit}
+                        onClick={handleApply}
                         className="w-4/5 rounded-lg bg-green-600 px-4 py-3 text-sm font-semibold text-white hover:bg-green-700"
                     >
                         Nộp hồ sơ ứng tuyển
@@ -112,9 +136,9 @@ const JobApplicationModal = ({ jobTitle, onClose, onSubmit }) => {
 };
 
 JobApplicationModal.propTypes = {
+    jobPostId: PropTypes.string.isRequired,
     jobTitle: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
 };
 
 export default JobApplicationModal;
