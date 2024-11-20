@@ -6,6 +6,7 @@ import { applyJob, uploadCV } from "../../../services/jobApplyService";
 import { toast } from "react-toastify";
 
 const JobApplicationModal = ({ jobPostId, jobTitle, onClose }) => {
+    const [loading, setLoading] = useState(false);
     const [coverLetter, setCoverLetter] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -25,6 +26,7 @@ const JobApplicationModal = ({ jobPostId, jobTitle, onClose }) => {
     }, []);
 
     const handleApply = async () => {
+        setLoading(true);
         try {
             if (selectedFile && coverLetter !== "") {
                 const dataUpload = await uploadCV(selectedFile);
@@ -39,6 +41,8 @@ const JobApplicationModal = ({ jobPostId, jobTitle, onClose }) => {
             }
         } catch (error) {
             toast.error(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -132,15 +136,17 @@ const JobApplicationModal = ({ jobPostId, jobTitle, onClose }) => {
                 <div className="flex items-center space-x-4">
                     <button
                         onClick={onClose}
+                        disabled={loading}
                         className="w-1/5 rounded-lg border border-gray-300 px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-100"
                     >
                         Hủy
                     </button>
                     <button
                         onClick={handleApply}
+                        disabled={loading}
                         className="w-4/5 rounded-lg bg-green-600 px-4 py-3 text-sm font-semibold text-white hover:bg-green-700"
                     >
-                        Nộp hồ sơ ứng tuyển
+                        {loading ? "Đang nộp hồ sơ ứng tuyển..." : "Nộp hồ sơ ứng tuyển"}
                     </button>
                 </div>
             </div>

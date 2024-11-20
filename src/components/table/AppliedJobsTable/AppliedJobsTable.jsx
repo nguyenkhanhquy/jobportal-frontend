@@ -21,7 +21,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import { formatDate } from "../../../utils/dateUtil";
 
-const AppliedJobsTable = ({ loading, appliedJobPosts, handleViewDetailsClick }) => {
+const AppliedJobsTable = ({ loading, appliedJobPosts, currentPage, recordsPerPage, handleViewDetailsClick }) => {
     return (
         <TableContainer component={Paper} sx={{ boxShadow: 2, borderRadius: 2 }}>
             <Table>
@@ -79,7 +79,7 @@ const AppliedJobsTable = ({ loading, appliedJobPosts, handleViewDetailsClick }) 
                             ) : (
                                 appliedJobPosts.map((job, index) => (
                                     <TableRow
-                                        key={job.id}
+                                        key={index + 1 + (currentPage - 1) * recordsPerPage}
                                         sx={{
                                             "&:hover": {
                                                 backgroundColor: "#f9f9f9",
@@ -91,7 +91,9 @@ const AppliedJobsTable = ({ loading, appliedJobPosts, handleViewDetailsClick }) 
                                             },
                                         }}
                                     >
-                                        <TableCell align="center">{index + 1}</TableCell>
+                                        <TableCell align="center">
+                                            {index + 1 + (currentPage - 1) * recordsPerPage}
+                                        </TableCell>
                                         <TableCell sx={{ whiteSpace: "normal", wordWrap: "break-word" }}>
                                             <Typography variant="body2" sx={{ fontWeight: 500 }}>
                                                 {job.title}
@@ -107,12 +109,14 @@ const AppliedJobsTable = ({ loading, appliedJobPosts, handleViewDetailsClick }) 
                                         <TableCell>
                                             <Stack direction="row" spacing={1}>
                                                 <IconButton
+                                                    title="Xem chi tiết"
                                                     color="primary"
                                                     onClick={() => handleViewDetailsClick(job.id)}
                                                 >
                                                     <InfoOutlinedIcon />
                                                 </IconButton>
                                                 <IconButton
+                                                    title="Xem CV"
                                                     color="secondary"
                                                     onClick={() => {
                                                         if (job?.cv) {
@@ -141,6 +145,8 @@ const AppliedJobsTable = ({ loading, appliedJobPosts, handleViewDetailsClick }) 
 AppliedJobsTable.propTypes = {
     loading: PropTypes.bool,
     appliedJobPosts: PropTypes.array,
+    currentPage: PropTypes.number,
+    recordsPerPage: PropTypes.number,
     handleViewDetailsClick: PropTypes.func,
 };
 

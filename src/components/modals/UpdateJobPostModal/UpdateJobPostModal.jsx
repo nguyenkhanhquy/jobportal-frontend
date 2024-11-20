@@ -11,7 +11,7 @@ const UpdateJobPostModal = ({ isOpen, onClose, jobPostData, onSave }) => {
                 {/* Modal Header */}
                 <div className="mb-3 flex justify-between">
                     <h2 className="text-xl font-bold text-green-600">
-                        Chỉnh sửa bài đăng: <span className="text-gray-900">{jobPostData.jobPosition || ""}</span>
+                        Chỉnh sửa bài đăng: <span className="text-gray-900">{jobPostData.title || ""}</span>
                     </h2>
                     <button onClick={onClose} className="text-gray-500 hover:text-gray-700" aria-label="Close">
                         <CloseIcon />

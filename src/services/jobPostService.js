@@ -25,6 +25,16 @@ export const getJobPostById = async (jobPostId) => {
     return axiosClient.get(JOBS_API.GET_BY_ID + jobPostId);
 };
 
+export const getJobPostsByRecruiter = async (page, size, search) => {
+    return axiosClient.get(JOBS_API.GET_BY_RECRUITER, {
+        params: {
+            page: page,
+            size: size,
+            query: search,
+        },
+    });
+};
+
 export const createJobPost = async (jobPost) => {
     return axiosClient.post(JOBS_API.CREATE, jobPost);
 };

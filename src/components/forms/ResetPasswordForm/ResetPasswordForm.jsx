@@ -12,7 +12,7 @@ import { sendOTP, resetPassword } from "../../../services/authService";
 // Schema xác thực bằng Yup
 const schema = yup.object().shape({
     otp: yup.string().matches(/^\d+$/, "Mã xác nhận chỉ chứa số").required("Vui lòng nhập mã xác nhận"),
-    newPassword: yup.string().min(6, "Mật khẩu phải có ít nhất 6 ký tự").required("Vui lòng nhập mật khẩu mới"),
+    newPassword: yup.string().min(8, "Mật khẩu phải có ít nhất 8 ký tự").required("Vui lòng nhập mật khẩu mới"),
     confirmPassword: yup
         .string()
         .oneOf([yup.ref("newPassword"), null], "Mật khẩu xác nhận không khớp")

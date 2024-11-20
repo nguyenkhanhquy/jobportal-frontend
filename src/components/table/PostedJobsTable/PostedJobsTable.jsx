@@ -17,8 +17,16 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import EmptyBox from "../../box/EmptyBox";
 import { formatDate } from "../../../utils/dateUtil";
+import SettingsIcon from "@mui/icons-material/Settings";
 
-const PostedJobsTable = ({ loading, postedJobPosts, handleViewApplicationsClick, handleEditPostClick }) => {
+const PostedJobsTable = ({
+    loading,
+    postedJobPosts,
+    currentPage,
+    recordsPerPage,
+    handleViewApplicationsClick,
+    handleEditPostClick,
+}) => {
     return (
         <TableContainer component={Paper} sx={{ boxShadow: 2, borderRadius: 2 }}>
             <Table>
@@ -43,7 +51,7 @@ const PostedJobsTable = ({ loading, postedJobPosts, handleViewApplicationsClick,
                         <TableCell sx={{ width: "15%" }}>Ngày hết hạn</TableCell>
                         <TableCell sx={{ width: "20%" }}>Hồ sơ ứng tuyển</TableCell>
                         <TableCell sx={{ width: "10%" }} align="center">
-                            Cập nhật
+                            <SettingsIcon />
                         </TableCell>
                     </TableRow>
                 </TableHead>
@@ -88,7 +96,9 @@ const PostedJobsTable = ({ loading, postedJobPosts, handleViewApplicationsClick,
                                             },
                                         }}
                                     >
-                                        <TableCell align="center">{index + 1}</TableCell>
+                                        <TableCell align="center">
+                                            {index + 1 + (currentPage - 1) * recordsPerPage}
+                                        </TableCell>
                                         <TableCell
                                             sx={{
                                                 whiteSpace: "normal",
@@ -111,7 +121,7 @@ const PostedJobsTable = ({ loading, postedJobPosts, handleViewApplicationsClick,
                                         <TableCell align="center">
                                             <Stack direction="column" spacing={1}>
                                                 <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                                                    {job.applicationList.length} ứng viên
+                                                    {job.jobApplyCount} ứng viên
                                                 </Typography>
                                                 <Button
                                                     variant="outlined"
@@ -123,7 +133,11 @@ const PostedJobsTable = ({ loading, postedJobPosts, handleViewApplicationsClick,
                                             </Stack>
                                         </TableCell>
                                         <TableCell align="center">
-                                            <IconButton color="primary" onClick={() => handleEditPostClick(job.id)}>
+                                            <IconButton
+                                                title="Chỉnh sửa"
+                                                color="primary"
+                                                onClick={() => handleEditPostClick(job.id)}
+                                            >
                                                 <EditIcon />
                                             </IconButton>
                                         </TableCell>
@@ -141,6 +155,8 @@ const PostedJobsTable = ({ loading, postedJobPosts, handleViewApplicationsClick,
 PostedJobsTable.propTypes = {
     loading: PropTypes.bool,
     postedJobPosts: PropTypes.array,
+    currentPage: PropTypes.number,
+    recordsPerPage: PropTypes.number,
     handleViewApplicationsClick: PropTypes.func,
     handleEditPostClick: PropTypes.func,
 };

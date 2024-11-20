@@ -145,6 +145,8 @@ const SavedJobsGridView = () => {
                 <SavedJobsTable
                     loading={loading}
                     savedJobPosts={savedJobPosts}
+                    currentPage={currentPage}
+                    recordsPerPage={recordsPerPage}
                     handleViewDetailsClick={handleViewDetailsClick}
                     handleDeleteClick={handleDeleteClick}
                 />

@@ -73,6 +73,8 @@ const AppliedJobsGridView = () => {
                 <AppliedJobsTable
                     loading={loading}
                     appliedJobPosts={appliedJobPosts}
+                    currentPage={currentPage}
+                    recordsPerPage={recordsPerPage}
                     handleViewDetailsClick={handleViewDetailsClick}
                 />
             </Box>

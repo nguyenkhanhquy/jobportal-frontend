@@ -20,7 +20,14 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import { formatDate } from "../../../utils/dateUtil";
 
-const SavedJobsTable = ({ loading, savedJobPosts, handleViewDetailsClick, handleDeleteClick }) => {
+const SavedJobsTable = ({
+    loading,
+    savedJobPosts,
+    currentPage,
+    recordsPerPage,
+    handleViewDetailsClick,
+    handleDeleteClick,
+}) => {
     return (
         <TableContainer component={Paper} sx={{ boxShadow: 2, borderRadius: 2 }}>
             <Table>
@@ -90,7 +97,9 @@ const SavedJobsTable = ({ loading, savedJobPosts, handleViewDetailsClick, handle
                                             },
                                         }}
                                     >
-                                        <TableCell align="center">{index + 1}</TableCell>
+                                        <TableCell align="center">
+                                            {index + 1 + (currentPage - 1) * recordsPerPage}
+                                        </TableCell>
                                         <TableCell
                                             sx={{
                                                 whiteSpace: "normal",
@@ -121,12 +130,17 @@ const SavedJobsTable = ({ loading, savedJobPosts, handleViewDetailsClick, handle
                                         <TableCell>
                                             <Stack direction="row" spacing={1}>
                                                 <IconButton
+                                                    title="Xem chi tiết"
                                                     color="primary"
                                                     onClick={() => handleViewDetailsClick(job.id)}
                                                 >
                                                     <InfoOutlinedIcon />
                                                 </IconButton>
-                                                <IconButton color="error" onClick={() => handleDeleteClick(job.id)}>
+                                                <IconButton
+                                                    title="Bỏ lưu"
+                                                    color="error"
+                                                    onClick={() => handleDeleteClick(job.id)}
+                                                >
                                                     <DeleteOutlineIcon />
                                                 </IconButton>
                                             </Stack>
@@ -145,6 +159,8 @@ const SavedJobsTable = ({ loading, savedJobPosts, handleViewDetailsClick, handle
 SavedJobsTable.propTypes = {
     loading: PropTypes.bool,
     savedJobPosts: PropTypes.array,
+    currentPage: PropTypes.number,
+    recordsPerPage: PropTypes.number,
     handleViewDetailsClick: PropTypes.func,
     handleDeleteClick: PropTypes.func,
 };

@@ -4,12 +4,14 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MoneyTwoToneIcon from "@mui/icons-material/MoneyTwoTone";
 
+import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { saveJobPost } from "../../../services/jobPostService";
 import JobApplicationModal from "../../modals/JobApplicationModal/JobApplicationModal";
 
 const JobDetailHeader = ({ id, logo, title, companyName, address, updatedDate, expiryDate, salary, saved }) => {
+    const { isAuthenticated } = useAuth();
     const [isSaved, setIsSaved] = useState(saved);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -72,7 +74,13 @@ const JobDetailHeader = ({ id, logo, title, companyName, address, updatedDate, e
             <div className="flex w-full flex-col gap-3 sm:w-auto">
                 {expiryDate > new Date().toISOString() ? (
                     <button
-                        onClick={() => setIsModalOpen(true)}
+                        onClick={
+                            isAuthenticated
+                                ? () => setIsModalOpen(true)
+                                : () => {
+                                      toast.info("Vui lòng đăng nhập để ứng tuyển");
+                                  }
+                        }
                         className="w-full rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700"
                     >
                         Ứng tuyển ngay
