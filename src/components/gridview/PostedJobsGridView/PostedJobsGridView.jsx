@@ -6,6 +6,7 @@ import GridViewLayout from "../../../layouts/GridViewLayout/GridViewLayout";
 import DataSearchBar from "../../search/SearchBar/DataSearchBar";
 import PostedJobsTable from "../../table/PostedJobsTable/PostedJobsTable.jsx";
 import UpdateJobPostModal from "../../modals/UpdateJobPostModal/UpdateJobPostModal.jsx";
+import ApplicationListModal from "../../modals/ApplicationListModal/ApplicationListModal.jsx";
 
 import { getJobPostsByRecruiter, getJobPostById } from "../../../services/jobPostService.js";
 
@@ -22,6 +23,10 @@ const PostedJobsGridView = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedJobPost, setSelectedJobPost] = useState(null); // Selected Job Data
+
+    const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
+    const [applicationJobTitle, setApplicationJobTitle] = useState(""); // Job Title for Applications Modal
+    const [applications, setApplications] = useState([]); // Mock data for applications
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -52,6 +57,36 @@ const PostedJobsGridView = () => {
     const handleSaveChanges = (updatedJobPost) => {
         console.log("Cập nhật bài đăng:", updatedJobPost);
         setIsModalOpen(false);
+    };
+
+    // Mở modal danh sách ứng viên
+    const handleViewApplicationsClick = (jobId) => {
+        const job = postedJobPosts.find((post) => post.id === jobId);
+        if (job) {
+            setApplicationJobTitle(job.title);
+            setApplications([
+                // Mock data
+                {
+                    name: "Nguyễn Văn A",
+                    applyDate: "2024-11-18",
+                    coverLetter: "Tôi rất đam mê vị trí này và mong muốn được thử sức.",
+                    cvUrl: "https://example.com/cv1.pdf",
+                },
+                {
+                    name: "Trần Thị B",
+                    applyDate: "2024-11-19",
+                    coverLetter: "Tôi có nhiều kinh nghiệm và mong được hợp tác.",
+                    cvUrl: "https://example.com/cv2.pdf",
+                },
+            ]);
+            setIsApplicationModalOpen(true);
+        }
+    };
+
+    // Đóng modal danh sách ứng viên
+    const handleCloseApplicationModal = () => {
+        setIsApplicationModalOpen(false);
+        setApplications([]);
     };
 
     useEffect(() => {
@@ -102,7 +137,7 @@ const PostedJobsGridView = () => {
                     postedJobPosts={postedJobPosts}
                     currentPage={currentPage}
                     recordsPerPage={recordsPerPage}
-                    handleViewApplicationsClick={(jobId) => console.log(`View applications for job ${jobId}`)}
+                    handleViewApplicationsClick={handleViewApplicationsClick}
                     handleEditPostClick={handleEditPostClick} // Kích hoạt mở modal
                 />
             </GridViewLayout>
@@ -113,6 +148,14 @@ const PostedJobsGridView = () => {
                 onClose={handleCloseModal}
                 jobPostData={selectedJobPost}
                 onSave={handleSaveChanges}
+            />
+
+            {/* Modal hiển thị danh sách ứng tuyển */}
+            <ApplicationListModal
+                isOpen={isApplicationModalOpen}
+                title={applicationJobTitle}
+                jobApplicationData={applications}
+                onClose={handleCloseApplicationModal}
             />
         </>
     );
