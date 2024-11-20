@@ -182,6 +182,14 @@ const RegisterForm = () => {
                         Đăng nhập ngay
                     </Link>
                 </p>
+
+                {/* Đăng nhập tài khoản */}
+                <p className="mt-2 text-center text-sm text-gray-600">
+                    Bạn là nhà tuyển dụng?{" "}
+                    <Link to="/register/recruiter" className="font-semibold text-slate-800 hover:underline">
+                        Đăng ký ngay
+                    </Link>
+                </p>
             </div>
         </div>
     );
