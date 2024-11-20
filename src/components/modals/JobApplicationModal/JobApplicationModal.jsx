@@ -1,15 +1,28 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DescriptionIcon from "@mui/icons-material/Description";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-import { applyJob } from "../../../services/jobApplyService";
-import { uploadCV } from "../../../services/jobApplyService";
+import { applyJob, uploadCV } from "../../../services/jobApplyService";
 import { toast } from "react-toastify";
 
 const JobApplicationModal = ({ jobPostId, jobTitle, onClose }) => {
     const [coverLetter, setCoverLetter] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
+
+    useEffect(() => {
+        // Khóa cuộn trang khi mở modal
+        document.body.style.overflow = "hidden";
+
+        // Kiểm tra vị trí cuộn, chỉ trượt xuống nếu đang ở gần top
+        if (window.scrollY <= 150) {
+            window.scrollTo({ top: 150, behavior: "smooth" });
+        }
+
+        return () => {
+            // Khôi phục cuộn trang khi đóng modal
+            document.body.style.overflow = "auto";
+        };
+    }, []);
 
     const handleApply = async () => {
         try {

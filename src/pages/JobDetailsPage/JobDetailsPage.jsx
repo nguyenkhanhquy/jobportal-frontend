@@ -46,7 +46,7 @@ const JobDetailsPage = () => {
             ) : (
                 <>
                     {/* Header */}
-                    <div className="sticky top-0 z-50 mt-8 flex w-full justify-center bg-white">
+                    <div className="sticky top-0 mt-8 flex w-full justify-center bg-white">
                         <div className="w-full max-w-7xl px-4">
                             <JobDetailsHeader
                                 id={jobData.id}
