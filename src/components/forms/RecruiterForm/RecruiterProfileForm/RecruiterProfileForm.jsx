@@ -68,7 +68,7 @@ const RecruiterProfileForm = ({ userDetails }) => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-3xl p-8">
-            <h2 className="mb-6 text-2xl font-bold text-green-700">Hồ sơ nhà tuyển dụng</h2>
+            <h2 className="mb-6 text-2xl font-bold text-green-700">HỒ SƠ NHÀ TUYỂN DỤNG</h2>
 
             {/* Thông tin người đại diện */}
             <h3 className="mb-4 text-lg font-semibold text-gray-700">Thông tin người đại diện</h3>

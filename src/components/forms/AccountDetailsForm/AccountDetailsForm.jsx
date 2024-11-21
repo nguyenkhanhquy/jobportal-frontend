@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const AccountDetailsForm = ({ userDetails }) => {
     return (
         <div className="mx-auto max-w-lg p-6">
-            <h2 className="mb-6 text-3xl font-bold text-green-800">Thông tin tài khoản</h2>
+            <h2 className="mb-6 text-3xl font-bold text-green-800">THÔNG TIN TÀI KHOẢN</h2>
 
             {/* Id tài khoản */}
             <div className="mb-4 flex items-center">

@@ -44,7 +44,7 @@ const ChangePasswordForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-2xl space-y-4 rounded-lg p-6">
-            <h2 className="mb-4 text-2xl font-semibold">Đổi mật khẩu</h2>
+            <h2 className="mb-4 text-2xl font-bold">ĐỔI MẬT KHẨU</h2>
 
             {/* Mật khẩu hiện tại */}
             <div className="mb-4">

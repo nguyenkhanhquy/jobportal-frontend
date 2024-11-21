@@ -63,7 +63,7 @@ const CreateJobPostForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-3xl p-6">
-            <h2 className="mb-6 text-2xl font-bold text-green-700">Đăng bài tuyển dụng</h2>
+            <h2 className="mb-6 text-2xl font-bold text-green-700">ĐĂNG BÀI TUYỂN DỤNG</h2>
 
             {/* Tiêu đề */}
             <div className="mb-4">

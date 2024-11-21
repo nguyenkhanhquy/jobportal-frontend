@@ -49,7 +49,7 @@ const ProfileForm = ({ userDetails }) => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-3xl bg-gradient-to-br p-8">
-            <h2 className="mb-8 text-3xl font-bold text-gray-800">Thông tin cá nhân</h2>
+            <h2 className="mb-8 text-2xl font-bold text-gray-800">THÔNG TIN CÁ NHÂN</h2>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {/* Họ và tên */}
