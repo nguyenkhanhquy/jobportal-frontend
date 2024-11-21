@@ -20,7 +20,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import EmptyBox from "../../box/EmptyBox";
 
-const EmployerListingTable = ({ loading, employers, currentPage, recordsPerPage, handleLockToggle }) => {
+const EmployerListingTable = ({ loading, employers, currentPage, recordsPerPage, handleLockToggle, onViewDetails }) => {
     return (
         <TableContainer component={Paper} sx={{ boxShadow: 2, borderRadius: 2 }}>
             <Table>
@@ -133,7 +133,7 @@ const EmployerListingTable = ({ loading, employers, currentPage, recordsPerPage,
                                                 <IconButton
                                                     title="Xem chi tiết"
                                                     color="primary"
-                                                    onClick={() => console.log("View details")}
+                                                    onClick={() => onViewDetails(employer.id)}
                                                 >
                                                     <InfoOutlinedIcon />
                                                 </IconButton>
@@ -168,6 +168,7 @@ EmployerListingTable.propTypes = {
     currentPage: PropTypes.number,
     recordsPerPage: PropTypes.number,
     handleLockToggle: PropTypes.func,
+    onViewDetails: PropTypes.func,
 };
 
 export default EmployerListingTable;
