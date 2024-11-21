@@ -67,25 +67,32 @@ const AccountNavigation = () => {
                     </Link>
                 ))}
             </nav>
-            <h2 className="my-4 text-xl font-semibold text-gray-800">Quản lý người dùng</h2>
-            <nav className="flex flex-col space-y-2">
-                {navAdmin.map((item) => (
-                    <Link
-                        key={item.path}
-                        to={item.path}
-                        className={`flex items-center gap-3 rounded-lg px-4 py-3 text-base font-medium transition-colors duration-300 ${
-                            location.pathname === item.path
-                                ? "bg-green-600 text-white"
-                                : "text-gray-700 hover:bg-green-50 hover:text-green-600"
-                        }`}
-                    >
-                        <span className={`${location.pathname === item.path ? "text-white" : "text-green-600"}`}>
-                            {item.icon}
-                        </span>
-                        {item.name}
-                    </Link>
-                ))}
-            </nav>
+
+            {user.role === "ADMIN" && (
+                <>
+                    <h2 className="my-4 text-xl font-semibold text-gray-800">Quản lý người dùng</h2>
+                    <nav className="flex flex-col space-y-2">
+                        {navAdmin.map((item) => (
+                            <Link
+                                key={item.path}
+                                to={item.path}
+                                className={`flex items-center gap-3 rounded-lg px-4 py-3 text-base font-medium transition-colors duration-300 ${
+                                    location.pathname === item.path
+                                        ? "bg-green-600 text-white"
+                                        : "text-gray-700 hover:bg-green-50 hover:text-green-600"
+                                }`}
+                            >
+                                <span
+                                    className={`${location.pathname === item.path ? "text-white" : "text-green-600"}`}
+                                >
+                                    {item.icon}
+                                </span>
+                                {item.name}
+                            </Link>
+                        ))}
+                    </nav>
+                </>
+            )}
         </div>
     );
 };

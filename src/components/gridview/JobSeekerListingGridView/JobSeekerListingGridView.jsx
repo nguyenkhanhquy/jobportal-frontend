@@ -1,19 +1,69 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GridViewLayout from "../../../layouts/GridViewLayout/GridViewLayout";
 import DataSearchBar from "../../search/SearchBar/DataSearchBar";
 import JobSeekerListingTable from "../../table/JobSeekerListingTable/JobSeekerListingTable";
 
+import { getAllJobSeekers } from "../../../services/jobSeekerService";
+import { lockUser } from "../../../services/userService";
+import { toast } from "react-toastify";
+
 const JobSeekerListingGridView = () => {
+    const [loading, setLoading] = useState(false);
+    const [flag, setFlag] = useState(false);
+    const [jobSeekers, setJobSeekers] = useState([]);
+
+    const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [recordsPerPage, setRecordsPerPage] = useState(10);
-    const totalPages = 20;
+    const [recordsPerPage, setRecordsPerPage] = useState(5);
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalRecords, setTotalRecords] = useState(0);
 
-    const handlePageChange = (page) => setCurrentPage(page);
-    const handleRecordsPerPageChange = (value) => setRecordsPerPage(value);
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
 
-    // Hàm xử lý tìm kiếm
-    const handleSearch = () => {
-        console.log("Searching...");
+    const handleRecordsPerPageChange = (value) => {
+        setCurrentPage(1);
+        setRecordsPerPage(value);
+    };
+
+    useEffect(() => {
+        const fetchSavedJobPosts = async () => {
+            setLoading(true);
+            try {
+                const data = await getAllJobSeekers(currentPage, recordsPerPage, search);
+                if (!data.success) {
+                    throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+                }
+                setTotalPages(data.pageInfo.totalPages);
+                setTotalRecords(data.pageInfo.totalElements);
+                setJobSeekers(data.result);
+            } catch (error) {
+                toast.error(error.message);
+            } finally {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+                setLoading(false);
+            }
+        };
+
+        fetchSavedJobPosts();
+    }, [currentPage, recordsPerPage, flag, search]);
+
+    const handleLockToggle = async (id) => {
+        try {
+            const data = await lockUser(id);
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+            toast.success(data.message);
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            setFlag(!flag);
+        }
     };
 
     return (
@@ -22,33 +72,19 @@ const JobSeekerListingGridView = () => {
             currentPage={currentPage}
             totalPages={totalPages}
             recordsPerPage={recordsPerPage}
+            totalRecords={totalRecords}
             onPageChange={handlePageChange}
             onRecordsPerPageChange={handleRecordsPerPageChange}
-            actions={<DataSearchBar placeholder="Tìm kiếm" onSearch={handleSearch} />}
+            actions={
+                <DataSearchBar placeholder="Tìm kiếm" onSearch={(searchText) => setSearch(searchText)} query={search} />
+            }
         >
             <JobSeekerListingTable
-                loading={false}
-                jobSeekers={[
-                    {
-                        id: 1,
-                        email: "user1@example.com",
-                        fullName: "Nguyễn Văn A",
-                        registrationDate: "2024-01-01",
-                        active: true,
-                        locked: false,
-                    },
-                    {
-                        id: 2,
-                        email: "user2@example.com",
-                        fullName: "Trần Thị B",
-                        registrationDate: "2024-01-02",
-                        active: false,
-                        locked: true,
-                    },
-                ]}
-                currentPage={1}
-                recordsPerPage={10}
-                handleLockToggle={(id, newState) => console.log(`Toggle lock for user ${id}: ${newState}`)}
+                loading={loading}
+                jobSeekers={jobSeekers}
+                currentPage={currentPage}
+                recordsPerPage={recordsPerPage}
+                handleLockToggle={handleLockToggle}
             />
         </GridViewLayout>
     );

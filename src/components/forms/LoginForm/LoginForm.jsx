@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,7 +22,7 @@ const schema = yup.object().shape({
 
 const LoginForm = () => {
     const { setUser, setIsAuthenticated } = useAuth();
-    // const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -37,6 +37,7 @@ const LoginForm = () => {
     });
 
     const onSubmit = async (formData) => {
+        setLoading(true);
         try {
             const data = await login(formData.email, formData.password);
 
@@ -53,6 +54,8 @@ const LoginForm = () => {
             navigate("/");
         } catch (error) {
             toast.error(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -115,10 +118,11 @@ const LoginForm = () => {
 
                     {/* Button Đăng nhập */}
                     <button
+                        disabled={loading}
                         type="submit"
                         className="w-full rounded-md bg-green-600 px-4 py-2 font-semibold text-white shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
                     >
-                        Đăng nhập
+                        {loading ? "Đang đăng nhập..." : "Đăng nhập"}
                     </button>
                 </form>
 

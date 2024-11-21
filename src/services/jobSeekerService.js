@@ -16,3 +16,13 @@ export const updateProfile = async (profile) => {
         workExperience: profile.workExperience,
     });
 };
+
+export const getAllJobSeekers = async (page, size, search) => {
+    return axiosClient.get(JOB_SEEKER_API.GET_ALL, {
+        params: {
+            page: page,
+            size: size,
+            query: search,
+        },
+    });
+};

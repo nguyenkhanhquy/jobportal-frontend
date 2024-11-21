@@ -129,7 +129,7 @@ const JobSeekerListingTable = ({ loading, jobSeekers, currentPage, recordsPerPag
                                                 <Tooltip title={seeker.locked ? "Mở khóa" : "Khóa tài khoản"}>
                                                     <IconButton
                                                         color={"primary"}
-                                                        onClick={() => handleLockToggle(seeker.id, !seeker.locked)}
+                                                        onClick={() => handleLockToggle(seeker.id)}
                                                     >
                                                         {seeker.locked ? (
                                                             <LockOpenIcon className="text-black" />
