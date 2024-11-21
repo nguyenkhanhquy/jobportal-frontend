@@ -38,21 +38,6 @@ const Header = ({ isSticky }) => {
                     </Link>
                 </div>
 
-                {/* Menu chính */}
-                {user?.role !== "ADMIN" && user?.role !== "RECRUITER" && (
-                    <nav className="hidden space-x-10 text-lg font-semibold text-gray-700 md:flex">
-                        <Link to="/search" className="hover:text-green-600">
-                            Việc làm
-                        </Link>
-                        <Link to="/categories" className="hover:text-green-600">
-                            Ngành nghề
-                        </Link>
-                        <Link to="/resume" className="hover:text-green-600">
-                            Hồ sơ & CV
-                        </Link>
-                    </nav>
-                )}
-
                 <div className="hidden space-x-4 md:flex">
                     {isAuthenticated ? (
                         <>

@@ -30,6 +30,7 @@ export const JOBS_APPLY_API = {
     APPLY: "/jobs/apply",
     UPLOAD_CV: "/jobs/apply/upload-cv",
     GET_ALL: "/jobs/apply",
+    GET_ALL_BY_POST_ID: "/jobs/apply/post/",
 };
 
 export const JOB_SEEKER_API = {

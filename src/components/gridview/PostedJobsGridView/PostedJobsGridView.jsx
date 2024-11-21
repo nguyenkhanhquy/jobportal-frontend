@@ -9,6 +9,7 @@ import UpdateJobPostModal from "../../modals/UpdateJobPostModal/UpdateJobPostMod
 import ApplicationListModal from "../../modals/ApplicationListModal/ApplicationListModal.jsx";
 
 import { getJobPostsByRecruiter, getJobPostById } from "../../../services/jobPostService.js";
+import { getAllJobAppliedByPostId } from "../../../services/jobApplyService.js";
 
 const PostedJobsGridView = () => {
     const [loading, setLoading] = useState(false);
@@ -60,25 +61,14 @@ const PostedJobsGridView = () => {
     };
 
     // Mở modal danh sách ứng viên
-    const handleViewApplicationsClick = (jobId) => {
+    const handleViewApplicationsClick = async (jobId) => {
         const job = postedJobPosts.find((post) => post.id === jobId);
         if (job) {
             setApplicationJobTitle(job.title);
-            setApplications([
-                // Mock data
-                {
-                    name: "Nguyễn Văn A",
-                    applyDate: "2024-11-18",
-                    coverLetter: "Tôi rất đam mê vị trí này và mong muốn được thử sức.",
-                    cvUrl: "https://example.com/cv1.pdf",
-                },
-                {
-                    name: "Trần Thị B",
-                    applyDate: "2024-11-19",
-                    coverLetter: "Tôi có nhiều kinh nghiệm và mong được hợp tác.",
-                    cvUrl: "https://example.com/cv2.pdf",
-                },
-            ]);
+            // Lấy danh sách ứng viên từ API
+            const data = await getAllJobAppliedByPostId(jobId);
+
+            setApplications(data.result);
             setIsApplicationModalOpen(true);
         }
     };

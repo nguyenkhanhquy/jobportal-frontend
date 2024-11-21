@@ -126,7 +126,7 @@ const AppliedJobsTable = ({ loading, appliedJobPosts, currentPage, recordsPerPag
                                                         }
                                                     }}
                                                 >
-                                                    <ContactPageOutlinedIcon />
+                                                    <ContactPageOutlinedIcon className="text-green-600" />
                                                 </IconButton>
                                             </Stack>
                                         </TableCell>

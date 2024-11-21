@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import IconButton from "@mui/material/IconButton";
 import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined";
+import { formatDate } from "../../../utils/dateUtil";
 
 const ApplicationListTable = ({ applications }) => {
     return (
@@ -29,7 +30,7 @@ const ApplicationListTable = ({ applications }) => {
                                 {application.name || "Không rõ"}
                             </td>
                             <td className="border border-gray-300 px-4 py-2 text-base text-gray-800">
-                                {application.applyDate || "Không rõ"}
+                                {formatDate(application.applyDate) || "Không rõ"}
                             </td>
                             <td className="border border-gray-300 px-4 py-2 text-base text-gray-800">
                                 {application.coverLetter || "Không có thư giới thiệu"}
@@ -63,7 +64,7 @@ ApplicationListTable.propTypes = {
             name: PropTypes.string.isRequired,
             applyDate: PropTypes.string.isRequired,
             coverLetter: PropTypes.string,
-            cvUrl: PropTypes.string.isRequired,
+            cvUrl: PropTypes.string,
         }),
     ).isRequired,
 };

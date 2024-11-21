@@ -28,3 +28,7 @@ export const getAllJobApplied = async (page, size, search) => {
         },
     });
 };
+
+export const getAllJobAppliedByPostId = async (postId) => {
+    return axiosClient.get(JOBS_APPLY_API.GET_ALL_BY_POST_ID + postId);
+};
