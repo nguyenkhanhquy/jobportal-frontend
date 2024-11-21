@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const EmployerListingModal = ({ isOpen, onClose, employer }) => {
+const EmployerInfoModal = ({ isOpen, onClose, employer }) => {
     if (!isOpen) return null;
 
     return (
@@ -95,7 +95,7 @@ const EmployerListingModal = ({ isOpen, onClose, employer }) => {
     );
 };
 
-EmployerListingModal.propTypes = {
+EmployerInfoModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     employer: PropTypes.shape({
@@ -112,4 +112,4 @@ EmployerListingModal.propTypes = {
     }),
 };
 
-export default EmployerListingModal;
+export default EmployerInfoModal;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import GridViewLayout from "../../../layouts/GridViewLayout/GridViewLayout";
 import DataSearchBar from "../../search/SearchBar/DataSearchBar";
 import EmployerListingTable from "../../table/EmployerListingTable/EmployerListingTable";
-import EmployerListingModal from "../../modals/EmployerListingModal/EmployerListingModal";
+import EmployerInfoModal from "../../modals/EmployerListingModal/EmployerInfoModal";
 
 const EmployerListingGridView = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -78,7 +78,7 @@ const EmployerListingGridView = () => {
                     onViewDetails={handleViewDetails}
                 />
             </GridViewLayout>
-            <EmployerListingModal isOpen={modalOpen} onClose={handleCloseModal} employer={selectedEmployer} />
+            <EmployerInfoModal isOpen={modalOpen} onClose={handleCloseModal} employer={selectedEmployer} />
         </>
     );
 };
