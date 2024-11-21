@@ -15,6 +15,12 @@ const JobSearchBar = ({ onSearch, query }) => {
         onSearch(searchText);
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            handleSearch();
+        }
+    };
+
     return (
         <div className="sticky top-0 mx-auto flex w-full bg-[#19734e] p-2">
             <div className="mx-auto flex w-full max-w-4xl items-center p-2">
@@ -26,6 +32,7 @@ const JobSearchBar = ({ onSearch, query }) => {
                         placeholder="Tìm kiếm công việc......"
                         value={searchText}
                         onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}
                         className="w-full rounded-md border border-gray-300 px-10 py-2 text-sm focus:border-green-500 focus:outline-none"
                     />
                 </div>
