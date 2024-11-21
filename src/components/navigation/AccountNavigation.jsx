@@ -95,15 +95,15 @@ const AccountNavigation = () => {
                     <h2 className="my-4 text-xl font-semibold text-gray-800">Quản lý bài đăng</h2>
                     <nav className="flex flex-col space-y-2">
                         <Link
-                            to="/admin/jobs"
+                            to="/admin/job-posts"
                             className={`flex items-center gap-3 rounded-lg px-4 py-3 text-base font-medium transition-colors duration-300 ${
-                                location.pathname === "/admin/jobs"
+                                location.pathname === "/admin/job-posts"
                                     ? "bg-green-600 text-white"
                                     : "text-gray-700 hover:bg-green-50 hover:text-green-600"
                             }`}
                         >
                             <span
-                                className={`${location.pathname === "/admin/jobs" ? "text-white" : "text-green-600"}`}
+                                className={`${location.pathname === "/admin/job-posts" ? "text-white" : "text-green-600"}`}
                             >
                                 <FormatListBulletedIcon />
                             </span>
