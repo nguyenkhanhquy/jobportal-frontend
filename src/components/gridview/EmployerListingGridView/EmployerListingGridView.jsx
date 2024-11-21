@@ -1,7 +1,7 @@
 import { useState } from "react";
 import GridViewLayout from "../../../layouts/GridViewLayout/GridViewLayout";
 import DataSearchBar from "../../search/SearchBar/DataSearchBar";
-import EmptyBox from "../../box/EmptyBox";
+import EmployerListingTable from "../../table/EmployerListingTable/EmployerListingTable";
 
 const EmployerListingGridView = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -26,7 +26,32 @@ const EmployerListingGridView = () => {
             onRecordsPerPageChange={handleRecordsPerPageChange}
             actions={<DataSearchBar placeholder="Tìm kiếm" onSearch={handleSearch} />}
         >
-            <EmptyBox />
+            <EmployerListingTable
+                loading={false}
+                employers={[
+                    {
+                        id: 1,
+                        email: "user1@example.com",
+                        companyName: "Công ty TNHH A",
+                        name: "Nguyễn Văn A",
+                        registrationDate: "2024-01-01",
+                        active: true,
+                        locked: false,
+                    },
+                    {
+                        id: 2,
+                        email: "user2@example.com",
+                        companyName: "Công ty TNHH B",
+                        name: "Trần Thị B",
+                        registrationDate: "2024-01-02",
+                        active: false,
+                        locked: true,
+                    },
+                ]}
+                currentPage={1}
+                recordsPerPage={10}
+                handleLockToggle={(id, newState) => console.log(`Toggle lock for user ${id}: ${newState}`)}
+            />
         </GridViewLayout>
     );
 };
