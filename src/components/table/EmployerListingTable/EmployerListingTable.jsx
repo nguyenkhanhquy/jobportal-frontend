@@ -133,7 +133,7 @@ const EmployerListingTable = ({ loading, employers, currentPage, recordsPerPage,
                                                 <IconButton
                                                     title="Xem chi tiết"
                                                     color="primary"
-                                                    onClick={() => onViewDetails(employer.id)}
+                                                    onClick={() => onViewDetails(employer)}
                                                 >
                                                     <InfoOutlinedIcon />
                                                 </IconButton>

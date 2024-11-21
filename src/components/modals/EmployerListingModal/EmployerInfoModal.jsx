@@ -19,7 +19,7 @@ const EmployerInfoModal = ({ isOpen, onClose, employer }) => {
                             {/* Logo */}
                             <div>
                                 <img
-                                    src={employer.companyLogo || "/images/logo.png"}
+                                    src={employer.company.logo || "/images/logo.png"}
                                     alt="Company Logo"
                                     className="h-24 w-24 rounded border object-cover"
                                 />
@@ -28,19 +28,19 @@ const EmployerInfoModal = ({ isOpen, onClose, employer }) => {
                             <div className="flex-1 space-y-2">
                                 <div className="flex">
                                     <strong className="w-40 text-gray-600">Công ty:</strong>
-                                    <span>{employer.companyName || "Chưa cập nhật"}</span>
+                                    <span>{employer.company.name || "Chưa cập nhật"}</span>
                                 </div>
                                 <div className="flex">
                                     <strong className="w-40 text-gray-600">Website:</strong>
                                     <span>
-                                        {employer.website ? (
+                                        {employer.company.website ? (
                                             <a
-                                                href={employer.website}
+                                                href={employer.company.website}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-blue-500 hover:underline"
                                             >
-                                                {employer.website}
+                                                {employer.company.website}
                                             </a>
                                         ) : (
                                             "Chưa cập nhật"
@@ -49,11 +49,7 @@ const EmployerInfoModal = ({ isOpen, onClose, employer }) => {
                                 </div>
                                 <div className="flex">
                                     <strong className="w-40 text-gray-600">Địa chỉ:</strong>
-                                    <span>{employer.companyAddress || "Chưa cập nhật"}</span>
-                                </div>
-                                <div className="flex">
-                                    <strong className="w-40 text-gray-600">Mô tả:</strong>
-                                    <span>{employer.description || "Chưa cập nhật"}</span>
+                                    <span>{employer.company.address || "Chưa cập nhật"}</span>
                                 </div>
                             </div>
                         </div>
@@ -98,18 +94,7 @@ const EmployerInfoModal = ({ isOpen, onClose, employer }) => {
 EmployerInfoModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    employer: PropTypes.shape({
-        email: PropTypes.string,
-        companyLogo: PropTypes.string,
-        companyName: PropTypes.string,
-        website: PropTypes.string,
-        companyAddress: PropTypes.string,
-        description: PropTypes.string,
-        name: PropTypes.string,
-        position: PropTypes.string,
-        recruiterEmail: PropTypes.string,
-        phone: PropTypes.string,
-    }),
+    employer: PropTypes.object.isRequired,
 };
 
 export default EmployerInfoModal;
