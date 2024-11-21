@@ -42,7 +42,7 @@ const JobDetailsPage = () => {
     return (
         <MainLayout>
             {loading ? (
-                <div className="flex h-full items-center justify-center">
+                <div className="flex h-full min-h-80 items-center justify-center">
                     <CircularProgress color="success" />
                 </div>
             ) : (

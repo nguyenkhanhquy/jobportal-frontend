@@ -3,6 +3,7 @@ import JobSearchBar from "../../components/search/SearchBar/JobSearchBar";
 import SearchJobCard from "../../components/card/JobCard/SearchJobCard";
 import CustomPagination from "../../components/pagination/Pagination";
 import SortBar from "../../components/search/SortBar/SortBar";
+import EmptyBox from "../../components/box/EmptyBox";
 
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -74,29 +75,33 @@ const SearchPage = () => {
             <SortBar totalRecords={totalRecords} sortOption={sort} onSortChange={setSort} />
 
             {loading ? (
-                <div className="flex justify-center py-4">
+                <div className="flex min-h-[200px] items-center justify-center py-4">
                     <CircularProgress color="success" />
                 </div>
             ) : (
-                <div className="container mx-auto flex justify-center py-4">
-                    {/* Lặp qua mảng công việc và hiển thị từng job card theo chiều dọc */}
-                    <div className="flex flex-col gap-4">
-                        {jobPosts.map((job) => (
-                            <div key={job.id}>
-                                <SearchJobCard
-                                    id={job.id}
-                                    logo={job.company.logo}
-                                    title={job.title}
-                                    salary={job.salary}
-                                    companyName={job.company.name}
-                                    remote={job.remote}
-                                    type={job.type}
-                                    updatedDate={job.updatedDate}
-                                    saved={job.saved}
-                                />
-                            </div>
-                        ))}
-                    </div>
+                <div className="container mx-auto flex min-h-[200px] justify-center py-4">
+                    {jobPosts.length === 0 ? (
+                        <EmptyBox />
+                    ) : (
+                        /* Lặp qua mảng công việc và hiển thị từng job card theo chiều dọc */
+                        <div className="flex flex-col gap-4">
+                            {jobPosts.map((job) => (
+                                <div key={job.id}>
+                                    <SearchJobCard
+                                        id={job.id}
+                                        logo={job.company.logo}
+                                        title={job.title}
+                                        salary={job.salary}
+                                        companyName={job.company.name}
+                                        remote={job.remote}
+                                        type={job.type}
+                                        updatedDate={job.updatedDate}
+                                        saved={job.saved}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             )}
 
