@@ -83,12 +83,9 @@ const JobApplicationModal = ({ jobPostId, jobTitle, onClose }) => {
                                     d="M3 16.5V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v10.5m-6 3H9m3-3v3"
                                 />
                             </svg>
-                            <p className="text-base font-medium text-gray-700">
-                                Tải lên CV từ máy tính, chọn hoặc kéo thả
-                            </p>
+                            <p className="text-base font-medium text-gray-700">Tải lên CV từ máy tính</p>
                             <p className="mt-1 text-sm text-gray-500">
-                                Hỗ trợ định dạng <span className="font-semibold">.doc, .docx, pdf</span> có kích thước
-                                dưới 5MB
+                                Hỗ trợ định dạng <span className="font-semibold">.doc, .docx, pdf</span>
                             </p>
                             <label className="mt-3 inline-block cursor-pointer rounded-lg bg-green-600 px-4 py-2 text-base font-semibold text-white hover:bg-green-700">
                                 <input

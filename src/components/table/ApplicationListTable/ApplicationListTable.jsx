@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import IconButton from "@mui/material/IconButton";
 import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined";
 import { formatDate } from "../../../utils/dateUtil";
+import EmptyBox from "../../box/EmptyBox";
 
 const ApplicationListTable = ({ applications }) => {
     return (
@@ -24,34 +25,42 @@ const ApplicationListTable = ({ applications }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {applications.map((application, index) => (
-                        <tr key={index} className="hover:bg-gray-50">
-                            <td className="border border-gray-300 px-4 py-2 text-base text-gray-800">
-                                {application.name || "Không rõ"}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-base text-gray-800">
-                                {formatDate(application.applyDate) || "Không rõ"}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-base text-gray-800">
-                                {application.coverLetter || "Không có thư giới thiệu"}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-center">
-                                <IconButton
-                                    title="Xem CV"
-                                    color="secondary"
-                                    onClick={() => {
-                                        if (application?.cv) {
-                                            window.location.href = application.cv;
-                                        } else {
-                                            alert("Cv không tồn tại!");
-                                        }
-                                    }}
-                                >
-                                    <ContactPageOutlinedIcon className="text-green-600" />
-                                </IconButton>
+                    {applications.length === 0 ? (
+                        <tr>
+                            <td colSpan={4}>
+                                <EmptyBox />
                             </td>
                         </tr>
-                    ))}
+                    ) : (
+                        applications.map((application, index) => (
+                            <tr key={index} className="hover:bg-gray-50">
+                                <td className="border border-gray-300 px-4 py-2 text-base text-gray-800">
+                                    {application.name || "Không rõ"}
+                                </td>
+                                <td className="border border-gray-300 px-4 py-2 text-base text-gray-800">
+                                    {formatDate(application.applyDate) || "Không rõ"}
+                                </td>
+                                <td className="border border-gray-300 px-4 py-2 text-base text-gray-800">
+                                    {application.coverLetter || "Không có thư giới thiệu"}
+                                </td>
+                                <td className="border border-gray-300 px-4 py-2 text-center">
+                                    <IconButton
+                                        title="Xem CV"
+                                        color="secondary"
+                                        onClick={() => {
+                                            if (application?.cv) {
+                                                window.location.href = application.cv;
+                                            } else {
+                                                alert("Cv không tồn tại!");
+                                            }
+                                        }}
+                                    >
+                                        <ContactPageOutlinedIcon className="text-green-600" />
+                                    </IconButton>
+                                </td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
             </table>
         </div>
