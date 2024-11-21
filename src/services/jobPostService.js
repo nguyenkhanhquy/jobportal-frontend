@@ -44,3 +44,18 @@ export const saveJobPost = async (jobPostId) => {
         id: jobPostId,
     });
 };
+
+export const updateJobPost = async (jobPostId, jobPost) => {
+    return axiosClient.patch(JOBS_API.UPDATE_BY_ID + jobPostId, {
+        title: jobPost.title,
+        type: jobPost.type,
+        remote: jobPost.remote,
+        description: jobPost.description,
+        salary: jobPost.salary,
+        quantity: jobPost.quantity,
+        expiryDate: jobPost.expiryDate,
+        requirements: jobPost.requirements,
+        benefits: jobPost.benefits,
+        address: jobPost.address,
+    });
+};

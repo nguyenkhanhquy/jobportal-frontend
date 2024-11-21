@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import UpdateJobPostForm from "../../forms/RecruiterForm/UpdateJobPostForm/UpdateJobPostForm";
 import CloseIcon from "@mui/icons-material/Close";
 
-const UpdateJobPostModal = ({ isOpen, onClose, jobPostData, onSave }) => {
+const UpdateJobPostModal = ({ isOpen, onClose, jobPostData, onSave, setFlag }) => {
     if (!isOpen) return null;
 
     return (
@@ -20,7 +20,7 @@ const UpdateJobPostModal = ({ isOpen, onClose, jobPostData, onSave }) => {
 
                 {/* Modal Content */}
                 <div className="max-h-[70vh] overflow-y-auto px-6 py-4">
-                    <UpdateJobPostForm jobPostData={jobPostData} onSave={onSave} onCancel={onClose} />
+                    <UpdateJobPostForm jobPostData={jobPostData} onSave={onSave} onCancel={onClose} setFlag={setFlag} />
                 </div>
             </div>
         </div>
@@ -32,6 +32,7 @@ UpdateJobPostModal.propTypes = {
     onClose: PropTypes.func.isRequired,
     jobPostData: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
+    setFlag: PropTypes.func.isRequired,
 };
 
 export default UpdateJobPostModal;

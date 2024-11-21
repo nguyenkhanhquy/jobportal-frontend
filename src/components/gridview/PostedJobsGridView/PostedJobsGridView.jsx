@@ -148,6 +148,7 @@ const PostedJobsGridView = () => {
                 onClose={handleCloseModal}
                 jobPostData={selectedJobPost}
                 onSave={handleSaveChanges}
+                setFlag={setFlag}
             />
 
             {/* Modal hiển thị danh sách ứng tuyển */}

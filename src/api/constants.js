@@ -18,6 +18,7 @@ export const JOBS_API = {
     GET_BY_RECRUITER: "/jobs/recruiter",
     CREATE: "/jobs",
     SAVE: "/jobs/save",
+    UPDATE_BY_ID: "/jobs/",
 };
 
 export const JOBS_SAVED_API = {
