@@ -8,6 +8,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import ApartmentOutlinedIcon from "@mui/icons-material/ApartmentOutlined";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
 import useAuth from "../../hooks/useAuth";
 
@@ -90,6 +91,24 @@ const AccountNavigation = () => {
                                 {item.name}
                             </Link>
                         ))}
+                    </nav>
+                    <h2 className="my-4 text-xl font-semibold text-gray-800">Quản lý bài đăng</h2>
+                    <nav className="flex flex-col space-y-2">
+                        <Link
+                            to="/admin/jobs"
+                            className={`flex items-center gap-3 rounded-lg px-4 py-3 text-base font-medium transition-colors duration-300 ${
+                                location.pathname === "/admin/jobs"
+                                    ? "bg-green-600 text-white"
+                                    : "text-gray-700 hover:bg-green-50 hover:text-green-600"
+                            }`}
+                        >
+                            <span
+                                className={`${location.pathname === "/admin/jobs" ? "text-white" : "text-green-600"}`}
+                            >
+                                <FormatListBulletedIcon />
+                            </span>
+                            Danh sách bài đăng
+                        </Link>
                     </nav>
                 </>
             )}
