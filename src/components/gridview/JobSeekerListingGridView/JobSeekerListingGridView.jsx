@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import GridViewLayout from "../../../layouts/GridViewLayout/GridViewLayout";
 import DataSearchBar from "../../search/SearchBar/DataSearchBar";
 import JobSeekerListingTable from "../../table/JobSeekerListingTable/JobSeekerListingTable";
+import JobSeekerInfoModal from "../../modals/JobSeekerInfoModal/JobSeekerInfoModal";
 
 import { getAllJobSeekers } from "../../../services/jobSeekerService";
 import { lockUser } from "../../../services/userService";
@@ -17,6 +18,9 @@ const JobSeekerListingGridView = () => {
     const [recordsPerPage, setRecordsPerPage] = useState(5);
     const [totalPages, setTotalPages] = useState(0);
     const [totalRecords, setTotalRecords] = useState(0);
+
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedJobSeeker, setSelectedJobSeeker] = useState(null);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -52,6 +56,16 @@ const JobSeekerListingGridView = () => {
         fetchSavedJobPosts();
     }, [currentPage, recordsPerPage, flag, search]);
 
+    const handleOpenModal = (jobSeeker) => {
+        setSelectedJobSeeker(jobSeeker);
+        setModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedJobSeeker(null);
+        setModalOpen(false);
+    };
+
     const handleLockToggle = async (id) => {
         try {
             const data = await lockUser(id);
@@ -67,26 +81,34 @@ const JobSeekerListingGridView = () => {
     };
 
     return (
-        <GridViewLayout
-            title="DANH SÁCH ỨNG VIÊN"
-            currentPage={currentPage}
-            totalPages={totalPages}
-            recordsPerPage={recordsPerPage}
-            totalRecords={totalRecords}
-            onPageChange={handlePageChange}
-            onRecordsPerPageChange={handleRecordsPerPageChange}
-            actions={
-                <DataSearchBar placeholder="Tìm kiếm" onSearch={(searchText) => setSearch(searchText)} query={search} />
-            }
-        >
-            <JobSeekerListingTable
-                loading={loading}
-                jobSeekers={jobSeekers}
+        <>
+            <GridViewLayout
+                title="DANH SÁCH ỨNG VIÊN"
                 currentPage={currentPage}
+                totalPages={totalPages}
                 recordsPerPage={recordsPerPage}
-                handleLockToggle={handleLockToggle}
-            />
-        </GridViewLayout>
+                totalRecords={totalRecords}
+                onPageChange={handlePageChange}
+                onRecordsPerPageChange={handleRecordsPerPageChange}
+                actions={
+                    <DataSearchBar
+                        placeholder="Tìm kiếm"
+                        onSearch={(searchText) => setSearch(searchText)}
+                        query={search}
+                    />
+                }
+            >
+                <JobSeekerListingTable
+                    loading={loading}
+                    jobSeekers={jobSeekers}
+                    currentPage={currentPage}
+                    recordsPerPage={recordsPerPage}
+                    handleLockToggle={handleLockToggle}
+                    onViewDetails={handleOpenModal}
+                />
+            </GridViewLayout>
+            <JobSeekerInfoModal isOpen={modalOpen} onClose={handleCloseModal} jobSeeker={selectedJobSeeker} />
+        </>
     );
 };
 

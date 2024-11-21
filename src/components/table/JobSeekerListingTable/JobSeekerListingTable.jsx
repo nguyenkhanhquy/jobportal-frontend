@@ -20,7 +20,14 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import EmptyBox from "../../box/EmptyBox";
 
-const JobSeekerListingTable = ({ loading, jobSeekers, currentPage, recordsPerPage, handleLockToggle }) => {
+const JobSeekerListingTable = ({
+    loading,
+    jobSeekers,
+    currentPage,
+    recordsPerPage,
+    handleLockToggle,
+    onViewDetails,
+}) => {
     return (
         <TableContainer component={Paper} sx={{ boxShadow: 2, borderRadius: 2 }}>
             <Table>
@@ -122,7 +129,7 @@ const JobSeekerListingTable = ({ loading, jobSeekers, currentPage, recordsPerPag
                                                 <IconButton
                                                     title="Xem chi tiết"
                                                     color="primary"
-                                                    onClick={() => console.log("View details")}
+                                                    onClick={() => onViewDetails(seeker.id)}
                                                 >
                                                     <InfoOutlinedIcon />
                                                 </IconButton>
@@ -157,6 +164,7 @@ JobSeekerListingTable.propTypes = {
     currentPage: PropTypes.number,
     recordsPerPage: PropTypes.number,
     handleLockToggle: PropTypes.func,
+    onViewDetails: PropTypes.func,
 };
 
 export default JobSeekerListingTable;
