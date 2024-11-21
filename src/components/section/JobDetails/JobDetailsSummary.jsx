@@ -39,11 +39,11 @@ const JobDetailsSummary = ({ jobPosition, salary, remote, type, field }) => {
                 </div>
 
                 {/* Lĩnh vực */}
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                     <CategoryIcon className="mr-2 text-green-600" />
                     <span className="font-semibold">Lĩnh vực:</span>
                     <span className="ml-2">{field || "Thông tin đang được cập nhật..."}</span>
-                </div>
+                </div> */}
             </div>
         </div>
     );

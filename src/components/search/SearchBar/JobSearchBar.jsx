@@ -23,7 +23,7 @@ const JobSearchBar = ({ onSearch, query }) => {
                     <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                         type="text"
-                        placeholder="Nhập vị trí công việc..."
+                        placeholder="Tìm kiếm công việc......"
                         value={searchText}
                         onChange={handleInputChange}
                         className="w-full rounded-md border border-gray-300 px-10 py-2 text-sm focus:border-green-500 focus:outline-none"

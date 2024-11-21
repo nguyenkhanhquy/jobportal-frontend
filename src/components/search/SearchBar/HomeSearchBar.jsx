@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Search } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
-const SearchBar = ({ placeholder = "Vị trí công việc..." }) => {
+const SearchBar = ({ placeholder = "Tìm kiếm công việc..." }) => {
     const navigate = useNavigate();
     const [searchText, setSearchText] = useState("");
 

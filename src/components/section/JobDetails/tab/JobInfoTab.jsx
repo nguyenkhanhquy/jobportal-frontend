@@ -36,7 +36,7 @@ const JobInfoTab = ({ description, requirements, benefits, address, workingTime 
             <hr className="my-6 border-gray-300" />
 
             {/* Thời gian làm việc */}
-            <div className="items-start">
+            {/* <div className="items-start">
                 <h3 className="mb-1 text-lg font-semibold text-green-700">
                     {" "}
                     <AccessTimeIcon className="mr-2 text-green-600" />
@@ -47,12 +47,12 @@ const JobInfoTab = ({ description, requirements, benefits, address, workingTime 
                 </p>
             </div>
 
-            <hr className="my-6 border-gray-300" />
+            <hr className="my-6 border-gray-300" /> */}
 
             {/* Địa điểm làm việc */}
             <div className="mb-6 items-start">
                 <h3 className="mb-1 text-lg font-semibold text-green-700">
-                    <LocationOnIcon className="mr-2 text-green-600" />
+                    {/* <LocationOnIcon className="mr-2 text-green-600" /> */}
                     Địa điểm làm việc
                 </h3>
                 <p className="ml-6 overflow-hidden break-words text-gray-700">
