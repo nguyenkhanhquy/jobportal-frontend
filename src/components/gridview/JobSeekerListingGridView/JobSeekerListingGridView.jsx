@@ -32,7 +32,7 @@ const JobSeekerListingGridView = () => {
     };
 
     useEffect(() => {
-        const fetchSavedJobPosts = async () => {
+        const fetchData = async () => {
             setLoading(true);
             try {
                 const data = await getAllJobSeekers(currentPage, recordsPerPage, search);
@@ -53,7 +53,7 @@ const JobSeekerListingGridView = () => {
             }
         };
 
-        fetchSavedJobPosts();
+        fetchData();
     }, [currentPage, recordsPerPage, flag, search]);
 
     const handleOpenModal = (jobSeeker) => {

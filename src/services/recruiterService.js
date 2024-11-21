@@ -24,3 +24,13 @@ export const uploadLogo = async (logo) => {
         },
     });
 };
+
+export const getAllRecruiters = async (page, size, search) => {
+    return axiosClient.get(RECRUITERS_API.GET_ALL, {
+        params: {
+            page: page,
+            size: size,
+            query: search,
+        },
+    });
+};

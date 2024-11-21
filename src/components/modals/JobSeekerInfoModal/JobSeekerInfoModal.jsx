@@ -5,7 +5,7 @@ const JobSeekerInfoModal = ({ isOpen, onClose, jobSeeker }) => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-xl">
+            <div className="w-full max-w-2xl rounded-lg bg-white p-6 shadow-xl">
                 {/* Dynamic Title */}
                 <h2 className="mb-6 border-b pb-2 text-2xl font-semibold text-gray-800">
                     Thông tin tài khoản: {jobSeeker.email || "Chưa cập nhật"}

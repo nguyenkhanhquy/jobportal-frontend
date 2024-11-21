@@ -129,7 +129,7 @@ const JobSeekerListingTable = ({
                                                 <IconButton
                                                     title="Xem chi tiết"
                                                     color="primary"
-                                                    onClick={() => onViewDetails(seeker.id)}
+                                                    onClick={() => onViewDetails(seeker)}
                                                 >
                                                     <InfoOutlinedIcon />
                                                 </IconButton>

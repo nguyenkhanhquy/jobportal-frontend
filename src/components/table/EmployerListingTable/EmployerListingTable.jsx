@@ -108,7 +108,7 @@ const EmployerListingTable = ({ loading, employers, currentPage, recordsPerPage,
                                                 wordWrap: "break-word",
                                             }}
                                         >
-                                            {employer.companyName}
+                                            {employer.company.name}
                                         </TableCell>
                                         <TableCell
                                             sx={{

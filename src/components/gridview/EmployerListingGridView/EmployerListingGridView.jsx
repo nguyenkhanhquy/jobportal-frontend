@@ -1,24 +1,60 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GridViewLayout from "../../../layouts/GridViewLayout/GridViewLayout";
 import DataSearchBar from "../../search/SearchBar/DataSearchBar";
 import EmployerListingTable from "../../table/EmployerListingTable/EmployerListingTable";
 import EmployerInfoModal from "../../modals/EmployerListingModal/EmployerInfoModal";
 
+import { getAllRecruiters } from "../../../services/recruiterService";
+import { lockUser } from "../../../services/userService";
+import { toast } from "react-toastify";
+
 const EmployerListingGridView = () => {
+    const [loading, setLoading] = useState(false);
+    const [flag, setFlag] = useState(false);
+    const [employers, setEmployers] = useState([]);
+
+    const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [recordsPerPage, setRecordsPerPage] = useState(10);
-    const totalPages = 20;
+    const [recordsPerPage, setRecordsPerPage] = useState(5);
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalRecords, setTotalRecords] = useState(0);
 
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedEmployer, setSelectedEmployer] = useState(null);
 
-    const handlePageChange = (page) => setCurrentPage(page);
-    const handleRecordsPerPageChange = (value) => setRecordsPerPage(value);
-
-    // Hàm xử lý tìm kiếm
-    const handleSearch = () => {
-        console.log("Searching...");
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
     };
+
+    const handleRecordsPerPageChange = (value) => {
+        setCurrentPage(1);
+        setRecordsPerPage(value);
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const data = await getAllRecruiters(currentPage, recordsPerPage, search);
+                if (!data.success) {
+                    throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+                }
+                setTotalPages(data.pageInfo.totalPages);
+                setTotalRecords(data.pageInfo.totalElements);
+                setEmployers(data.result);
+            } catch (error) {
+                toast.error(error.message);
+            } finally {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [currentPage, recordsPerPage, flag, search]);
 
     // Hàm hiển thị modal chi tiết
     const handleViewDetails = (employer) => {
@@ -31,6 +67,20 @@ const EmployerListingGridView = () => {
         setModalOpen(false);
     };
 
+    const handleLockToggle = async (id) => {
+        try {
+            const data = await lockUser(id);
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+            toast.success(data.message);
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            setFlag(!flag);
+        }
+    };
+
     return (
         <>
             <GridViewLayout
@@ -38,43 +88,23 @@ const EmployerListingGridView = () => {
                 currentPage={currentPage}
                 totalPages={totalPages}
                 recordsPerPage={recordsPerPage}
+                totalRecords={totalRecords}
                 onPageChange={handlePageChange}
                 onRecordsPerPageChange={handleRecordsPerPageChange}
-                actions={<DataSearchBar placeholder="Tìm kiếm" onSearch={handleSearch} />}
+                actions={
+                    <DataSearchBar
+                        placeholder="Tìm kiếm"
+                        onSearch={(searchText) => setSearch(searchText)}
+                        query={search}
+                    />
+                }
             >
                 <EmployerListingTable
-                    loading={false}
-                    employers={[
-                        {
-                            id: 1,
-                            email: "user1@example.com",
-                            companyLogo: "/path/to/logo1.png",
-                            companyName: "Công ty TNHH A",
-                            name: "Nguyễn Văn A",
-                            position: "Giám đốc",
-                            recruiterEmail: "contact@companyA.com",
-                            phone: "0901234567",
-                            website: "https://www.companyA.com",
-                            companyAddress: "123 Đường A, Quận 1, TP. HCM",
-                            description: "Công ty A chuyên về công nghệ.",
-                        },
-                        {
-                            id: 2,
-                            email: "user2@example.com",
-                            companyLogo: "/path/to/logo2.png",
-                            companyName: "Công ty TNHH B",
-                            name: "Trần Thị B",
-                            position: "Quản lý nhân sự",
-                            recruiterEmail: "contact@companyB.com",
-                            phone: "0909876543",
-                            website: "https://www.companyB.com",
-                            companyAddress: "456 Đường B, Quận 2, TP. HCM",
-                            description: "Công ty B chuyên về tài chính.",
-                        },
-                    ]}
-                    currentPage={1}
-                    recordsPerPage={10}
-                    handleLockToggle={(id, newState) => console.log(`Toggle lock for user ${id}: ${newState}`)}
+                    loading={loading}
+                    employers={employers}
+                    currentPage={currentPage}
+                    recordsPerPage={recordsPerPage}
+                    handleLockToggle={handleLockToggle}
                     onViewDetails={handleViewDetails}
                 />
             </GridViewLayout>

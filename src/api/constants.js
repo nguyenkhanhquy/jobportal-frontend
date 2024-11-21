@@ -42,6 +42,7 @@ export const JOB_SEEKER_API = {
 export const RECRUITERS_API = {
     UPDATE_PROFILE: "/recruiters/update-profile",
     UPLOAD_LOGO: "/recruiters/upload-logo",
+    GET_ALL: "/recruiters",
 };
 
 export const USERS_API = {
