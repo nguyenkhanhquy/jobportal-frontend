@@ -28,7 +28,10 @@ const schema = yup.object().shape({
     company: yup.string().required("Vui lòng nhập tên công ty"),
     name: yup.string().required("Vui lòng nhập họ và tên người đại diện"),
     position: yup.string().required("Vui lòng nhập chức vụ"),
-    phone: yup.string().required("Vui lòng nhập số điện thoại"),
+    phone: yup
+        .string()
+        .matches(/^[0-9]{10}$/, "Số điện thoại phải có 10 chữ số")
+        .required("Vui lòng nhập số điện thoại"),
     recruiterEmail: yup
         .string()
         .required("Vui lòng nhập email người đại diện")

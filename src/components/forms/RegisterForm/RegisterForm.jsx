@@ -37,9 +37,10 @@ const RegisterForm = () => {
 
     const navigate = useNavigate();
     const [isAgree, setIsAgree] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const onSubmit = async (formData) => {
-        // setLoading(true);
+        setLoading(true);
         try {
             const data = await registerJobSeeker(formData);
 
@@ -51,7 +52,7 @@ const RegisterForm = () => {
         } catch (error) {
             toast.error(error.message);
         } finally {
-            // setLoading(false);
+            setLoading(false);
         }
     };
 
@@ -166,12 +167,12 @@ const RegisterForm = () => {
                     {/* Button Đăng ký */}
                     <button
                         type="submit"
-                        disabled={!isAgree}
+                        disabled={!isAgree || loading}
                         className={`w-full rounded-md px-4 py-2 font-semibold text-white shadow focus:outline-none focus:ring-2 focus:ring-green-500 ${
                             isAgree ? "bg-green-600 hover:bg-green-700" : "cursor-not-allowed bg-gray-300"
                         }`}
                     >
-                        Đăng ký
+                        {loading ? "Đang đăng ký..." : "Đăng ký"}
                     </button>
                 </form>
 

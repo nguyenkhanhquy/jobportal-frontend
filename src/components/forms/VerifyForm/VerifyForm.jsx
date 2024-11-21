@@ -31,7 +31,7 @@ const VerifyForm = ({ email }) => {
     const hasSentOTP = useRef(false);
 
     const sendFirstTime = async (email) => {
-        // setLoading(true);
+        setIsResending(true);
         try {
             const data = await sendOTP(email);
 
@@ -43,8 +43,8 @@ const VerifyForm = ({ email }) => {
         } catch (error) {
             toast.error(error.message);
         } finally {
-            // setLoading(false);
             setCountdown(300);
+            setIsResending(false);
         }
     };
 
