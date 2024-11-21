@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import JobInfoTab from "./tab/JobInfoTab";
+import CompanyInfoTab from "./tab/CompanyInfoTab";
 
 const JobDetailsBody = ({ jobData }) => {
     // State để quản lý tab đang được chọn
@@ -46,14 +47,11 @@ const JobDetailsBody = ({ jobData }) => {
                 )}
 
                 {activeTab === "companyInfo" && (
-                    <div className="rounded-lg border bg-gray-50 p-4">
-                        <h3 className="mb-2 text-lg font-semibold">Giới thiệu về công ty</h3>
-                        <p className="text-gray-600">{jobData.company.description}</p>
-                        <h3 className="mb-2 text-lg font-semibold">Website</h3>
-                        <p className="text-gray-600">{jobData.company.website}</p>
-                        <h3 className="mb-2 text-lg font-semibold">Địa chỉ công ty</h3>
-                        <p className="text-gray-600">{jobData.company.address}</p>
-                    </div>
+                    <CompanyInfoTab
+                        description={jobData.company.description}
+                        website={jobData.company.website}
+                        address={jobData.company.address}
+                    />
                 )}
             </div>
         </div>

@@ -7,7 +7,7 @@ const JobInfoTab = ({ description, requirements, benefits, address, workingTime 
         <div className="mx-auto mt-4 w-[90%] max-w-4xl rounded-lg">
             {/* Mô tả công việc */}
             <div className="mb-6">
-                <h3 className="mb-2 text-lg font-semibold text-green-700">Mô tả công việc</h3>
+                <h3 className="mb-2 text-lg font-semibold">Mô tả công việc</h3>
                 <p className="ml-6 overflow-hidden break-words text-gray-700">
                     {description || "Thông tin đang được cập nhật..."}
                 </p>
@@ -17,7 +17,7 @@ const JobInfoTab = ({ description, requirements, benefits, address, workingTime 
 
             {/* Yêu cầu ứng viên */}
             <div className="mb-6">
-                <h3 className="mb-2 text-lg font-semibold text-green-700">Yêu cầu ứng viên</h3>
+                <h3 className="mb-2 text-lg font-semibold">Yêu cầu ứng viên</h3>
                 <ul className="ml-6 overflow-hidden break-words text-gray-700">
                     {requirements || "Thông tin đang được cập nhật..."}
                 </ul>
@@ -27,7 +27,7 @@ const JobInfoTab = ({ description, requirements, benefits, address, workingTime 
 
             {/* Quyền lợi */}
             <div className="mb-6">
-                <h3 className="mb-2 text-lg font-semibold text-green-700">Quyền lợi</h3>
+                <h3 className="mb-2 text-lg font-semibold">Quyền lợi</h3>
                 <ul className="ml-6 overflow-hidden break-words text-gray-700">
                     {benefits || "Thông tin đang được cập nhật..."}
                 </ul>
@@ -51,7 +51,7 @@ const JobInfoTab = ({ description, requirements, benefits, address, workingTime 
 
             {/* Địa điểm làm việc */}
             <div className="mb-6 items-start">
-                <h3 className="mb-1 text-lg font-semibold text-green-700">
+                <h3 className="mb-1 text-lg font-semibold">
                     {/* <LocationOnIcon className="mr-2 text-green-600" /> */}
                     Địa điểm làm việc
                 </h3>
