@@ -17,7 +17,7 @@ const regexEmail =
 // Schema xác thực bằng Yup
 const schema = yup.object().shape({
     email: yup.string().required("Vui lòng nhập email").matches(regexEmail, "Email không hợp lệ"),
-    password: yup.string().min(6, "Mật khẩu phải có ít nhất 6 ký tự").required("Vui lòng nhập mật khẩu"),
+    password: yup.string().min(8, "Mật khẩu phải có ít nhất 8 ký tự").required("Vui lòng nhập mật khẩu"),
 });
 
 const LoginForm = () => {
