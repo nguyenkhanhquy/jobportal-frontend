@@ -261,14 +261,9 @@ const RecruiterRegisterForm = () => {
                         />
                         <label className="ml-2 text-base text-gray-700">
                             Tôi đã đọc và đồng ý với{" "}
-                            <Link to="/terms" className="font-semibold text-green-600 hover:underline">
-                                Điều khoản dịch vụ
-                            </Link>{" "}
-                            và{" "}
-                            <Link to="/privacy" className="font-semibold text-green-600 hover:underline">
-                                Chính sách bảo mật
-                            </Link>{" "}
-                            của JobPortal
+                            <span className="font-semibold text-green-600 hover:underline">Điều khoản dịch vụ</span> và{" "}
+                            <span className="font-semibold text-green-600 hover:underline">Chính sách bảo mật</span> của
+                            JobPortal
                         </label>
                     </div>
 

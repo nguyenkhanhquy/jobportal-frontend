@@ -153,14 +153,8 @@ const RegisterForm = () => {
                         />
                         <label className="ml-2 text-sm text-gray-700">
                             Tôi đã đọc và đồng ý với{" "}
-                            <Link to="/terms" className="text-green-600 hover:underline">
-                                Điều khoản dịch vụ
-                            </Link>{" "}
-                            và{" "}
-                            <Link to="/privacy" className="text-green-600 hover:underline">
-                                Chính sách bảo mật
-                            </Link>{" "}
-                            của JobPortal
+                            <span className="text-green-600 hover:underline">Điều khoản dịch vụ</span> và{" "}
+                            <span className="text-green-600 hover:underline">Chính sách bảo mật</span> của JobPortal
                         </label>
                     </div>
 
