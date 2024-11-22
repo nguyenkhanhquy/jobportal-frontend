@@ -36,7 +36,7 @@ const SearchJobCard = ({ id, logo, title, salary, companyName, address, remote, 
     return (
         <div
             onClick={handleCardClick}
-            className="flex w-full max-w-4xl cursor-pointer rounded-2xl border border-green-200 bg-green-50 p-3 shadow-sm transition duration-200 ease-in-out hover:border-green-500 hover:shadow-md"
+            className="flex w-[896px] max-w-4xl cursor-pointer rounded-2xl border border-green-200 bg-green-50 p-3 shadow-sm transition duration-200 ease-in-out hover:border-green-500 hover:shadow-md"
         >
             {/* Logo công ty */}
             <div className="flex-shrink-0">
