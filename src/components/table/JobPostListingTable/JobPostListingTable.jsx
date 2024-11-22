@@ -113,7 +113,7 @@ const JobPostListingTable = ({
                                                 wordWrap: "break-word",
                                             }}
                                         >
-                                            {post.companyName}
+                                            {post.company.name}
                                         </TableCell>
                                         <TableCell
                                             sx={{
@@ -127,10 +127,7 @@ const JobPostListingTable = ({
                                         <TableCell align="center">
                                             <Stack direction="row" spacing={1}>
                                                 <Tooltip title="Xem chi tiết">
-                                                    <IconButton
-                                                        color="primary"
-                                                        onClick={() => handleViewDetails(post.id)}
-                                                    >
+                                                    <IconButton color="primary" onClick={() => handleViewDetails(post)}>
                                                         <InfoOutlinedIcon />
                                                     </IconButton>
                                                 </Tooltip>

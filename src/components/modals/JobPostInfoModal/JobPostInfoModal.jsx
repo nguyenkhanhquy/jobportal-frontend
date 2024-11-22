@@ -15,7 +15,7 @@ const JobPostInfoModal = ({ open, onClose, jobPost }) => {
                             {jobPost.title}
                         </Typography>
                         <Typography variant="subtitle1" color="text.secondary">
-                            Công ty: {jobPost.companyName}
+                            Công ty: {jobPost.company.name}
                         </Typography>
                     </Stack>
 

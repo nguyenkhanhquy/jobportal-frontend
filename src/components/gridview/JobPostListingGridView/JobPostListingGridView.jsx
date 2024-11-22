@@ -1,64 +1,62 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GridViewLayout from "../../../layouts/GridViewLayout/GridViewLayout";
 import DataSearchBar from "../../search/SearchBar/DataSearchBar";
 import JobPostListingTable from "../../table/JobPostListingTable/JobPostListingTable";
 import JobPostInfoModal from "../../modals/JobPostInfoModal/JobPostInfoModal";
 
+import { getAllJobPosts } from "../../../services/jobPostService";
+import { toast } from "react-toastify";
+
 const JobPostListingGridView = () => {
+    const [loading, setLoading] = useState(false);
+    const [flag, setFlag] = useState(false);
+    const [jobPosts, setJobPosts] = useState([]);
+
+    const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [recordsPerPage, setRecordsPerPage] = useState(10);
-    const [selectedJobPost, setSelectedJobPost] = useState(null);
+    const [recordsPerPage, setRecordsPerPage] = useState(5);
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalRecords, setTotalRecords] = useState(0);
+
     const [modalOpen, setModalOpen] = useState(false);
-    const totalPages = 20;
+    const [selectedJobPost, setSelectedJobPost] = useState(null);
 
-    const handlePageChange = (page) => setCurrentPage(page);
-    const handleRecordsPerPageChange = (value) => setRecordsPerPage(value);
-
-    // Hàm xử lý tìm kiếm
-    const handleSearch = () => {
-        console.log("Searching...");
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
     };
 
-    const jobPosts = [
-        {
-            id: 1,
-            title: "Frontend Developer",
-            companyName: "Công ty A",
-            jobPosition: "Lập trình viên Frontend",
-            salary: "15-20 triệu",
-            quantity: 3,
-            type: "Toàn thời gian",
-            remote: false,
-            description: "Phát triển giao diện web...",
-            requirements: "Thành thạo ReactJS, JavaScript...",
-            benefits: "Bảo hiểm, nghỉ phép, lương tháng 13...",
-            address: "Hà Nội, Việt Nam",
-            expiryDate: "2024-12-31",
-            createdDate: "2024-01-10",
-            hidden: false,
-        },
-        {
-            id: 2,
-            title: "Backend Developer",
-            companyName: "Công ty B",
-            jobPosition: "Lập trình viên Backend",
-            salary: "20-25 triệu",
-            quantity: 2,
-            type: "Toàn thời gian",
-            remote: true,
-            description: "Xây dựng API và xử lý server...",
-            requirements: "Thành thạo NodeJS, MongoDB...",
-            benefits: "Làm việc từ xa, hỗ trợ thiết bị...",
-            address: "Đà Nẵng, Việt Nam",
-            expiryDate: "2024-12-15",
-            createdDate: "2024-01-15",
-            hidden: true,
-        },
-    ];
+    const handleRecordsPerPageChange = (value) => {
+        setCurrentPage(1);
+        setRecordsPerPage(value);
+    };
 
-    const handleViewDetails = (id) => {
-        const selectedPost = jobPosts.find((post) => post.id === id);
-        setSelectedJobPost(selectedPost);
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const data = await getAllJobPosts(currentPage, recordsPerPage, search);
+                if (!data.success) {
+                    throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+                }
+                setTotalPages(data.pageInfo.totalPages);
+                setTotalRecords(data.pageInfo.totalElements);
+                setJobPosts(data.result);
+            } catch (error) {
+                toast.error(error.message);
+            } finally {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [currentPage, recordsPerPage, flag, search]);
+
+    const handleViewDetails = (post) => {
+        setSelectedJobPost(post);
         setModalOpen(true);
     };
 
@@ -73,12 +71,19 @@ const JobPostListingGridView = () => {
                 currentPage={currentPage}
                 totalPages={totalPages}
                 recordsPerPage={recordsPerPage}
+                totalRecords={totalRecords}
                 onPageChange={handlePageChange}
                 onRecordsPerPageChange={handleRecordsPerPageChange}
-                actions={<DataSearchBar placeholder="Tìm kiếm" onSearch={handleSearch} />}
+                actions={
+                    <DataSearchBar
+                        placeholder="Tìm kiếm"
+                        onSearch={(searchText) => setSearch(searchText)}
+                        query={search}
+                    />
+                }
             >
                 <JobPostListingTable
-                    loading={false}
+                    loading={loading}
                     jobPosts={jobPosts}
                     currentPage={currentPage}
                     recordsPerPage={recordsPerPage}
