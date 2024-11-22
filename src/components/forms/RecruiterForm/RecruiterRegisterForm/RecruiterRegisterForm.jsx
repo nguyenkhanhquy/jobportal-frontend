@@ -260,10 +260,7 @@ const RecruiterRegisterForm = () => {
                             defaultChecked={true}
                         />
                         <label className="ml-2 text-base text-gray-700">
-                            Tôi đã đọc và đồng ý với{" "}
-                            <span className="font-semibold text-green-600 hover:underline">Điều khoản dịch vụ</span> và{" "}
-                            <span className="font-semibold text-green-600 hover:underline">Chính sách bảo mật</span> của
-                            JobPortal
+                            Tôi đã đọc và đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của JobPortal
                         </label>
                     </div>
 
