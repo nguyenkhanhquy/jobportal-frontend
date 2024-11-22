@@ -13,12 +13,14 @@ export const AUTH_API = {
 
 export const JOBS_API = {
     GET_ALL: "/jobs",
+    GET_ALL_ADMIN: "/jobs/admin",
     GET_ALL_POPULAR: "/jobs/popular",
     GET_BY_ID: "/jobs/",
     GET_BY_RECRUITER: "/jobs/recruiter",
     CREATE: "/jobs",
     SAVE: "/jobs/save",
     UPDATE_BY_ID: "/jobs/",
+    HIDDEN: "/jobs/hidden",
 };
 
 export const JOBS_SAVED_API = {

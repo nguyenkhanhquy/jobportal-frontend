@@ -134,7 +134,7 @@ const JobPostListingTable = ({
                                                 <Tooltip title={post.hidden ? "Hiện bài đăng" : "Ẩn bài đăng"}>
                                                     <IconButton
                                                         color="primary"
-                                                        onClick={() => handleToggleVisibility(post.id, !post.hidden)}
+                                                        onClick={() => handleToggleVisibility(post.id)}
                                                     >
                                                         {post.hidden ? (
                                                             <VisibilityOffIcon className="text-black" />

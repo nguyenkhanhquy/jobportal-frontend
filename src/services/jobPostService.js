@@ -1,6 +1,17 @@
 import axiosClient from "../api/axiosClient";
 import { JOBS_API } from "../api/constants";
 
+export const getAllJobPostsAdmin = async (page, size, search, order) => {
+    return axiosClient.get(JOBS_API.GET_ALL_ADMIN, {
+        params: {
+            page: page,
+            size: size,
+            query: search,
+            order: order,
+        },
+    });
+};
+
 export const getAllJobPosts = async (page, size, search, order) => {
     return axiosClient.get(JOBS_API.GET_ALL, {
         params: {
@@ -57,5 +68,11 @@ export const updateJobPost = async (jobPostId, jobPost) => {
         requirements: jobPost.requirements,
         benefits: jobPost.benefits,
         address: jobPost.address,
+    });
+};
+
+export const hiddenJobPost = async (jobPostId) => {
+    return axiosClient.post(JOBS_API.HIDDEN, {
+        id: jobPostId,
     });
 };

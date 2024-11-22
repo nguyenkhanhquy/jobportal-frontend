@@ -4,7 +4,7 @@ import DataSearchBar from "../../search/SearchBar/DataSearchBar";
 import JobPostListingTable from "../../table/JobPostListingTable/JobPostListingTable";
 import JobPostInfoModal from "../../modals/JobPostInfoModal/JobPostInfoModal";
 
-import { getAllJobPosts } from "../../../services/jobPostService";
+import { getAllJobPostsAdmin, hiddenJobPost } from "../../../services/jobPostService";
 import { toast } from "react-toastify";
 
 const JobPostListingGridView = () => {
@@ -34,7 +34,7 @@ const JobPostListingGridView = () => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const data = await getAllJobPosts(currentPage, recordsPerPage, search);
+                const data = await getAllJobPostsAdmin(currentPage, recordsPerPage, search);
                 if (!data.success) {
                     throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
                 }
@@ -60,8 +60,18 @@ const JobPostListingGridView = () => {
         setModalOpen(true);
     };
 
-    const handleToggleVisibility = (id, hidden) => {
-        console.log(`Bài đăng ${id}: ${hidden ? "Ẩn" : "Hiện"}`);
+    const handleToggleVisibility = async (id) => {
+        try {
+            const data = await hiddenJobPost(id);
+            if (!data.success) {
+                throw new Error(data.message || "Lỗi máy chủ, vui lòng thử lại sau!");
+            }
+            toast.success(data.message);
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            setFlag(!flag);
+        }
     };
 
     return (
