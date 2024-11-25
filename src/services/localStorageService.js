@@ -3,7 +3,7 @@ export const KEY_TOKEN = "accessToken";
 export const EXPIRATION_TIME = "tokenExpiration";
 
 export const setToken = (accessToken) => {
-    const expirationTime = new Date().getTime() + 3600 * 1000;
+    const expirationTime = new Date().getTime() + 86400 * 1000;
     localStorage.setItem(KEY_TOKEN, accessToken);
     localStorage.setItem(EXPIRATION_TIME, expirationTime);
 };
