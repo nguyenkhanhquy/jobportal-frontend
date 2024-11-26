@@ -111,7 +111,7 @@ const AppliedJobsTable = ({ loading, appliedJobPosts, currentPage, recordsPerPag
                                                 <IconButton
                                                     title="Xem chi tiết"
                                                     color="primary"
-                                                    onClick={() => handleViewDetailsClick(job.id)}
+                                                    onClick={() => handleViewDetailsClick(job.jobPostId)}
                                                 >
                                                     <InfoOutlinedIcon />
                                                 </IconButton>
